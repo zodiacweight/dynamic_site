@@ -11,7 +11,7 @@
     <main>
 
     </main>
-    
+    <script src="scripts/functions.js"></script>
     <script>
         let html = '',
             data = {
@@ -30,14 +30,12 @@
                             }
                             html += `
                     </div>
-                        <button type="submit" onclick="send${method}(${method})">Oтправить</button>
+                        <button type="button" onclick="send('${method}', this.form)">Oтправить</button>
                 </form>`;
                 });
-        console.log('html=>', html);
+        //console.log('html=>', html);
         document.querySelector('main').innerHTML = html;
-
     </script>
-    <script src="scripts/functions.js"></script>
 </body>
 
 </html>
