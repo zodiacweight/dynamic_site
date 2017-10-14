@@ -1,0 +1,23 @@
+body > main > div {
+    max-width: 480px;
+    background-color: lightblue;
+    padding: 5%;
+}
+
+body > main > div > input {
+    max-width: 400px;
+    height: 10px;
+    padding: 2px;
+}
+
+#view {
+    border: 2px solid;
+    width: 85%;
+    margin-top: 4%;
+}
+
+#view p {
+    font-size: 19px;
+    border: 1px solid;
+    padding: 2px;
+}

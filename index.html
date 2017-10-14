@@ -1,41 +1,31 @@
 <!DOCTYPE html>
 <html lang=en>
-
 <head>
     <meta charset=UTF-8>
     <title>Title</title>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <link href="styles.css" rel="stylesheet"/>
 </head>
 
 <body>
-    <main></main>
+    <main>
+        <div>
+            <h3>Выбрать язык:</h3>
+            <div>
+                <form id="chooseLanguage">
+                    <input type="radio" value="английский">английский
+                    <input type="radio" value="португальский" checked>португальский
+                    <button type="button" onclick="intro()">выбрать</button>
+                </form>
+            </div> 
+            <input type="text" id="word">
+            <div id="view"></div>
+        </div>
+    </main>
+    <script src="scripts/data.js"></script>
     <script src="scripts/functions.js"></script>
-    <script>
-        /*
-        let html = '',
-            data = {
-                'Get':'input', 'Post': 'textarea', 'Put':'textarea','Delete':'input'
-            };
-        Object.keys(data)
-            .forEach((method) => {
-                let tag = data[method];
-                html += 
-                `<form name="${method}_form">
-                    <div>
-                        <h3>${method}</h3>
-                            <${tag}>`;
-                            if (tag !== 'input') {
-                                html += `</${tag}>`
-                            }
-                            html += `
-                    </div>
-                        <button type="button" onclick="send('${method}', this.form)">Oтправить</button>
-                </form>`;
-                });
-        //console.log('html=>', html);
-        document.querySelector('main').innerHTML = html;
-        */
-    </script>
+    <script src="scripts/events.js"></script>
+    <script></script>
 </body>
 
 </html>
