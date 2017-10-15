@@ -1,3 +1,3 @@
 $("#view").on("mouseenter", "p", (e)=>{
-    alert("mouse");
+    console.log("mouseenter");
 });

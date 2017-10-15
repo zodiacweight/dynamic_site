@@ -58,14 +58,17 @@ function intro() {
  * Ничего не возвращает.
 */
 function makeWordsList(dictionary, substring, checked) {
-    console.trace('makeWordsList');
+    //console.trace('makeWordsList', {substring: substring, checked: checked, langChecked: languages[checked]});
     const words = dictionary[ // json
         languages[checked] // portuguese | english
     ];
-    let list = "";
+    let list = ""; // console.log('Keys=>', Object.keys(words));
     Object.keys(words).forEach((word) => {
+        console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
-            list += "<p class='word'>" + word + "</p>";
+            const currentWord = words[word][0][0];
+            console.log('Add word: ', {currentWord:currentWord});
+            if (currentWord) list += `<p class='word'>${currentWord}</p>`;
         }
     });
     /*for (var i = 0, list = "", j = words.length; i < j; i++) {
@@ -85,7 +88,7 @@ function makeWordsList(dictionary, substring, checked) {
  * Ничего не возвращает.
 */
 function createList(substring, checked) {
-    console.log('createList', { substring: substring, checked: checked });
+    //console.log('createList', { substring: substring, checked: checked });
     getData(makeWordsList, substring, checked);
 }
 
