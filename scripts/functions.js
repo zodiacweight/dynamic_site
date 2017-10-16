@@ -4,10 +4,10 @@ intro();
  * Get json file
  * @callback -- function to run inside after getting json
 */
-function initData() {
+function initData() { // becomes getData after first calling
     const path = "jsons/dictionary.json";
     var dictionary;
-    // после первого вызова:
+    // после первого вызова: getData
     return (callback, ...params) => {
         if (!callback) {
             $.get(path).done(json => {
@@ -16,7 +16,7 @@ function initData() {
             })
                 .fail(() => console.warn(`Cannot get file from ${path}`));
         } else {
-            if (dictionary) { console.log('Has dictionary');
+            if (dictionary) { 
                 callback(dictionary, ...params);
             } else {
                 console.warn('Has NO dictionary');
@@ -30,6 +30,8 @@ function initData() {
     }
 }
 
+
+
 /** 
  * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
  * ничего не возвращает
@@ -39,13 +41,14 @@ function intro() {
     // jQuery object
     // $("#word")[0]; // HTML element!
     var list = "";
-    const $input = $("#word");
-    $checked = $("#chooseLanguage input:checked").val();
+    const $input = $("#word"),
+            $checked = $("#chooseLanguage input:checked").val();
     $input.on('input keyup', (e) => { // calling on jQuery object
         //console.log("input: ", e.target.value);
-        var putLetters = e.target.value;
-        if (putLetters.length > 2) {
-            createList(putLetters, $checked);
+        if (e.target.value.length > 2) {
+            createList(e.target.value, $checked);
+        } else {
+            clearList();
         }
     });
 }
@@ -57,28 +60,32 @@ function intro() {
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function makeWordsList(dictionary, substring, checked) {
+function makeWordsList(dictionary, substring, checked, currentWord) {
     //console.trace('makeWordsList', {substring: substring, checked: checked, langChecked: languages[checked]});
     const words = dictionary[ // json
         languages[checked] // portuguese | english
     ];
     let list = ""; // console.log('Keys=>', Object.keys(words));
-    Object.keys(words).forEach((word) => {
-        console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
+    Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
-            const currentWord = words[word][0][0];
-            console.log('Add word: ', {currentWord:currentWord});
-            if (currentWord) list += `<p class='word'>${currentWord}</p>`;
+            list += `<div class='word'>`+word+`</div>`;
+            /* const currentWord = word; words[word][0][0]; // console.log('Add word: ', {currentWord:currentWord});
+            if (currentWord) {
+                list += `<div class='word'>${currentWord}</div>`;
+            } else {
+                console.warn('Word is empty...');
+            } */
         }
-    });
-    /*for (var i = 0, list = "", j = words.length; i < j; i++) {
-        //console.log("words[i]", words[i]); 
-        if (words[i].indexOf(substring) !== -1) {
-            list += "<p class='word'>" + words[i] + "</p>";
-        }
-    }*/ console.log("words: ", words, "list: ", list);
-    //console.log("Словарь получен");
-    $("#view").html(list);
+    }); 
+    if (list) {
+        $("#view").html(list);
+    } else {
+        clearList();
+    }
+}
+
+function clearList(){
+    $("#view").html('');
 }
 
 /** Вызывает функцию getData и передает ей подстроку и переменную, означающую выбранный язык.
@@ -87,9 +94,9 @@ function makeWordsList(dictionary, substring, checked) {
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function createList(substring, checked) {
+function createList(substring, checked, currentWord) {
     //console.log('createList', { substring: substring, checked: checked });
-    getData(makeWordsList, substring, checked);
+    getData(makeWordsList, substring, checked, currentWord);
 }
 
 /** Выводит список слов-переводов для конкретного слова.
