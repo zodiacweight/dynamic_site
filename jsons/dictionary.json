@@ -20,7 +20,7 @@
     },
     "portuguese": {
         "бабочка": [["borboleta f", "mariposa f"], ["", ""]], 									
-        "барсетка": [["barsetta"], ["", ""]],
+        "барсетка": [["barsetta", "caseino"], ["Barsetta comes here!", "Ya, crevedco, ja caseino"]],
         "барсук": [["texugo m"], ["", ""]], 
         "барсик": [["barsic"], ["", ""]], 									
         "белка": [["esquilo m"], ["", ""]], 									

@@ -1,23 +1,65 @@
-body > main > div {
+main > div {
     max-width: 480px;
     background-color: lightblue;
     padding: 5%;
+}
+
+main > div > input {
+    max-width: 400px;
+    height: 10px;
+    padding: 2px;
+}
+
+.wrapper{
+    background: white;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.word{
+    clear: both;
+    float: left;
+    padding: 2px 0;
+    position: relative;
+}
+
+.word > section,
+.sentence {
+    display: none;
+    left: calc(100% - 10px);
+    padding-left: 10px;
+    position: absolute;
+    top: 0;
+}
+
+.sentence{
+    margin-top: 2px;
+    padding-left: 1px;
+}
+
+.sentence > .wrapper{
+    background-color: #eee;
+}
+
+.word > section{
+    white-space: nowrap;
+}
+
+.word:hover > section,
+.word:hover > .wrapper > .sentence {
+    display: block;
+}
+
+#page{
+    float: left;
 }
 
 #word {
     width: 100%;
 }
 
-body > main > div > input {
-    max-width: 400px;
-    height: 10px;
-    padding: 2px;
-}
-
 #view {
-    border: 2px solid;
-    width: 85%;
-    margin-top: 4%;
+    margin-top: 10px;
 }
 
 #view p {
