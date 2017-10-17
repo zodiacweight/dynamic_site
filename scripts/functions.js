@@ -40,13 +40,11 @@ function initData() { // becomes getData after first calling
 function intro() {
     // jQuery object
     // $("#word")[0]; // HTML element!
-    var list = "";
-    const $input = $("#word"),
-            $checked = $("#chooseLanguage input:checked").val();
+    var list = ""; const $input = $("#word");
     $input.on('input keyup', (e) => { // calling on jQuery object
         //console.log("input: ", e.target.value);
         if (e.target.value.length > 2) {
-            createList(e.target.value, $checked);
+            createList(e.target.value, checked);
         } else {
             clearList();
         }
@@ -103,8 +101,15 @@ function createList(substring, checked, currentWord) {
  * Параметры: словарь из json-данных; 
  * массив русских слов, содержащийся в разделе словаря, соответствующего выбранному языку.
  */
-function showTranslation(dictionary, words) {
-
+function showTranslation(dictionary, word, checked) {
+    var words = Object.keys(dictionary[languages[checked]][word][0]);
+    console.log("trans: ", trans);
+    for(var i=0, j=words.lenght; i<j; i++){
+       // trans.innerHTML+= "<div>"+word[i]+"</div>";
+       $("#translation").append(trans);
+        
+    } 
+    
 }
 
 
