@@ -34,7 +34,8 @@ $(function(){
     const wordSelector = '> .word';
     $(viewSelector).on('mouseenter mouseleave', wordSelector, event => {
         if (event.type === 'mouseenter') {
-            $(viewSelector).find(wordSelector).removeClass(activeClass);
+            // console.log('active=>', $(`.${activeClass}`));
+            $(`.${activeClass}`).removeClass(activeClass);
             $(event.target).addClass(activeClass);
         } else if ($(viewSelector).find(wordSelector).length > 1){
             $(event.target).removeClass(activeClass);
