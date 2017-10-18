@@ -1,3 +1,4 @@
+// git -c http.sslVerify=false push origin master
 $(function(){
     const addWordStr = "addWord",
         addWordBtnId = `#${addWordStr}`;
@@ -14,8 +15,10 @@ $(function(){
                     $("#chooseLanguage").append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
                 }
             } else {
+                // check if we have the words which the substring conforms of
                 Object.keys(words).forEach((word) => {
                     if (word.indexOf(e.target.value)!==-1){
+                        // if we have a word with such a substring then remove the button
                         $(addWordBtnId).remove();
                     }
                 });
