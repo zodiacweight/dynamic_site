@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+body, html{
+    margin:0;
+    padding:0;
+}
+
 h1, h2, h3, h4, h5{
     font-family: Roboto, Arial, Helvetica, Tahoma, sans-serif;
 }
@@ -19,7 +24,7 @@ main > div > input {
 }
 
 .wrapper{
-    background: white;
+    background: rgb(255,255,180);
     margin-left: 10px;
     padding: 10px;
 }
@@ -27,8 +32,15 @@ main > div > input {
 .word{
     clear: both;
     float: left;
-    padding: 2px 0;
+    padding: 2px 0 0;
+    margin-top: -1px;
     position: relative;
+}
+#view > .word{
+    padding: 4px;
+}
+#view > .word.active{ 
+    background-color:azure;
 }
 
 #addWord{
@@ -58,8 +70,8 @@ main > div > input {
     white-space: nowrap;
 }
 
-.word:hover > section,
-.word:hover > .wrapper > .sentence {
+.word.active > section,
+.word.active > .wrapper > .sentence {
     display: block;
 }
 
