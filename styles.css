@@ -23,6 +23,11 @@ main > div > input {
     position: relative;
 }
 
+#addWord{
+    margin-top: 7px;
+    padding: 5px;
+}
+
 .word > section,
 .sentence {
     display: none;
