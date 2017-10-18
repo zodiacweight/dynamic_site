@@ -1,7 +1,8 @@
 // git -c http.sslVerify=false push origin master
 $(function(){
     const addWordStr = "addWord",
-        addWordBtnId = `#${addWordStr}`;
+        addWordBtnId = `#${addWordStr}`,
+        activeClass = 'active';
     /** 
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
@@ -30,12 +31,13 @@ $(function(){
             clearList(); 
         }
     });
-
-    $(viewSelector).on('mouseenter mouseleave', '> .word', event => {
-        $(event.target).toggleClass('active');
-    });
-    
-    $(viewSelector).on('mouseenter mouseleave', '.word > section, .word > .wrapper > .sentence', event => {
-        $(event.target).toggleClass('active');
+    const wordSelector = '> .word';
+    $(viewSelector).on('mouseenter mouseleave', wordSelector, event => {
+        if (event.type === 'mouseenter') {
+            $(viewSelector).find(wordSelector).removeClass(activeClass);
+            $(event.target).addClass(activeClass);
+        } else if ($(viewSelector).find(wordSelector).length > 1){
+            $(event.target).removeClass(activeClass);
+        }
     });
 });

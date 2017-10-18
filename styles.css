@@ -71,7 +71,7 @@ main > div > input {
 }
 
 .word.active > section,
-.word.active > .wrapper > .sentence {
+.word:hover > .wrapper > .sentence {
     display: block;
 }
 
