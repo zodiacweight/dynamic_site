@@ -1,12 +1,23 @@
 $(function(){
+    const addWordId = "#addWord";
     /** 
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
     $("#word").on('input keyup', (e) => { // calling on jQuery object
         //console.log("input: ", e.target.value);
-        (e.target.value.length > 2) ?
+        if (e.target.value.length > 2) {
             createList(e.target.value, checked)
-            : clearList();
+            // if the button doesn't exist, add id
+            if(!$(addWordId).length){
+                $("#chooseLanguage").append("<input type='button' id='addWord' value='добавить слово'>");
+            }
+        } else {
+            if($(addWordId)){
+                $(addWordId).remove();
+            }
+            //console.log("else");
+            clearList(); 
+        }
     });
 });
 
@@ -78,7 +89,7 @@ function makeWordsList(dictionary, substring, checked, currentWord) {
     });
     (list) ?
         $(viewSelector).html(list)
-        : learList();
+        : clearList();
 }
 
 function clearList(){
