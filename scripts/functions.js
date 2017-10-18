@@ -118,3 +118,7 @@ function createList(substring, currentWord) {
     //console.log('createList', { substring: substring });
     return getData(makeWordsList, substring, currentWord);
 }
+
+function  getTargetLanguage(){
+    return $("#chooseLanguage input:checked").val();
+}
