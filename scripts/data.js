@@ -4,7 +4,9 @@ const languages = {
         "английский": "english"
     },
     getData = initData(), // return function 
-    checked = $("#chooseLanguage input:checked").val(),
     trans = $("#translation")[0];
 // store data in local dictionary
 getData();
+function  getTargetLanguage(){
+    return $("#chooseLanguage input:checked").val();
+}

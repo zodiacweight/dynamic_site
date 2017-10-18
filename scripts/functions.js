@@ -1,21 +1,29 @@
 $(function(){
-    const addWordId = "#addWord";
+    const addWordStr = "addWord",
+        addWordBtnId = `#${addWordStr}`;
     /** 
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
     $("#word").on('input keyup', (e) => { // calling on jQuery object
         //console.log("input: ", e.target.value);
         if (e.target.value.length > 2) {
-            createList(e.target.value, checked)
+            const words = createList(e.target.value); // console.log('words=>', words);
             // if the button doesn't exist, add id
-            if(!$(addWordId).length){
-                $("#chooseLanguage").append("<input type='button' id='addWord' value='добавить слово'>");
+            if(!$(addWordBtnId).length){
+                if (!$(viewSelector).html()){
+                    $("#chooseLanguage").append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
+                }
+            } else {
+                Object.keys(words).forEach((word) => {
+                    if (word.indexOf(e.target.value)!==-1){
+                        $(addWordBtnId).remove();
+                    }
+                });
             }
         } else {
-            if($(addWordId)){
-                $(addWordId).remove();
-            }
-            //console.log("else");
+            if($(addWordBtnId)){
+                $(addWordBtnId).remove();
+            }   //console.log("else");
             clearList(); 
         }
     });
@@ -39,7 +47,7 @@ function initData() { // becomes getData after first calling
                 .fail(() => console.warn(`Cannot get file from ${path}`));
         } else {
             if (dictionary) { 
-                callback(dictionary, ...params);
+                return callback(dictionary, ...params);
             } else {
                 console.warn('Has NO dictionary');
                 $.get(path).done(json => {
@@ -59,10 +67,10 @@ function initData() { // becomes getData after first calling
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function makeWordsList(dictionary, substring, checked, currentWord) {
-    //console.trace('makeWordsList', {substring: substring, checked: checked, langChecked: languages[checked]});
+function makeWordsList(dictionary, substring, currentWord) {
+    //console.trace('makeWordsList', {substring: substring});
     const words = dictionary[ // json
-        languages[checked] // portuguese | english
+        languages[getTargetLanguage()] // portuguese | english
     ];
     let list = ""; // console.log('Keys=>', Object.keys(words));
     Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
@@ -90,6 +98,7 @@ function makeWordsList(dictionary, substring, checked, currentWord) {
     (list) ?
         $(viewSelector).html(list)
         : clearList();
+    return words;
 }
 
 function clearList(){
@@ -102,7 +111,7 @@ function clearList(){
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function createList(substring, checked, currentWord) {
-    //console.log('createList', { substring: substring, checked: checked });
-    getData(makeWordsList, substring, checked, currentWord);
+function createList(substring, currentWord) {
+    //console.log('createList', { substring: substring });
+    return getData(makeWordsList, substring, currentWord);
 }
