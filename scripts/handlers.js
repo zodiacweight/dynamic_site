@@ -41,4 +41,13 @@ $(function(){
             $(event.target).removeClass(activeClass);
         }
     });
+    /*$("#addWord").on( "onclick", (e) => {
+        $.get("add_word_form.html").done((form) => {
+            $("#view").append(form);
+        })
+        fail(() => {
+            
+        });
+
+    }); */
 });

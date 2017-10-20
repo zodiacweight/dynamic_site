@@ -96,3 +96,4 @@ function createList(substring, currentWord) {
 function  getTargetLanguage(){
     return $("#chooseLanguage input:checked").val();
 }
+

@@ -1,0 +1,9 @@
+#addWordForm > div > * {
+    font-size: 18px;
+    margin: 2%;
+    display: block;
+}
+
+#addWordForm > div > input {
+    padding: 3px;
+}
