@@ -1,8 +1,11 @@
 {
     "english": {
         "гранит": [["granite"], ["The walls consist of granite. - Стены состоят из гранита.", "Maybe there will be some statues or figures of granite. Может быть, будут статуи или фигуры из гранита."]], 
-        "грызть": [["gnaw"], ["You shouldn't gnaw lollipops. - Не стоит грызть леденцы.", "You can broke your teeth by gnawing hard sweets. - Можно сломать зубы, грызя твердые сладости.", "Stupid mice gnawed the electric cables from that they had nothing to do and so they were hit by electricity and died. - Глупые мыши грызли электрические провода от нечего делать, и так их ударило током, и они погибли."]],
-        "грызун": [["gnawz"], ["", ""]],
+        "грызть": [["gnaw", "word2"], ["You shouldn't gnaw lollipops. - Не стоит грызть леденцы.", "You can broke your teeth by gnawing hard sweets. - Можно сломать зубы, грызя твердые сладости.", "Stupid mice gnawed the electric cables from that they had nothing to do and so they were hit by electricity and died. - Глупые мыши грызли электрические провода от нечего делать, и так их ударило током, и они погибли."]],
+        "грызун": {
+            "gnawz": ["A rat is a gnawz. - Крыса грызун.", "Следующее предложение"],
+            "gnawz2": ["A rat is a gnawz. - Крыса грызун."]
+        },
         "жизнь": [["life"], ["We like the life when there are niether PC, nor Internet and because of that there is much less shocking news! - Мы любим такую жизнь, когда нет ни ПК, ни Интернета и поэтому гораздо меньше шокирующих новостей."]], 
         "иней": [["hoarfrost"], ["Today we can see hoarfrost. - Сегодня мы можем наблюдать иней.", "I don't like hoarfrost! - Я не люблю иней."]], 
         "лед": [["ice"], ["When it is quite cold water turns into ice. - Когда достаточно холодно, вода превращается в лед.", "The skating ring is of the ice. - Каток ледяной (изо льда)."]], 
@@ -19,20 +22,20 @@
         "цветок": [["flower"], ["What kind of flowers is your favourite? - Какие цветы тебе больше всех нравятся?", "We don't prefer artificial flowers. - Мы не предпочитаем искусственные цветы."]] 
     },
     "portuguese": {
-        "бабочка": [["borboleta f", "mariposa f"], ["", ""]], 									
+        "бабочка": [["borboleta f", "mariposa f"], ["A barboleta (mariposa) é branca. - Бабочка белого цвета.", "Eu vou a pegar barboletas (mariposas). - Я иду ловить бабочек."]], 									
         "барсетка": [["barsetta", "caseino"], ["Barsetta comes here!", "Ya, crevedco, ja caseino"]],
-        "барсук": [["texugo m"], ["", ""]], 
+        "барсук": [["texugo m"], ["Os <b>texugos</b> vivem nas bosques. - Барсуки живут в лесах.", "Um <b>texugo</b> é mio animal favorito."]], 
         "барсик": [["barsic"], ["", ""]], 									
-        "белка": [["esquilo m"], ["", ""]], 									
+        "белка": [["esquilo m"], ["Os esquilos vivem nas madeiras. - Белки живут на деревьях.", "Um esquilo é um de as personagem de este conto. - Белка - один из персонажей этой сказки."]], 									
         "блузка": [["blusa f", "blusinha f"], ["", ""]], 									
-        "варежка": [["mitene f"], ["", ""]], 									
-        "ветер": [["vento m"], ["", ""]], 		
-        "ветерок": [[], ["", ""]], 						
-        "вода": [["água f"], ["", ""]], 									
-        "волк": [["lobo m"], ["", ""]], 									
+        "варежка": [["mitene f"], ["Eu tenho as mitenes cordiales. - У меня есть теплые варежки.", "Gostam-me mias mitenes novas. - Мне нравятся мои новые варежки."]], 									
+        "ветер": [["vento m"], ["No me gosta quando o <b>vento</b> seja poderoso. - Не люблю, когда ветер сильный.", "Casa de areia era destruída pelo <b>vento</b>. - Песочный домик был разрушен ветром."]], 		
+        "ветерок": [["brisa f", "aragem f"], ["Débil <b>brisa (aragem)</b> no nos atrapalha em contraste com vento forte. - Легкий ветерок нам не мешает в отличие от сильного ветра.", "Às vezes débil brisa (aragem) pode ser útil quando é quente."]], 						
+        "вода": [["água f"], ["O <b>água</b> era gelada no lago. - Вода в озере была холодная.", "O jovem tem que beber <b>água</b> antes de treinar. - Юноше нужно выпить воды перед тренировкой."]], 									
+        "волк": [["lobo m"], ["Um <b>lobo</b> é um caractere negativo de este conto. - Волк - отрицательный персонаж этой сказки.", "Os lobos são animales florestales e ferozes. - Волки лесные и хищные звери."]], 									
         "еж": [["ouriço m", "ouriço-cacheiro m"], ["", ""]], 									
         "жилет": [["colete m"], ["", ""]], 									
-        "заяц": [["lebre f"], ["", ""]],									
+        "заяц": [["lebre f"], ["O conto é sobre um <b>lebre</b> cobarde. - Сказка об одном трусливом зайце.", "Mio irmão mais gostan os contos infantil sobre <b>lebres</b>. - Моему младшему брату нравятся детские сказки о зайцах."]],									
         "змея": [["víbora f"], ["", ""]], 									
         "камбинезон": [["macacão m"], ["", ""]], 								
         "камень": [["pedra f"], ["", ""]], 								

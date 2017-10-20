@@ -22,7 +22,12 @@ main > div > input {
     height: 10px;
     padding: 2px;
 }
-
+form > input {
+    font-size: 14px;
+}
+form > span {
+    font-size: 19px;
+}
 .wrapper{
     background: rgb(255,255,180);
     margin-left: 10px;
@@ -41,6 +46,7 @@ main > div > input {
 }
 #view > .word.active{ 
     background-color:azure;
+    font-size: 20px;
 }
 
 #addWord{
@@ -91,4 +97,12 @@ main > div > input {
     font-size: 19px;
     border: 1px solid;
     padding: 2px;
+}
+
+#addWordForm > * {
+    font-size: 18px;
+}
+
+#addWordForm > input {
+    padding: 3px;
 }
