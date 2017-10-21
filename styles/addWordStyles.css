@@ -7,3 +7,8 @@
 #addWordForm > div > input {
     padding: 3px;
 }
+
+#addWord {
+    padding: 6px;
+    font-size: 15px;
+}

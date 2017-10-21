@@ -4,5 +4,11 @@ function addFields(){
 
 $("#addWord").on("click", (e) => {
     var addHTML=addFields();
-    $("#addWordForm").append(addHTML);
+    $("#addWordForm").append(addFields);
+});
+
+$("#save").on("click", (e) => {
+    $("#addWordForm div input").each(function(){
+        console.log('input.value=>', this.value);
+    });
 });
