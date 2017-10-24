@@ -51,7 +51,7 @@ function makeWordsList(dictionary, substring, currentWord) {
             ++wordsLen;
             //console.log('word set=>', words[word]);
             words[word][0].forEach((translatedWord, index) => {
-                console.log("words[wprd]: ", words[word]);
+               // console.log("words[wprd]: ", words[word]);
                 const sentence = words[word][1][index] || '&nbsp;';
                 list += `
                 <div class='word'>
@@ -73,7 +73,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         : clearList();
     if (wordsLen===1){
         $(viewSelector).find('>.word').trigger('mouseenter');
-        console.log('mouseenter');
+        //console.log('mouseenter');
     }
     return words;
 }
@@ -97,3 +97,6 @@ function  getTargetLanguage(){
     return $("#chooseLanguage input:checked").val();
 }
 
+function addFields(){
+    return "<div><input type=\"text\" placeholder=\"translation for word\"><textarea placeholder=\"sentence for word\"></textarea></div>";
+}
