@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+}
+
+body, html{
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: Tahoma, Verdana, Arial, serif;
+}
+
+body:after{
+    background-image: url(../images/lingua1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: "";
+    position: fixed;
+    opacity: 0.1;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index: -1;
+}
+
+h1, h2, h3, h4, h5{
+    font-family: Roboto, Arial, Helvetica, Tahoma, sans-serif;
+}
+
+input[type="text"] {
+    border: solid 4px #aaa;
+    font-size: 20px;
+    min-height:  44px;
+    max-width: 400px;
+    padding: 10px 10px;
+    width: 100%;
+}
+
+input[type="radio"] {
+    margin-bottom: 16p;
+}

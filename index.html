@@ -4,17 +4,27 @@
     <meta charset=UTF-8>
     <title>Title</title>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <link href="styles/styles.css" rel="stylesheet"/>
+    <link href="styles/elements.css" rel="stylesheet"/>
+    <link href="styles/classes.css" rel="stylesheet"/>
+    <link href="styles/components.css" rel="stylesheet"/>
+    <link href="styles/selectors.css" rel="stylesheet"/>
 </head>
 
 <body>
     <main>
         <div id="page">
-            <h2>Advanced Language Helper</h2>
+            <h2>
+                <span>Advanced Language Helper</span>
+            </h2>
+            <section id="sentences-translated" class="initial"></section>
             <div>
                 <form id="chooseLanguage">
-                    <input type="radio" name="radio" value="английский"><span>английский</span>
-                    <input type="radio" name="radio" value="португальский" checked><span>португальский</span>
+                    <label>
+                        <input type="radio" name="radio" value="английский">English
+                    </label>
+                    <label>
+                        <input type="radio" name="radio" value="португальский" checked>Portugues
+                    </label>
                     <input type="text" id="word">
                 </form>
             </div> 

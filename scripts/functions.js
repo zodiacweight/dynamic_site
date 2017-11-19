@@ -1,5 +1,6 @@
 // 
-const viewSelector = '#view';
+const $view = $('#view'),
+    $sentencesTranslated = $('#sentences-translated');
 /** 
  * Get json file
  * @callback -- function to run inside after getting json
@@ -42,44 +43,53 @@ function makeWordsList(dictionary, substring, currentWord) {
     const words = dictionary[ // json
         languages[getTargetLanguage()] // portuguese | english
     ];
-    let list = ""; // console.log('Keys=>', Object.keys(words));
-    let wordsLen = 0;
+    let list = "",
+        sentences = "",
+        wordsLen = 0;
     Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
-            list += `<div class='word'>`+word+`
-        <section>`;
+            list += `
+            <div class='word'>
+                <span>${word}</span>
+                <section>`;
             ++wordsLen;
+            sentences += `
+                <div class="sentences">`;
             //console.log('word set=>', words[word]);
             words[word][0].forEach((translatedWord, index) => {
                // console.log("words[wprd]: ", words[word]);
                 const sentence = words[word][1][index] || '&nbsp;';
+                sentences += `
+                    <div class='wrapper'>${sentence}</div>`;
                 list += `
-                <div class='word'>
                     <div class='wrapper'>
                         <span>${translatedWord}</span>
-                        <div class="sentence">
-                            <div class='wrapper'>${sentence}</div>
-                        </div>
-                    </div>
-                </div>`;
+                    </div>`;
             });
             list += `
-        </section>
-    </div>`;
+                </section>
+            </div>`;
+            sentences += `
+                </div>`;
         }
     });
-    (list) ?
-        $(viewSelector).html(list)
-        : clearList();
+    if (list) {
+        $view.html(list);
+        $sentencesTranslated.html(sentences);
+    } else {
+        clearList();
+    }
+    // 
     if (wordsLen===1){
-        $(viewSelector).find('>.word').trigger('mouseenter');
+        $view.find('>.word').trigger('mouseenter');
         //console.log('mouseenter');
     }
     return words;
 }
 
 function clearList(){
-    $(viewSelector).html("");
+    $view.html("");
+    $sentencesTranslated.html("");
 }
 
 /** Вызывает функцию getData и передает ей подстроку и переменную, означающую выбранный язык.

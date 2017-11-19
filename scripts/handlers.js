@@ -9,11 +9,11 @@ $(function(){
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
     let removeButtonAndForm;
-    $("#word").on('input keyup', (e) => { // calling on jQuery object
+    $("#word").on('input keyup', e => { // calling on jQuery object
         //
         if (!removeButtonAndForm) {
             removeButtonAndForm = () => {
-                console.log('Remove button');
+                // console.log('Remove button');
                 $(addWordId).remove();
                 $(`#${addWordFormStr}`).remove();
             }
@@ -22,9 +22,9 @@ $(function(){
         if (e.target.value.length > 2) {
             const words = createList(e.target.value); // console.log('words=>', words);
             // if the button doesn't exist, add id
-            console.log("$(addWordId): ", $(addWordId));
+            // console.log("$(addWordId): ", $(addWordId));
             if(!$(addWordId).length){ // без lenght - объект, с length - 0.
-                if (!$(viewSelector).html()){
+                if (!$view.html()){
                     //
                     $chooseLanguage.append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
                 }
@@ -44,16 +44,25 @@ $(function(){
             clearList(); 
         }
     });
-    const wordSelector = '> .word';
-    $(viewSelector).on('mouseenter mouseleave', wordSelector, event => {
-        if (event.type === 'mouseenter') {
-            // console.log('active=>', $(`.${activeClass}`));
-            $(`.${activeClass}`).removeClass(activeClass);
-            $(event.target).addClass(activeClass);
-        } else if ($(viewSelector).find(wordSelector).length > 1){
-            $(event.target).removeClass(activeClass);
+    // show/hide words/sentences
+    $view.on('mouseenter mouseleave', '> .word, .wrapper >span', function(event) {
+        if (this.tagName.toLowerCase() == 'span'){
+            const indexWord = $(this).parents('.active').eq(0).index(),
+                indexSentence = $(this).parent('.wrapper').index(),
+                $sentence = $sentencesTranslated
+                    .find('.sentences')
+                    .eq(indexWord)
+                    .find('.wrapper').eq(indexSentence);
+            event.type == 'mouseenter' ? 
+                $sentence.fadeIn(200)
+                : $sentence.hide();
+            // manage pseudoelement :before
+            $sentencesTranslated.toggleClass('initial');
+        } else {
+            $(this).toggleClass(activeClass);
         }
     });
+    //
     $chooseLanguage.on("click", addWordId, () => {
         console.log("click");
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
@@ -71,10 +80,8 @@ $(function(){
             sentence = sentence[0].value;
             //console.log('word: ', word, "sentence: ", sentence);
             var checkedLanguage = getTargetLanguage();
-            console.log(checkedLanguage);
-           // localStorage.setItem(word, sentence);
+            // console.log(checkedLanguage);
+            // localStorage.setItem(word, sentence);
         });
     });
-    
-    
 });
