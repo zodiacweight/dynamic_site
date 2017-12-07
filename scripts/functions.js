@@ -7,8 +7,8 @@ const viewSelector = '#view';
 function initData() { // becomes getData after first calling
     const path = "jsons/dictionary.json";
     var dictionary;
-    // после первого вызова: getData
-    return (callback, ...params) => {
+    // после первого вызова: getData (makeWordsList, substring, currentWord)
+    return (callback, ...params) => { // callback = makeWordsList
         if (!callback) {
             $.get(path).done(json => {
                 dictionary = json;
@@ -39,8 +39,8 @@ function initData() { // becomes getData after first calling
 */
 function makeWordsList(dictionary, substring, currentWord) {
     //console.trace('makeWordsList', {substring: substring});
-    const words = dictionary[ // json
-        languages[getTargetLanguage()] // portuguese | english
+    const words = dictionary[ // words - объект, где ключи - слова по-русски, значения - массивы
+        languages[getTargetLanguage()] // getTargetLanguage() = "английский" | "португальский"
     ];
     let list = ""; // console.log('Keys=>', Object.keys(words));
     let wordsLen = 0;
@@ -49,8 +49,8 @@ function makeWordsList(dictionary, substring, currentWord) {
             list += `<div class='word'>`+word+`
         <section>`;
             ++wordsLen;
-            //console.log('word set=>', words[word]);
-            words[word][0].forEach((translatedWord, index) => {
+            //words[word] - массив, где 0-й элемент - массив слов, 1-й - массив предложений
+            words[word][0].forEach((translatedWord, index) => { // пробег по словам из 1-го массива
                // console.log("words[wprd]: ", words[word]);
                 const sentence = words[word][1][index] || '&nbsp;';
                 list += `
@@ -88,7 +88,8 @@ function clearList(){
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function createList(substring, currentWord) {
+function createList(substring, currentWord) { 
+    //substring - символы в строке, currentWord - пока undefined
     //console.log('createList', { substring: substring });
     return getData(makeWordsList, substring, currentWord);
 }
