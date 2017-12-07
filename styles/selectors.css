@@ -1,0 +1,75 @@
+form label{
+    display: inline-block;
+    margin-bottom: 14px;
+    margin-right: 20px;
+}
+
+main > div {
+    padding: 20px;
+}
+
+#page > h2{
+    background: url(../images/language-logo.jpg) no-repeat;
+    background-size: contain;
+    display: flex;
+    font-size: 16px;
+    height: 48px;
+    margin: 0 0 20px;
+    padding-left: 70px;
+}
+
+@media screen and (min-width: 440px) and (max-width: 767px){
+    #page > h2{
+        font-size: 3.145vw;
+    }
+}
+
+@media screen and (min-width: 768px){
+    #page > h2{
+        font-size: 24px;
+    }
+}
+
+#page > h2 >span{
+    color: rebeccapurple;
+    margin-bottom:auto;
+    margin-top:auto;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+section > .wrapper{
+    background: rgb(93, 103, 124);
+    color: white;
+    margin-bottom: 1px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+#sentences-translated .wrapper{
+    display: none;
+    padding: 10px;
+}
+.word > section{
+    display: none;
+    left: calc(100% - 10px);
+    padding-left: 10px;
+    position: absolute;
+    top: 0;
+}
+
+.word > section{
+    white-space: nowrap;
+}
+
+.word.active > section {
+    display: block;
+}
+
+#view > .word{
+    padding: 4px;
+}
+
+.wrapper > span{
+    display: block;
+}
+
