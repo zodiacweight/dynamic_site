@@ -50,6 +50,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
+                <span>🖉</span>    
                 <span>${word}</span>
                 <section>`;
             ++wordsLen;
@@ -76,6 +77,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
+        //$view.append("<input type='button' id='edit' value = 'редактировать'>");
     } else {
         clearList();
     }

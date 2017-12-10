@@ -4,7 +4,8 @@ $(function(){
         addWordId = `#${addWordStr}`,
         addWordFormStr = "addWordForm",
         $chooseLanguage = $("#chooseLanguage"),
-        activeClass = 'active';
+        activeClass = 'active',
+        $forms = $("#forms");
     /** 
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
@@ -62,9 +63,8 @@ $(function(){
             $(this).toggleClass(activeClass);
         }
     });
-    //
+    
     $chooseLanguage.on("click", addWordId, () => {
-        console.log("click");
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}
             <input type="button" value="добавить ячейку" id="${addWordStr}">
@@ -72,16 +72,28 @@ $(function(){
         </form>`);
     });
     
-    $("#save").on("click", (e) => {
+    $forms.on("click", "#save", (e) => {
+        var russianWord = $("#word")[0].value;
+        console.log("russianWord: ", russianWord);
         $(`#${addWordFormStr} div`).each(function(){
+            //console.log("in the cycle");
             var word = $(this).find("input"),
             sentence = $(this).find("textarea");
             word=word[0].value;
             sentence = sentence[0].value;
+            var added = {translatedWord: word, sentence: sentence };
             //console.log('word: ', word, "sentence: ", sentence);
+            added = JSON.stringify(added);
+            localStorage.setItem(russianWord, added);
             var checkedLanguage = getTargetLanguage();
             // console.log(checkedLanguage);
             // localStorage.setItem(word, sentence);
+            //console.log("localStorage.russianWord: ", localStorage.getItem(russianWord));
         });
     });
 });
+
+/**
+ * Changes may happen. Перемены могут случаться.
+ * 
+ */
