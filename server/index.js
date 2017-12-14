@@ -32,10 +32,6 @@ http.createServer((request, response) => {
                 if (chunkStr.indexOf(actStr)!==-1){
                     action = chunkStr.split(actStr).pop();
                 }
-                /* if (chunk.action){
-                    chunk.toDo = chunk.action;
-                    delete chunk.action;
-                } */
                 body.push(chunk);
                 
             }).on('end', () => {
@@ -44,16 +40,8 @@ http.createServer((request, response) => {
                 rsp.body = body;
                 rsp.action = action;
                 completed = true;
-                // response.write(JSON.stringify(rsp));
-                // response.end();
             });
             break;
-        /* case 'put': 
-            rsp.body = 'Method put was used';
-            break; */
-        /* case 'delete': 
-            rsp.body = 'Method delete was used';
-            break; */
         default: break;
     }
     let cnt = 0, stuff = '';
