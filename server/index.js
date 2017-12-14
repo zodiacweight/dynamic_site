@@ -20,25 +20,40 @@ http.createServer((request, response) => {
             completed = true;
             break;
         case 'post':
-            let body = [];
+            let body = [], action;
             request.on('error', (err) => {
                 rsp.err = 'Error happened'
                 // This prints the error message and stack trace to `stderr`.
                 completed = true;
                 console.error(err.stack);
-            }).on('data', (chunk) => {
+            }).on('data', chunk => {
+                const actStr = '%26action%3D',
+                    chunkStr = String(chunk);
+                if (chunkStr.indexOf(actStr)!==-1){
+                    action = chunkStr.split(actStr).pop();
+                }
+                /* if (chunk.action){
+                    chunk.toDo = chunk.action;
+                    delete chunk.action;
+                } */
                 body.push(chunk);
+                
             }).on('end', () => {
                 // at this point, `body` has the entire request body stored in it as a string
-                body = Buffer.concat(body).toString();
+                body = Buffer.concat(body).toString('utf8');
                 rsp.body = body;
+                rsp.action = action;
                 completed = true;
                 // response.write(JSON.stringify(rsp));
                 // response.end();
             });
             break;
-        case 'put': break;
-        case 'delete': break;
+        /* case 'put': 
+            rsp.body = 'Method put was used';
+            break; */
+        /* case 'delete': 
+            rsp.body = 'Method delete was used';
+            break; */
         default: break;
     }
     let cnt = 0, stuff = '';

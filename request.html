@@ -42,8 +42,12 @@
         const $reqInputField = $('#request-input'),
             $form = $('form');
         function makeRequest() { // console.log('makeRequest');
-            const req = $reqInputField.val(),
-                $checkedRadio = $('form input:checked');
+            const $checkedRadio = $('form input:checked');
+
+            let req = $reqInputField.val(),
+                action,
+                method = $checkedRadio.val();
+
             if (!req) {
                 console.warn('Put request');
                 return false;
@@ -53,7 +57,24 @@
                 return false;
             }
 
-            $[$checkedRadio.val()]('http://localhost:8888', {
+            switch (method) {
+                case 'put':
+                    action = method;
+                    method = 'post';
+                    break;
+                case 'delete':
+                    action = method;
+                    method = 'post';
+                    break;
+                default:
+                    break;
+            }
+
+            if (action) {
+                req += `&action=${action}`;
+            }
+
+            $[method]('http://localhost:8888', {
                 data: req
             })
                 .done(function (result) {
