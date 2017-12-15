@@ -5,7 +5,8 @@ $(function(){
         addWordFormStr = "addWordForm",
         $chooseLanguage = $("#chooseLanguage"),
         activeClass = 'active',
-        $forms = $("#forms");
+        $forms = $("#forms"),
+        $view = $("#view");
     /** 
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
@@ -23,12 +24,21 @@ $(function(){
         if (e.target.value.length > 2) {
             const words = createList(e.target.value); // console.log('words=>', words);
             // if the button doesn't exist, add id
-            // console.log("$(addWordId): ", $(addWordId));
+            console.log("слово появилось");
             if(!$(addWordId).length){ // без lenght - объект, с length - 0.
                 if (!$view.html()){
-                    //
+                    if($("#deleteWord").length){
+                        console.log("Попали.");
+                        $("#deleteWord").remove();
+                        alert();
+                    }
                     $chooseLanguage.append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
                 }
+
+                if(!($("#deleteWord")).length){
+                    $chooseLanguage.append('<input type="button" id="deleteWord" value="удалить слово">');
+                }
+                //console.log("in this place");
             } else {
                 // check if we have the words which the substring conforms of
                 Object.keys(words).forEach((word) => {
@@ -85,11 +95,30 @@ $(function(){
             //console.log('word: ', word, "sentence: ", sentence);
             added = JSON.stringify(added);
             localStorage.setItem(russianWord, added);
+            console.log("localStorage[russianWord]: ", localStorage.getItem(russianWord));
             var checkedLanguage = getTargetLanguage();
-            // console.log(checkedLanguage);
-            // localStorage.setItem(word, sentence);
-            //console.log("localStorage.russianWord: ", localStorage.getItem(russianWord));
+           /**
+            * 1. Сначала объект получает все данные из json-файла;
+              2. Из этого объекта данные передаются в localStorage;
+              3. При клике по кнопке "сохранить":
+              3.1 Изменения в объекте;
+              3.2 Синхронизация объекта с localStorage - те же изменения;
+              3.3 Синхронизация объекта с json-данными.
+
+            */
+
         });
+    });
+    $view.on("click", "#edit", () => {
+        var russianWordSpan = $("#russianWord"), translatedWordSpan = $("#translatedWord"),
+        russianWord = $("#russianWord").text(), translatedWord = $("#translatedWord").text(),
+        sentence = $("#sentence").text();
+        russianWordSpan.contentEditable=true;
+        translatedWordSpan.contentEditable=true;
+        $chooseLanguage.after(`<form id='${addWordFormStr}'>
+        ${addFields()}
+            <input type='button' value='сохранить' id='save'>
+        </form>`);
     });
 });
 
