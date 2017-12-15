@@ -21,7 +21,30 @@ $(function(){
             }
         }
         //console.log("input: ", e.target.value);
+        var content;
         if (e.target.value.length > 2) {
+            var list = "";
+            Object.keys(words).forEach((word) => {
+                if (word.indexOf(e.target.value)!==-1){
+                    list+="<div>"+word+"</div>";
+                    // if we have a word with such a substring then remove the button
+                    //removeButtonAndForm();
+                }
+            })
+            if(list!==""){
+                content='<div class="word active">'+
+                            '<input id="edit" type="button" value="🖉">'+    
+                            '<span id="russianWord">облако</span>'+
+                            '<section>'+
+                                '<div class="wrapper">'+
+                                    '<div id="translatedWord">'+
+                                        list+
+                                    '</div>'+
+                                '</div>'+
+                            '</section>'+
+                        '</div>';
+            }
+            /**
             const words = createList(e.target.value); // console.log('words=>', words);
             // if the button doesn't exist, add id
             console.log("слово появилось");
@@ -30,7 +53,6 @@ $(function(){
                     if($("#deleteWord").length){
                         console.log("Попали.");
                         $("#deleteWord").remove();
-                        alert();
                     }
                     $chooseLanguage.append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
                 }
@@ -47,7 +69,7 @@ $(function(){
                         removeButtonAndForm();
                     }
                 });
-            }
+            } */
         } else {
             if($(addWordId)){
                 removeButtonAndForm();
