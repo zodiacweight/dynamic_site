@@ -7,10 +7,18 @@ $(function(){
         activeClass = 'active',
         $forms = $("#forms"),
         $view = $("#view");
-    /** 
-     * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
-    */
-    let removeButtonAndForm;
+    let dict = getData();
+    $("#word").on('input keyup', e => { 
+    const dictionary = dict || getData(dictionary => {
+            return dictionary;
+        }); // параметры - ?
+        if(!dictionary){
+            console.warn("dictionary is not gotten.");
+        }
+        var language = getTargetLanguage();
+        console.log("dictionary: ", dictionary);
+    });
+    /*let removeButtonAndForm;
     $("#word").on('input keyup', e => { // calling on jQuery object
         //
         if (!removeButtonAndForm) {
@@ -23,7 +31,8 @@ $(function(){
         //console.log("input: ", e.target.value);
         var content;
         if (e.target.value.length > 2) {
-            var list = "";
+            makeWordsList(dictionary, substring, currentWord)  
+              var list = "";
             Object.keys(words).forEach((word) => {
                 if (word.indexOf(e.target.value)!==-1){
                     list+="<div>"+word+"</div>";
@@ -43,8 +52,7 @@ $(function(){
                                 '</div>'+
                             '</section>'+
                         '</div>';
-            }
-            /**
+            } 
             const words = createList(e.target.value); // console.log('words=>', words);
             // if the button doesn't exist, add id
             console.log("слово появилось");
@@ -69,7 +77,7 @@ $(function(){
                         removeButtonAndForm();
                     }
                 });
-            } */
+            } 
         } else {
             if($(addWordId)){
                 removeButtonAndForm();
@@ -119,15 +127,7 @@ $(function(){
             localStorage.setItem(russianWord, added);
             console.log("localStorage[russianWord]: ", localStorage.getItem(russianWord));
             var checkedLanguage = getTargetLanguage();
-           /**
-            * 1. Сначала объект получает все данные из json-файла;
-              2. Из этого объекта данные передаются в localStorage;
-              3. При клике по кнопке "сохранить":
-              3.1 Изменения в объекте;
-              3.2 Синхронизация объекта с localStorage - те же изменения;
-              3.3 Синхронизация объекта с json-данными.
-
-            */
+           
 
         });
     });
@@ -141,10 +141,6 @@ $(function(){
         ${addFields()}
             <input type='button' value='сохранить' id='save'>
         </form>`);
-    });
+    }); */
 });
-
-/**
- * Changes may happen. Перемены могут случаться.
- * 
- */
+ 
