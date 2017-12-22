@@ -17,6 +17,16 @@ $(function(){
         }
         var language = getTargetLanguage();
         console.log("dictionary: ", dictionary);
+        if (e.target.value.length > 2) {
+            var substring = e.target.value,
+            list = makeWordsList(dictionary, substring);
+            if(list!==undefined){
+                $view.html(list);
+            }
+            else {
+                $view.html("<input type='button' id='${addWordStr}' value='добавить слово'>");
+            }
+        }
     });
     /*let removeButtonAndForm;
     $("#word").on('input keyup', e => { // calling on jQuery object

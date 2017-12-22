@@ -50,7 +50,8 @@ function makeWordsList(dictionary, substring, currentWord) {
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
-                <input id='edit' type='button' value='🖉'>    
+                <input id='edit' type='button' value='🖉'> 
+                <input id='delete' type='button' value='del'>   
                 <span id='russianWord'>${word}</span>
                 <section>`;
             ++wordsLen;
@@ -73,8 +74,12 @@ function makeWordsList(dictionary, substring, currentWord) {
             sentences += `
                 </div>`;
         }
+        
     });
     if (list) {
+        return list;
+    }
+    /*if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
         //$view.append("<input type='button' id='edit' value = 'редактировать'>");
@@ -86,7 +91,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         $view.find('>.word').trigger('mouseenter');
         //console.log('mouseenter');
     }
-    return words;
+    return words; */
 }
 
 function clearList(){
