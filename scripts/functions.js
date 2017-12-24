@@ -59,8 +59,9 @@ function makeWordsList(dictionary, substring, currentWord) {
                 <div class="sentences">`;
             //console.log('word set=>', words[word]);
             words[word][0].forEach((translatedWord, index) => {
-               // console.log("words[wprd]: ", words[word]);
+                console.log("words[word][0][index]: ", words[word][0][index]);
                 const sentence = words[word][1][index] || '&nbsp;';
+                console.log("sentence: ", sentence);
                 sentences += `
                     <div class='wrapper' id='sentence'>${sentence}</div>`;
                 list += `

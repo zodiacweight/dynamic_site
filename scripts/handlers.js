@@ -39,6 +39,12 @@ $(function(){
             </form>`)
         }
     );
+    $view.on("click", "#edit", () => { // addWordId = "#addWord"
+            console.log("click");
+            $("#translatedWord")[0].contentEditable = true;
+            $("#sentence")[0].contentEditable = true;
+        }
+    );
     /*let removeButtonAndForm;
     $("#word").on('input keyup', e => { // calling on jQuery object
         //

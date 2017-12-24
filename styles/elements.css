@@ -31,11 +31,11 @@ h1, h2, h3, h4, h5{
 
 input[type="text"] {
     border: solid 4px #aaa;
-    font-size: 20px;
-    min-height:  44px;
-    max-width: 400px;
-    padding: 10px 10px;
-    width: 100%;
+    font-size: 16px;
+    min-height: 44px;
+    max-width: 260px;
+    padding: 8px 8px;
+    width: 70%;
 }
 
 input[type="radio"] {
