@@ -50,10 +50,9 @@ section > .wrapper{
     padding: 10px;
 }
 .word > section{
-    display: none;
     left: calc(100% - 10px);
     padding-left: 10px;
-    position: absolute;
+   /* position: absolute; */
     top: 0;
 }
 

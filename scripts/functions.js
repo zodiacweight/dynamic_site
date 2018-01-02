@@ -43,42 +43,40 @@ function makeWordsList(dictionary, substring, currentWord) {
     const words = dictionary[ // json
         languages[getTargetLanguage()] // portuguese | english
     ];
-    let list = "",
-        sentences = "",
+    let result = "",
         wordsLen = 0;
     Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
-            list += `
+            result += `
             <div class='word'>
                 <input id='edit' type='button' value='🖉'> 
                 <input id='delete' type='button' value='del'>   
                 <span id='russianWord'>${word}</span>
+                <span id='translatedWord'>${words[word][0]}</span>
                 <section>`;
             ++wordsLen;
-            sentences += `
+            result += `
                 <div class="sentences">`;
             //console.log('word set=>', words[word]);
             words[word][0].forEach((translatedWord, index) => {
                 console.log("words[word][0][index]: ", words[word][0][index]);
                 const sentence = words[word][1][index] || '&nbsp;';
-                console.log("sentence: ", sentence);
-                sentences += `
-                    <div class='wrapper' id='sentence'>${sentence}</div>`;
-                list += `
-                    <div class='wrapper'>
-                        <span id = 'translatedWord'>${translatedWord}</span>
-                    </div>`;
+                //console.log("sentence: ", sentence);
+                console.log("translatedWord: ", translatedWord);
+                result += `
+                    <div class='wrapper' id='sentence'>${sentence}</div>
+                    <div id='saveChanges'></div>`;
             });
-            list += `
-                </section>
+            result += `
+                    </section>
+                </div>
             </div>`;
-            sentences += `
-                </div>`;
         }
         
     });
-    if (list) {
-        return list;
+    if (result) {
+        console.log("result");
+        return result;
     }
     /*if (list) {
         $view.html(list);

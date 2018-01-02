@@ -20,9 +20,9 @@ $(function(){
         //console.log("dictionary: ", dictionary);
         if (e.target.value.length > 2) {
             var substring = e.target.value,
-            list = makeWordsList(dictionary, substring);
-            if(list!==undefined){
-                $view.html(list);
+            result = makeWordsList(dictionary, substring);
+            if(result!==undefined){
+                $view.html(result);
             }
             else {
                 $view.html("<input type='button' id='addWord' value='добавить слово'>");
@@ -35,16 +35,23 @@ $(function(){
             `<form id='${addWordFormStr}'>
             ${addFields()}
             <input type="button" value="добавить ячейку" id="${addField}">
-            <input type='button' value='сохранить' id='save'>
+            <input type='button' value='сохранить' id='saveNewWord'>
             </form>`)
         }
     );
     $view.on("click", "#edit", () => { // addWordId = "#addWord"
             console.log("click");
-            $("#translatedWord")[0].contentEditable = true;
-            $("#sentence")[0].contentEditable = true;
+            var transWord = $("#translatedWord")[0], 
+            sentence = $("#sentence")[0], russianWord = $("#russianWord")[0];
+            transWord.contentEditable = true;
+            sentence.contentEditable = true;
+            $view.append(`<input type='button' value='сохранить' id='saveChanges'>`);
         }
     );
+    $view.on("mouseover", "#translatedWord", () => {
+        
+    });
+
     /*let removeButtonAndForm;
     $("#word").on('input keyup', e => { // calling on jQuery object
         //
