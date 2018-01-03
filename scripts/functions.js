@@ -50,7 +50,8 @@ function makeWordsList(dictionary, substring, currentWord) {
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
-                <span>${word}</span>
+                <input id='edit' type='button' value='🖉'>    
+                <span id='russianWord'>${word}</span>
                 <section>`;
             ++wordsLen;
             sentences += `
@@ -60,10 +61,10 @@ function makeWordsList(dictionary, substring, currentWord) {
                // console.log("words[wprd]: ", words[word]);
                 const sentence = words[word][1][index] || '&nbsp;';
                 sentences += `
-                    <div class='wrapper'>${sentence}</div>`;
+                    <div class='wrapper' id='sentence'>${sentence}</div>`;
                 list += `
                     <div class='wrapper'>
-                        <span>${translatedWord}</span>
+                        <span id = 'translatedWord'>${translatedWord}</span>
                     </div>`;
             });
             list += `
@@ -76,6 +77,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
+        //$view.append("<input type='button' id='edit' value = 'редактировать'>");
     } else {
         clearList();
     }
