@@ -2,57 +2,15 @@
 $(function(){
     const addWordStr = "addWord",
         addWordId = `#${addWordStr}`,
-        addField = "#addField",
         addWordFormStr = "addWordForm",
         $chooseLanguage = $("#chooseLanguage"),
         activeClass = 'active',
         $forms = $("#forms"),
         $view = $("#view");
-    let dict = getData();
-    $("#word").on('input keyup', e => { 
-    const dictionary = dict || getData(dictionary => {
-            return dictionary;
-        }); // параметры - ?
-        if(!dictionary){
-            console.warn("dictionary is not gotten.");
-        }
-        var language = getTargetLanguage();
-        //console.log("dictionary: ", dictionary);
-        if (e.target.value.length > 2) {
-            var substring = e.target.value,
-            result = makeWordsList(dictionary, substring);
-            if(result!==undefined){
-                $view.html(result);
-            }
-            else {
-                $view.html("<input type='button' id='addWord' value='добавить слово'>");
-            }
-        }
-    });
-    $view.on("click", addWordId, () => { // addWordId = "#addWord"
-        console.log("click");
-        $view.html(
-            `<form id='${addWordFormStr}'>
-            ${addFields()}
-            <input type="button" value="добавить ячейку" id="${addField}">
-            <input type='button' value='сохранить' id='saveNewWord'>
-            </form>`)
-        }
-    );
-    $view.on("click", "#edit", () => { // addWordId = "#addWord"
-            console.log("click");
-            var transWord = $("#translatedWord")[0], 
-            sentence = $("#sentence")[0], russianWord = $("#russianWord")[0];
-            transWord.contentEditable = true;
-            sentence.contentEditable = true;
-            $view.append(`<input type='button' value='сохранить' id='saveChanges'>`);
-        }
-    );
-    $view.on("mouseover", "#translatedWord", () => {
-        
-    });
-
-    /*let removeButtonAndForm;
+    /** 
+     * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
+    */
+    let removeButtonAndForm;
     $("#word").on('input keyup', e => { // calling on jQuery object
         //
         if (!removeButtonAndForm) {
@@ -65,19 +23,19 @@ $(function(){
         //console.log("input: ", e.target.value);
         var content;
         if (e.target.value.length > 2) {
-            makeWordsList(dictionary, substring, currentWord)  
-              var list = "";
-            Object.keys(words).forEach((word) => {
+            const words = createList(e.target.value); // console.log('words=>', words);
+            var list = "";
+            Object.keys(words).forEach(word => {
                 if (word.indexOf(e.target.value)!==-1){
                     list+="<div>"+word+"</div>";
                     // if we have a word with such a substring then remove the button
                     //removeButtonAndForm();
                 }
             })
-            if(list!==""){
+            /* if(list!==""){
                 content='<div class="word active">'+
-                            '<input id="edit" type="button" value="🖉">'+    
-                            '<span id="russianWord">облако</span>'+
+                            '<input class="btn-edit" type="button">'+    
+                            '<span>🖉</span><span id="russianWord">облако</span>'+
                             '<section>'+
                                 '<div class="wrapper">'+
                                     '<div id="translatedWord">'+
@@ -86,9 +44,10 @@ $(function(){
                                 '</div>'+
                             '</section>'+
                         '</div>';
-            } 
-            const words = createList(e.target.value); // console.log('words=>', words);
+            } */
+            /**
             // if the button doesn't exist, add id
+            // createList(e.target.value)
             console.log("слово появилось");
             if(!$(addWordId).length){ // без lenght - объект, с length - 0.
                 if (!$view.html()){
@@ -111,7 +70,7 @@ $(function(){
                         removeButtonAndForm();
                     }
                 });
-            } 
+            } */
         } else {
             if($(addWordId)){
                 removeButtonAndForm();
@@ -138,10 +97,15 @@ $(function(){
         }
     });
     
-  
+    $chooseLanguage.on("click", addWordId, () => {
+        $chooseLanguage.after(`<form id='${addWordFormStr}'>
+        ${addFields()}
+            <input type="button" value="добавить ячейку" id="${addWordStr}">
+            <input type='button' value='сохранить' id='btn-save'>
+        </form>`);
     });
     
-    $forms.on("click", "#save", (e) => {
+    $forms.on("click", "#btn-save", (e) => {
         var russianWord = $("#word")[0].value;
         console.log("russianWord: ", russianWord);
         $(`#${addWordFormStr} div`).each(function(){
@@ -156,11 +120,19 @@ $(function(){
             localStorage.setItem(russianWord, added);
             console.log("localStorage[russianWord]: ", localStorage.getItem(russianWord));
             var checkedLanguage = getTargetLanguage();
-           
+           /**
+            * 1. Сначала объект получает все данные из json-файла;
+              2. Из этого объекта данные передаются в localStorage;
+              3. При клике по кнопке "сохранить":
+              3.1 Изменения в объекте;
+              3.2 Синхронизация объекта с localStorage - те же изменения;
+              3.3 Синхронизация объекта с json-данными.
+
+            */
 
         });
     });
-    $view.on("click", "#edit", () => {
+    $view.on("click", ".btn-edit", () => {
         var russianWordSpan = $("#russianWord"), translatedWordSpan = $("#translatedWord"),
         russianWord = $("#russianWord").text(), translatedWord = $("#translatedWord").text(),
         sentence = $("#sentence").text();
@@ -168,8 +140,12 @@ $(function(){
         translatedWordSpan.contentEditable=true;
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}
-            <input type='button' value='сохранить' id='save'>
+            <input type='button' value='сохранить' id='btn-save'>
         </form>`);
-    }); */
+    });
 });
- 
+
+/**
+ * Changes may happen. Перемены могут случаться.
+ * 
+ */

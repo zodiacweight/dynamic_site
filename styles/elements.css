@@ -29,6 +29,9 @@ h1, h2, h3, h4, h5{
     font-family: Roboto, Arial, Helvetica, Tahoma, sans-serif;
 }
 
+input[type="button"] {
+    min-height: 28px;
+}
 input[type="text"] {
     border: solid 4px #aaa;
     font-size: 16px;

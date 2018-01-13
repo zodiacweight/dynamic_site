@@ -1,6 +1,3 @@
-// 
-const $view = $('#view'),
-    $sentencesTranslated = $('#sentences-translated');
 /** 
  * Get json file
  * @callback -- function to run inside after getting json
@@ -43,45 +40,41 @@ function makeWordsList(dictionary, substring, currentWord) {
     const words = dictionary[ // json
         languages[getTargetLanguage()] // portuguese | english
     ];
-    let result = "",
+    let list = "",
+        sentences = "",
         wordsLen = 0;
     Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
-            result += `
+            list += `
             <div class='word'>
-                <input id='edit' type='button' value='🖉'> 
-                <input id='delete' type='button' value='del'>   
+                <input class='btn-edit' type='button' value='🖉'>    
                 <span id='russianWord'>${word}</span>
-                <span id='translatedWord'>${words[word][0]}</span>
                 <section>`;
             ++wordsLen;
-            result += `
+            sentences += `
                 <div class="sentences">`;
             //console.log('word set=>', words[word]);
             words[word][0].forEach((translatedWord, index) => {
-                console.log("words[word][0][index]: ", words[word][0][index]);
+               // console.log("words[wprd]: ", words[word]);
                 const sentence = words[word][1][index] || '&nbsp;';
-                //console.log("sentence: ", sentence);
-                console.log("translatedWord: ", translatedWord);
-                result += `
-                    <div class='wrapper' id='sentence'>${sentence}</div>
-                    <div id='saveChanges'></div>`;
+                sentences += `
+                    <div class='wrapper' id='sentence'>${sentence}</div>`;
+                list += `
+                    <div class='wrapper'>
+                        <span id = 'translatedWord'>${translatedWord}</span>
+                    </div>`;
             });
-            result += `
-                    </section>
-                </div>
+            list += `
+                </section>
             </div>`;
+            sentences += `
+                </div>`;
         }
-        
     });
-    if (result) {
-        console.log("result");
-        return result;
-    }
-    /*if (list) {
+    if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
-        //$view.append("<input type='button' id='edit' value = 'редактировать'>");
+        //$view.append("<input type='button' id='btn-edit' value = 'редактировать'>");
     } else {
         clearList();
     }
@@ -90,7 +83,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         $view.find('>.word').trigger('mouseenter');
         //console.log('mouseenter');
     }
-    return words; */
+    return words;
 }
 
 function clearList(){
@@ -114,5 +107,5 @@ function  getTargetLanguage(){
 }
 
 function addFields(){
-    return "<div><input type=\"text\" placeholder=\"translation for word\"><textarea placeholder=\"sentence for word\"></textarea></div>";
+    return `<div><input type="text" placeholder="translation for word"><textarea placeholder="sentence for the word"></textarea></div>`;
 }
