@@ -23,18 +23,19 @@ $(function(){
         //console.log("input: ", e.target.value);
         var content;
         if (e.target.value.length > 2) {
+            const words = createList(e.target.value); // console.log('words=>', words);
             var list = "";
-            Object.keys(words).forEach((word) => {
+            Object.keys(words).forEach(word => {
                 if (word.indexOf(e.target.value)!==-1){
                     list+="<div>"+word+"</div>";
                     // if we have a word with such a substring then remove the button
                     //removeButtonAndForm();
                 }
             })
-            if(list!==""){
+            /* if(list!==""){
                 content='<div class="word active">'+
-                            '<input id="edit" type="button" value="🖉">'+    
-                            '<span id="russianWord">облако</span>'+
+                            '<input class="btn-edit" type="button">'+    
+                            '<span>🖉</span><span id="russianWord">облако</span>'+
                             '<section>'+
                                 '<div class="wrapper">'+
                                     '<div id="translatedWord">'+
@@ -43,10 +44,10 @@ $(function(){
                                 '</div>'+
                             '</section>'+
                         '</div>';
-            }
+            } */
             /**
-            const words = createList(e.target.value); // console.log('words=>', words);
             // if the button doesn't exist, add id
+            // createList(e.target.value)
             console.log("слово появилось");
             if(!$(addWordId).length){ // без lenght - объект, с length - 0.
                 if (!$view.html()){
@@ -100,11 +101,11 @@ $(function(){
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}
             <input type="button" value="добавить ячейку" id="${addWordStr}">
-            <input type='button' value='сохранить' id='save'>
+            <input type='button' value='сохранить' id='btn-save'>
         </form>`);
     });
     
-    $forms.on("click", "#save", (e) => {
+    $forms.on("click", "#btn-save", (e) => {
         var russianWord = $("#word")[0].value;
         console.log("russianWord: ", russianWord);
         $(`#${addWordFormStr} div`).each(function(){
@@ -131,7 +132,7 @@ $(function(){
 
         });
     });
-    $view.on("click", "#edit", () => {
+    $view.on("click", ".btn-edit", () => {
         var russianWordSpan = $("#russianWord"), translatedWordSpan = $("#translatedWord"),
         russianWord = $("#russianWord").text(), translatedWord = $("#translatedWord").text(),
         sentence = $("#sentence").text();
@@ -139,7 +140,7 @@ $(function(){
         translatedWordSpan.contentEditable=true;
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}
-            <input type='button' value='сохранить' id='save'>
+            <input type='button' value='сохранить' id='btn-save'>
         </form>`);
     });
 });

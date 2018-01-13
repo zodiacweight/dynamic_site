@@ -47,7 +47,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
-                <input id='edit' type='button' value='🖉'>    
+                <input class='btn-edit' type='button' value='🖉'>    
                 <span id='russianWord'>${word}</span>
                 <section>`;
             ++wordsLen;
@@ -74,7 +74,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
-        //$view.append("<input type='button' id='edit' value = 'редактировать'>");
+        //$view.append("<input type='button' id='btn-edit' value = 'редактировать'>");
     } else {
         clearList();
     }
@@ -107,5 +107,5 @@ function  getTargetLanguage(){
 }
 
 function addFields(){
-    return "<div><input type=\"text\" placeholder=\"translation for word\"><textarea placeholder=\"sentence for word\"></textarea></div>";
+    return `<div><input type="text" placeholder="translation for word"><textarea placeholder="sentence for the word"></textarea></div>`;
 }
