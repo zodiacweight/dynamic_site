@@ -1,6 +1,3 @@
-// 
-const $view = $('#view'),
-    $sentencesTranslated = $('#sentences-translated');
 /** 
  * Get json file
  * @callback -- function to run inside after getting json
