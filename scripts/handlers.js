@@ -104,12 +104,13 @@ $(function(){
             }
         }
     });
-    
+    // click on #addWord
     $chooseLanguage.on("click", addWordId, () => {
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}
             <input type="button" value="добавить ячейку" id="${addWordStr}">
-            <input type='button' value='сохранить' id='btn-save'>
+            <input type="button" value="Сохранить" id="btn-save">
+            <input type="button" value="Отменить" id="btn-cancel">
         </form>`);
     });
     
@@ -135,9 +136,7 @@ $(function(){
               3.1 Изменения в объекте;
               3.2 Синхронизация объекта с localStorage - те же изменения;
               3.3 Синхронизация объекта с json-данными.
-
             */
-
         });
     });
     // click on the button to edit translated word
@@ -150,9 +149,9 @@ $(function(){
         //
         $nativeWordSpan.contentEditable=true;
         translatedWordsSpan.contentEditable=true;
-        $chooseLanguage.after(`<form id='${addWordFormStr}'>
+        $chooseLanguage.after(`<form id="${addWordFormStr}">
         ${addFields()}
-            <input type='button' value='сохранить' id='btn-save'>
+            <input type="button" value="Сохранить" id="btn-save">
         </form>`);
     });
 });

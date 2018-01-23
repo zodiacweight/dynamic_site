@@ -47,7 +47,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
-                <input class='btn-edit' type='button' value='🖉'>    
+                ${setButton("add")}
                 <span class="nativeWord">${word}</span>
                 <section>`;
             ++wordsLen;
@@ -108,4 +108,15 @@ function  getTargetLanguage(){
 
 function addFields(){
     return `<div><input type="text" placeholder="translation for word"><textarea placeholder="sentence for the word"></textarea></div>`;
+}
+
+function setButton(btn_type){
+    switch (btn_type) {
+        case 'add':
+            return `<input class="btn-add" type="button" value="+">`;
+            break;
+        case 'edit':
+            return `<input class='btn-edit' type='button' value='🖉'>`;
+            break;
+    }
 }

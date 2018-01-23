@@ -41,7 +41,7 @@ section > .wrapper{
     color: white;
     margin-bottom: 1px;
     margin-left: 10px;
-    padding: 10px;
+    padding: 10px 14px 11px 10px;
 }
 
 #sentences-translated .wrapper{
@@ -62,6 +62,7 @@ section > .wrapper{
 
 .word.active > section {
     display: block;
+    transform: translateY(-3px);
 }
 
 #view > .word{
