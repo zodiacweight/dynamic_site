@@ -36,6 +36,7 @@ input[type="text"] {
     border: solid 4px #aaa;
     font-size: 20px;
     min-height:  44px;
+    margin-right: 4px;
     max-width: 400px;
     padding: 10px 10px;
     width: 100%;

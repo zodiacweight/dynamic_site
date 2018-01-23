@@ -48,7 +48,7 @@ function makeWordsList(dictionary, substring, currentWord) {
             list += `
             <div class='word'>
                 <input class='btn-edit' type='button' value='🖉'>    
-                <span id='russianWord'>${word}</span>
+                <span class="nativeWord">${word}</span>
                 <section>`;
             ++wordsLen;
             sentences += `
@@ -61,7 +61,7 @@ function makeWordsList(dictionary, substring, currentWord) {
                     <div class='wrapper' id='sentence'>${sentence}</div>`;
                 list += `
                     <div class='wrapper'>
-                        <span id = 'translatedWord'>${translatedWord}</span>
+                        <span class="translatedWord">${translatedWord}</span>
                     </div>`;
             });
             list += `

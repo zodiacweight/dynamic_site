@@ -35,7 +35,7 @@ $(function(){
             /* if(list!==""){
                 content='<div class="word active">'+
                             '<input class="btn-edit" type="button">'+    
-                            '<span>🖉</span><span id="russianWord">облако</span>'+
+                            '<span>🖉</span><span id="nativeWord">облако</span>'+
                             '<section>'+
                                 '<div class="wrapper">'+
                                     '<div id="translatedWord">'+
@@ -93,7 +93,15 @@ $(function(){
             // manage pseudoelement :before
             $sentencesTranslated.toggleClass('initial');
         } else {
-            $(this).toggleClass(activeClass);
+            if (event.type == 'mouseenter'){
+                if (!$(this).hasClass(activeClass)) {
+                    $(this).addClass(activeClass);
+                }
+            } else {
+                if ($view.find('.word').length > 1) {
+                    $(this).removeClass(activeClass);
+                }      
+            }
         }
     });
     
@@ -106,8 +114,8 @@ $(function(){
     });
     
     $forms.on("click", "#btn-save", (e) => {
-        var russianWord = $("#word")[0].value;
-        console.log("russianWord: ", russianWord);
+        var nativeWord = $("#word")[0].value;
+        //console.log("nativeWord: ", nativeWord);
         $(`#${addWordFormStr} div`).each(function(){
             //console.log("in the cycle");
             var word = $(this).find("input"),
@@ -117,8 +125,8 @@ $(function(){
             var added = {translatedWord: word, sentence: sentence };
             //console.log('word: ', word, "sentence: ", sentence);
             added = JSON.stringify(added);
-            localStorage.setItem(russianWord, added);
-            console.log("localStorage[russianWord]: ", localStorage.getItem(russianWord));
+            localStorage.setItem(nativeWord, added);
+            console.log("localStorage[nativeWord]: ", localStorage.getItem(nativeWord));
             var checkedLanguage = getTargetLanguage();
            /**
             * 1. Сначала объект получает все данные из json-файла;
@@ -132,11 +140,15 @@ $(function(){
 
         });
     });
-    $view.on("click", ".btn-edit", () => {
-        var russianWordSpan = $("#russianWord"), translatedWordSpan = $("#translatedWord"),
-        russianWord = $("#russianWord").text(), translatedWord = $("#translatedWord").text(),
-        sentence = $("#sentence").text();
-        russianWordSpan.contentEditable=true;
+    // click on the button to edit translated word
+    $view.on("click", ".btn-edit", function() {
+        var $nativeWordSpan = $(this).parent().find(".nativeWord"), 
+            translatedWordsSpan = $(".translatedWord"),
+            nativeWord = $nativeWordSpan.text();
+            //translatedWord = $(".translatedWord").text(),
+            //sentence = $(".sentence").text();
+        //
+        $nativeWordSpan.contentEditable=true;
         translatedWordSpan.contentEditable=true;
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}

@@ -6,8 +6,18 @@
     transform: translateY(-2px);
 }
 
+#addWordForm textarea{
+margin-bottom: -7px;
+margin-top: 14px;
+}
+
 #btn-save{
+    background-color: rgb(190, 215, 61);
+    border: solid 1px transparent;
+    border-radius: 5px;
+    font-size: 1.2em;
     margin-top: 10px;
+    padding: 12px 20px;
 }
 #sentences-translated{
     background-color: white;
