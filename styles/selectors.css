@@ -1,7 +1,6 @@
 form label{
     display: inline-block;
-    margin-bottom: 14px;
-    margin-right: 20px;
+    margin: 12px auto;
 }
 
 main > div {

@@ -7,8 +7,9 @@
 }
 
 #addWordForm textarea{
-margin-bottom: -7px;
-margin-top: 14px;
+color: rebeccapurple;
+display: block;
+min-height: 80px;
 }
 
 #btn-save{
@@ -24,7 +25,7 @@
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
     outline: solid 2px #ddd;
     min-height: 80px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #sentences-translated.initial:before{
@@ -41,4 +42,10 @@
     font-size: 1.1em;
     margin-top: 20px;
     padding: 4px;
+}
+
+#word {
+    display: block;
+    color: blue;
+    font-weight: bold;
 }

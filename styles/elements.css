@@ -32,11 +32,13 @@ h1, h2, h3, h4, h5{
 input[type="button"] {
     min-height: 28px;
 }
-input[type="text"] {
+input[type="text"], textarea {
     border: solid 4px #aaa;
+    font-family: Arial, serif;
     font-size: 20px;
     min-height:  44px;
     margin-right: 4px;
+    margin-top: 10px;
     max-width: 400px;
     padding: 10px 10px;
     width: 100%;

@@ -149,7 +149,7 @@ $(function(){
             //sentence = $(".sentence").text();
         //
         $nativeWordSpan.contentEditable=true;
-        translatedWordSpan.contentEditable=true;
+        translatedWordsSpan.contentEditable=true;
         $chooseLanguage.after(`<form id='${addWordFormStr}'>
         ${addFields()}
             <input type='button' value='сохранить' id='btn-save'>
