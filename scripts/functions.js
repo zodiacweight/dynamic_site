@@ -14,7 +14,7 @@ function initData() { // becomes getData after first calling
             })
                 .fail(() => console.warn(`Cannot get file from ${path}`));
         } else {
-            if (dictionary) { 
+            if (dictionary) {
                 return callback(dictionary, ...params);
             } else {
                 console.warn('Has NO dictionary');
@@ -55,7 +55,7 @@ function makeWordsList(dictionary, substring, currentWord) {
                 <div class="sentences">`;
             //console.log('word set=>', words[word]);
             words[word][0].forEach((translatedWord, index) => {
-               // console.log("words[wprd]: ", words[word]);
+                // console.log("words[wprd]: ", words[word]);
                 const sentence = words[word][1][index] || '&nbsp;';
                 sentences += `
                     <div class='wrapper' class="sentence">${sentence}</div>`;
@@ -79,14 +79,15 @@ function makeWordsList(dictionary, substring, currentWord) {
         clearList();
     }
     // 
-    if (wordsLen===1){
+    if (wordsLen === 1) {
         $view.find('>.word').trigger('mouseenter');
         //console.log('mouseenter');
     }
     return words;
 }
 
-function clearList(){ console.log('clearList')
+function clearList() {
+    console.log('clearList')
     $view.html("");
     $sentencesTranslated.html("");
 }
@@ -101,19 +102,34 @@ function createList(substring, currentWord) {
     //console.log('createList', { substring: substring });
     return getData(makeWordsList, substring, currentWord);
 }
+/**
+ * 
+ * @param {*} targetWordValue 
+ */
+function createWordsList(targetWordValue) {
+    var list = "";
+    Object.keys(createList(targetWordValue)).forEach(word => {
+        if (word.indexOf(targetWordValue) !== -1) {
+            list += `<div>${word}</div>`;
+            // if we have a word with such a substring then remove the button
+            //removeForm();
+        }
+    });
+    return list;
+}
 //
-function  getTargetLanguage(){
+function getTargetLanguage() {
     return $("#chooseLanguage input:checked").val();
 }
 //
-function createFields(){
+function createFields() {
     return `<div>
     <input type="text" placeholder="translation for the word">
         <textarea placeholder="sentence for the word"></textarea>
 </div>`;
 }
 //
-function createForm(){
+function createForm() {
     return `<form id='${addWordFormStr}'>
     ${createFields()}
         <input type="button" value="добавить ячейку" id="${addWordStr}">
@@ -122,7 +138,7 @@ function createForm(){
     </form>`;
 }
 // attaches form if didn't do before
-function addForm(){
+function addForm() {
     //
     if ($(`#${addWordFormStr}`).length) return;
     //
@@ -131,13 +147,51 @@ function addForm(){
         ${setButton('save')}
     </form>`);
 }
+//
+function editTranslatedWord(element) {
+    var $nativeWordSpan = $(element).parent().find(".nativeWord"),
+        translatedWordsSpan = $(".translatedWord"),
+        nativeWord = $nativeWordSpan.text();
+    //translatedWord = $(".translatedWord").text(),
+    //sentence = $(".sentence").text();
+    //
+    $nativeWordSpan.contentEditable = true;
+    translatedWordsSpan.contentEditable = true;
+    addForm();
+}
+//
+function manageSentence(element, eventType) {
+    if (element.tagName.toLowerCase() == 'span') {
+        const indexWord = $(element).parents('.active').eq(0).index(),
+            indexSentence = $(element).parent('.wrapper').index(),
+            $sentence = $sentencesTranslated
+                .find('.sentences')
+                .eq(indexWord)
+                .find('.wrapper').eq(indexSentence);
+        eventType == 'mouseenter' ?
+            $sentence.fadeIn(200)
+            : $sentence.hide();
+        // manage pseudoelement :before
+        $sentencesTranslated.toggleClass('initial');
+    } else {
+        if (eventType == 'mouseenter') {
+            if (!$(element).hasClass(activeClass)) {
+                $(element).addClass(activeClass);
+            }
+        } else {
+            if ($view.find('.word').length > 1) {
+                $(element).removeClass(activeClass);
+            }
+        }
+    }
+}
 // removing entire form contents
 function removeForm() {
     const $form = $(`#${addWordFormStr}`);
     if ($form.length) $form.remove();
 }
 //
-function setButton(btn_type){
+function setButton(btn_type) {
     switch (btn_type) {
         case 'add':
             return `<input class="btn-add" type="button" value="+">`;
@@ -149,4 +203,35 @@ function setButton(btn_type){
             return `<input type="button" value="Сохранить" id="${btnSaveId}">`;
             break;
     }
+}
+//
+function storeWord(element) {
+    const nativeWord = $("#word")[0].value;
+    //console.log("nativeWord: ", nativeWord);
+    $(`#${addWordFormStr} div`).each(function () {
+        //console.log("in the cycle");
+        var $word,
+            wordValue,
+            $sentence;
+
+        if ($word = $(element).find("input[type='text']")) {
+            wordValue = $word.val();
+        }
+        if ($sentence = $(element).find("textarea")) {
+            sentenceValue = $sentence.val();
+        }
+
+        const added = JSON.stringify({ translatedWord: word, sentence: sentence });
+        localStorage.setItem(nativeWord, added);
+        console.log("localStorage[nativeWord]: ", localStorage.getItem(nativeWord));
+        const checkedLanguage = getTargetLanguage();
+        /**
+         * 1. Сначала объект получает все данные из json-файла;
+           2. Из этого объекта данные передаются в localStorage;
+           3. При клике по кнопке "сохранить":
+           3.1 Изменения в объекте;
+           3.2 Синхронизация объекта с localStorage - те же изменения;
+           3.3 Синхронизация объекта с json-данными.
+         */
+    });
 }
