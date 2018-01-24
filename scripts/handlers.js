@@ -1,37 +1,22 @@
 // git -c http.sslVerify=false push origin master
 $(function(){
-    const addWordStr = "addWord",
-        addWordId = `#${addWordStr}`,
-        addWordFormStr = "addWordForm",
-        $chooseLanguage = $("#chooseLanguage"),
-        activeClass = 'active',
-        $forms = $("#forms"),
-        $view = $("#view");
     /** 
      * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
     */
-    let removeButtonAndForm;
     $("#word").on('input keyup', e => { // calling on jQuery object
-        //
-        if (!removeButtonAndForm) {
-            removeButtonAndForm = () => {
-                // console.log('Remove button');
-                $(addWordId).remove();
-                $(`#${addWordFormStr}`).remove();
-            }
-        }
         //console.log("input: ", e.target.value);
-        var content;
-        if (e.target.value.length > 2) {
-            const words = createList(e.target.value); // console.log('words=>', words);
+        var content, targetWordValue = e.target.value;
+        if (targetWordValue.length > 2) {
+            const words = createList(targetWordValue); // console.log('words=>', words);
             var list = "";
             Object.keys(words).forEach(word => {
-                if (word.indexOf(e.target.value)!==-1){
-                    list+="<div>"+word+"</div>";
+                if (word.indexOf(targetWordValue)!==-1){
+                    list+=`<div>${word}</div>`;
                     // if we have a word with such a substring then remove the button
-                    //removeButtonAndForm();
+                    //removeForm();
                 }
-            }); console.log('list=>',list);
+            }); 
+            console.log('list=>',{list:list, length:targetWordValue.length, targetWordValue:targetWordValue});
             /* if(list!==""){
                 content='<div class="word active">'+
                             '<input class="btn-edit" type="button">'+    
@@ -45,34 +30,38 @@ $(function(){
                             '</section>'+
                         '</div>';
             } */
+            // if the word is new and there are 3 letters in the field
+            if (!list){
+                addForm();
+            }
+
             // if the button doesn't exist, add id
-            // createList(e.target.value)
-            if(!$(addWordId).length){ // без lenght - объект, с length - 0.
+            // createList(targetWordValue)
+            /* if(!$(addWordId).length){ // без lenght - объект, с length - 0.
                 if (!$view.html()){
                     if($("#deleteWord").length){
-                        console.log("Попали.");
                         $("#deleteWord").remove();
                     }
-                    $chooseLanguage.append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
+
                 }
 
-                /* if(!($("#deleteWord")).length){
-                    $chooseLanguage.append('<input type="button" id="deleteWord" value="удалить слово">');
-                } */
+                //if(!($("#deleteWord")).length){
+                    //$chooseLanguage.append('<input type="button" id="deleteWord" value="удалить слово">');
+                //}
                 //console.log("in this place");
-            } else {
+            } */ /* else {
                 // check if we have the words which the substring conforms of
                 Object.keys(words).forEach((word) => {
-                    if (word.indexOf(e.target.value)!==-1){
+                    if (word.indexOf(targetWordValue)!==-1){
                         // if we have a word with such a substring then remove the button
-                        removeButtonAndForm();
+                        removeForm();
                     }
                 });
-            }
+            } */
         } else {
-            if($(addWordId)){
-                removeButtonAndForm();
-            }   //console.log("else");
+            // it checks inside if the button exitss
+            removeForm();
+            // 
             clearList(); 
         }
     });
@@ -104,15 +93,10 @@ $(function(){
     });
     // click on #addWord
     $chooseLanguage.on("click", addWordId, () => {
-        $chooseLanguage.after(`<form id='${addWordFormStr}'>
-        ${addFields()}
-            <input type="button" value="добавить ячейку" id="${addWordStr}">
-            <input type="button" value="Сохранить" id="btn-save">
-            <input type="button" value="Отменить" id="btn-cancel">
-        </form>`);
+        $chooseLanguage.after(createForm());
     });
     
-    $forms.on("click", "#btn-save", (e) => {
+    $forms.on("click", `${btnSaveId}`, (e) => {
         var nativeWord = $("#word")[0].value;
         //console.log("nativeWord: ", nativeWord);
         $(`#${addWordFormStr} div`).each(function(){
@@ -147,10 +131,11 @@ $(function(){
         //
         $nativeWordSpan.contentEditable=true;
         translatedWordsSpan.contentEditable=true;
-        $chooseLanguage.after(`<form id="${addWordFormStr}">
-        ${addFields()}
-            <input type="button" value="Сохранить" id="btn-save">
-        </form>`);
+        addForm();
+/*         $chooseLanguage.after(`<form id="${addWordFormStr}">
+        ${createFields()}
+            ${setButton('save')}
+        </form>`); */
     });
 });
 

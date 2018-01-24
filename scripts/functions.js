@@ -86,7 +86,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     return words;
 }
 
-function clearList(){
+function clearList(){ console.log('clearList')
     $view.html("");
     $sentencesTranslated.html("");
 }
@@ -101,15 +101,42 @@ function createList(substring, currentWord) {
     //console.log('createList', { substring: substring });
     return getData(makeWordsList, substring, currentWord);
 }
-
+//
 function  getTargetLanguage(){
     return $("#chooseLanguage input:checked").val();
 }
-
-function addFields(){
-    return `<div><input type="text" placeholder="translation for word"><textarea placeholder="sentence for the word"></textarea></div>`;
+//
+function createFields(){
+    return `<div>
+    <input type="text" placeholder="translation for the word">
+        <textarea placeholder="sentence for the word"></textarea>
+</div>`;
 }
-
+//
+function createForm(){
+    return `<form id='${addWordFormStr}'>
+    ${createFields()}
+        <input type="button" value="добавить ячейку" id="${addWordStr}">
+        ${setButton('save')}
+        <input type="button" value="Отменить" id="btn-cancel">
+    </form>`;
+}
+// attaches form if didn't do before
+function addForm(){
+    //
+    if ($(`#${addWordFormStr}`).length) return;
+    //
+    $chooseLanguage.after(`<form id="${addWordFormStr}">
+    ${createFields()}
+        ${setButton('save')}
+    </form>`);
+}
+// removing entire form contents
+function removeForm() {
+    const $form = $(`#${addWordFormStr}`);
+    if ($form.length) $form.remove();
+}
+//
 function setButton(btn_type){
     switch (btn_type) {
         case 'add':
@@ -117,6 +144,9 @@ function setButton(btn_type){
             break;
         case 'edit':
             return `<input class='btn-edit' type='button' value='🖉'>`;
+            break;
+        case 'save':
+            return `<input type="button" value="Сохранить" id="${btnSaveId}">`;
             break;
     }
 }
