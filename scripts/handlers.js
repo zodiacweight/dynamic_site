@@ -31,7 +31,7 @@ $(function(){
                     // if we have a word with such a substring then remove the button
                     //removeButtonAndForm();
                 }
-            })
+            }); console.log('list=>',list);
             /* if(list!==""){
                 content='<div class="word active">'+
                             '<input class="btn-edit" type="button">'+    
@@ -45,10 +45,8 @@ $(function(){
                             '</section>'+
                         '</div>';
             } */
-            /**
             // if the button doesn't exist, add id
             // createList(e.target.value)
-            console.log("слово появилось");
             if(!$(addWordId).length){ // без lenght - объект, с length - 0.
                 if (!$view.html()){
                     if($("#deleteWord").length){
@@ -58,9 +56,9 @@ $(function(){
                     $chooseLanguage.append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
                 }
 
-                if(!($("#deleteWord")).length){
+                /* if(!($("#deleteWord")).length){
                     $chooseLanguage.append('<input type="button" id="deleteWord" value="удалить слово">');
-                }
+                } */
                 //console.log("in this place");
             } else {
                 // check if we have the words which the substring conforms of
@@ -70,7 +68,7 @@ $(function(){
                         removeButtonAndForm();
                     }
                 });
-            } */
+            }
         } else {
             if($(addWordId)){
                 removeButtonAndForm();
