@@ -202,10 +202,13 @@ function removeForm() {
     if ($form.length) $form.remove();
 }
 //
-function setAttachedWord(){
+function setAttachedWord() {
     console.trace('setAttachedWord', arguments);
-    return `<input type="text" value="Сохранить" class="${inputAttachId}" id="${inputAttachId}">
+    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachId}" id="${inputAttachId}">
 ${setButton('attach')}`;
+}
+function handleAttachedWordInput() {
+
 }
 //
 function setButton(btn_type) {
@@ -228,7 +231,7 @@ function setButton(btn_type) {
 //
 function storeWord(element) {
     console.trace('storeWord', arguments);
-    const nativeWord = $("#word")[0].value;
+    const nativeWord = $(`#${wordId}`)[0].value;
     //console.log("nativeWord: ", nativeWord);
     $(`#${addWordFormStr} div`).each(function () {
         //console.log("in the cycle");
@@ -256,4 +259,18 @@ function storeWord(element) {
            3.3 Синхронизация объекта с json-данными.
          */
     });
+}
+/**
+ * Prevents the value of the new word input to be shorter than the 
+ * word in the search string
+ * @param {Object} event 
+ */
+function keepNewWordInputSynchronized (event) {
+    console.log('keepNewWordInputSynchronized', arguments);
+    const wordValue = $(`#${wordId}`).val();
+    // console.log(event.target, event.target.value, event.target.value.length);
+    if (event.target.value.length < wordValue.length) {
+        event.target.value = wordValue;
+        return event.target;
+    }
 }
