@@ -65,7 +65,7 @@ $(function () {
         .on("click", ".btn-edit", function () {
             editTranslatedWord(this);
         })
-        .on('keypress input blur', `#${inputAttachId}`, handleNewInput);
+        .on('keypress input blur', `#${inputAttachId}`, keepNewWordInputSynchronized);
     // click on #addWord
     $chooseLanguage.on("click", `#${addWordStr}`, () => {
         $chooseLanguage.after(createForm());
