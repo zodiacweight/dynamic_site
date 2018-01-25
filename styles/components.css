@@ -24,8 +24,8 @@
 
 .btn-attach{
     margin: 8px 6px 6px 5px;
-    background-color: #8b5d90;
-    color: white;
+    /* background-color: #f7941d; */
+    /* color: white; */
 }
 
 #input-attach{
@@ -64,7 +64,7 @@
 
 #view {
     float: left;
-    background: #cebbd0;
+    /* background: rgb(217, 217, 217); */
     font-size: 1.1em;
     margin-top: 20px;
     padding: 4px;

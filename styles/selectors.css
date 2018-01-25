@@ -66,7 +66,11 @@ section > .wrapper{
 }
 
 #view > .word{
+    background-color: #dad8d8;
+    display: block;
+    min-width: 200px;
     padding: 4px;
+    width: 60%;
 }
 
 .wrapper > span{
