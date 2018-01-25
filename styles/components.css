@@ -7,12 +7,13 @@
 }
 
 #addWordForm textarea{
-color: rebeccapurple;
-display: block;
-min-height: 80px;
+    color: rebeccapurple;
+    display: block;
+    min-height: 80px;
 }
 
-#btn-save{
+#btn-save,
+.btn-attach{
     background-color: rgb(190, 215, 61);
     border: solid 1px transparent;
     border-radius: 5px;
@@ -20,6 +21,31 @@
     margin-top: 10px;
     padding: 12px 20px;
 }
+
+.btn-attach{
+    margin: 8px 6px 6px 5px;
+    background-color: #8b5d90;
+    color: white;
+}
+
+#input-attach{
+    border-color: rgba(100,100,100,0.8);
+    border-width: 2px;
+    /* display: block; */
+    clear: both;
+    float: left;
+    font-size: 18px;
+    margin: 8px auto 0 5px;
+    min-height: auto;
+    min-width: auto;
+    padding: 6px;
+    width: calc(100% - 8px);
+}
+
+#input-attach +.btn-attach{
+    float: left;
+}
+
 #sentences-translated{
     background-color: white;
     box-shadow: 0 0 24px rgba(0,0,0,0.5);

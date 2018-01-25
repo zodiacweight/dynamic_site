@@ -77,7 +77,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
-        //$view.append("<input type='button' id='btn-edit' value = 'редактировать'>");
+        $view.append(setAttachedWord());
     } else {
         clearList();
     }
@@ -202,6 +202,12 @@ function removeForm() {
     if ($form.length) $form.remove();
 }
 //
+function setAttachedWord(){
+    console.trace('setAttachedWord', arguments);
+    return `<input type="text" value="Сохранить" class="${inputAttachId}" id="${inputAttachId}">
+${setButton('attach')}`;
+}
+//
 function setButton(btn_type) {
     console.trace('setButton', arguments);
     switch (btn_type) {
@@ -213,6 +219,9 @@ function setButton(btn_type) {
             break;
         case 'save':
             return `<input type="button" value="Сохранить" id="${btnSaveId}">`;
+            break;
+        case 'attach':
+            return `<button class='btn-attach' type="button">Добавить</button>`;
             break;
     }
 }

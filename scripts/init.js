@@ -4,6 +4,8 @@ const languages = {
     "английский": "english"
 },
     btnSaveId = 'btn-save',
+    btnAttachId = 'btn-attach',
+    inputAttachId = 'input-attach',
     addWordStr = "addWord",
     addWordId = `#${addWordStr}`,
     addWordFormStr = "addWordForm",
