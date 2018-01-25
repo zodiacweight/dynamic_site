@@ -3,10 +3,12 @@
  * @callback -- function to run inside after getting json
 */
 function initData() { // becomes getData after first calling
+    console.trace('initData', arguments);
     const path = "jsons/dictionary.json";
     var dictionary;
     // после первого вызова: getData
     return (callback, ...params) => {
+        console.trace('getData', arguments);
         if (!callback) {
             $.get(path).done(json => {
                 dictionary = json;
@@ -36,6 +38,7 @@ function initData() { // becomes getData after first calling
  * Ничего не возвращает.
 */
 function makeWordsList(dictionary, substring, currentWord) {
+    console.trace('makeWordsList', arguments);
     //console.trace('makeWordsList', {substring: substring});
     const words = dictionary[ // json
         languages[getTargetLanguage()] // portuguese | english
@@ -47,7 +50,7 @@ function makeWordsList(dictionary, substring, currentWord) {
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
-                ${setButton("add")}
+                ${setButton("edit")}
                 <span class="nativeWord">${word}</span>
                 <section>`;
             ++wordsLen;
@@ -87,7 +90,7 @@ function makeWordsList(dictionary, substring, currentWord) {
 }
 
 function clearList() {
-    console.log('clearList')
+    console.trace('clearList', arguments);
     $view.html("");
     $sentencesTranslated.html("");
 }
@@ -99,14 +102,15 @@ function clearList() {
  * Ничего не возвращает.
 */
 function createList(substring, currentWord) {
-    //console.log('createList', { substring: substring });
+    console.trace('createList', arguments);
     return getData(makeWordsList, substring, currentWord);
 }
 /**
- * 
+ * Creates list containing translated words
  * @param {*} targetWordValue 
  */
 function createWordsList(targetWordValue) {
+    console.trace('createWordsList', arguments);
     var list = "";
     Object.keys(createList(targetWordValue)).forEach(word => {
         if (word.indexOf(targetWordValue) !== -1) {
@@ -119,10 +123,12 @@ function createWordsList(targetWordValue) {
 }
 //
 function getTargetLanguage() {
+    console.trace('getTargetLanguage', arguments);
     return $("#chooseLanguage input:checked").val();
 }
 //
 function createFields() {
+    console.trace('createFields', arguments);
     return `<div>
     <input type="text" placeholder="translation for the word">
         <textarea placeholder="sentence for the word"></textarea>
@@ -130,6 +136,7 @@ function createFields() {
 }
 //
 function createForm() {
+    console.trace('createForm', arguments);
     return `<form id='${addWordFormStr}'>
     ${createFields()}
         <input type="button" value="добавить ячейку" id="${addWordStr}">
@@ -139,6 +146,7 @@ function createForm() {
 }
 // attaches form if didn't do before
 function addForm() {
+    console.trace('addForm', arguments);
     //
     if ($(`#${addWordFormStr}`).length) return;
     //
@@ -149,6 +157,7 @@ function addForm() {
 }
 //
 function editTranslatedWord(element) {
+    console.trace('editTranslatedWord', arguments);
     var $nativeWordSpan = $(element).parent().find(".nativeWord"),
         translatedWordsSpan = $(".translatedWord"),
         nativeWord = $nativeWordSpan.text();
@@ -161,6 +170,7 @@ function editTranslatedWord(element) {
 }
 //
 function manageSentence(element, eventType) {
+    console.trace('manageSentence', arguments);
     if (element.tagName.toLowerCase() == 'span') {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent('.wrapper').index(),
@@ -187,17 +197,19 @@ function manageSentence(element, eventType) {
 }
 // removing entire form contents
 function removeForm() {
+    console.trace('removeForm', arguments);
     const $form = $(`#${addWordFormStr}`);
     if ($form.length) $form.remove();
 }
 //
 function setButton(btn_type) {
+    console.trace('setButton', arguments);
     switch (btn_type) {
         case 'add':
-            return `<input class="btn-add" type="button" value="+">`;
+            return `<input class="btn-add" type="button">`;
             break;
         case 'edit':
-            return `<input class='btn-edit' type='button' value='🖉'>`;
+            return `<button class='btn-edit' type="button">&nbsp;</button>`;
             break;
         case 'save':
             return `<input type="button" value="Сохранить" id="${btnSaveId}">`;
@@ -206,6 +218,7 @@ function setButton(btn_type) {
 }
 //
 function storeWord(element) {
+    console.trace('storeWord', arguments);
     const nativeWord = $("#word")[0].value;
     //console.log("nativeWord: ", nativeWord);
     $(`#${addWordFormStr} div`).each(function () {

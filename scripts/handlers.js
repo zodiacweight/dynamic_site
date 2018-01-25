@@ -7,6 +7,7 @@ $(function(){
         //console.log("input: ", e.target.value);
         var content, targetWordValue = e.target.value;
         if (targetWordValue.length > 2) {
+            
             const list = createWordsList(targetWordValue);
             // console.log('list=>',{list:list, length:targetWordValue.length, targetWordValue:targetWordValue});
             /* if(list!==""){
