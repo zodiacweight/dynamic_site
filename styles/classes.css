@@ -1,8 +1,8 @@
 .active{
-    background-color: #5d677c;
+    background-color: #5d677c !important;
     color: white;
-    padding: 4px 8px 5px 8px !important;
-    margin: 0 -4px -1px -4px;
+    /* padding: 4px 8px 5px 8px !important; */
+    /* margin: 0 -4px -1px -4px; */
 }
 .btn-add{
     background-color: rgb(61, 215, 190);
@@ -11,11 +11,11 @@
     width: 27px;
 }
 .btn-edit{
-    border: solid 2px #95a08e;
+    border: solid 1px #95a08e;
     background-color: rgb(230, 245, 251);
     font-size: 20px;
-    height: 28px;
-    width: 28px;
+    height: 27px;
+    width: 27px;
 }
 .btn-edit::before{
     content: '🖉';

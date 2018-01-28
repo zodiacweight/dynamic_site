@@ -62,14 +62,14 @@ section > .wrapper{
 
 .word.active > section {
     display: block;
-    transform: translateY(-3px);
+    /* transform: translateY(-3px); */
 }
 
 #view > .word{
     background-color: #dad8d8;
     display: block;
     min-width: 200px;
-    padding: 4px;
+    padding: 8px 4px 9px;
     width: 60%;
 }
 
