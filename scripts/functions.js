@@ -77,7 +77,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
-        $view.append(setAttachedWord());
+        // $view.append(setAttachedWord());
     } else {
         clearList();
     }
@@ -220,15 +220,6 @@ function removeForm() {
     if ($form.length) $form.remove();
 }
 //
-function setAttachedWord() {
-    console.trace('setAttachedWord', arguments);
-    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
-${setButton('attach')}`;
-}
-function handleAttachedWordInput() {
-
-}
-//
 function setButton(btn_type) {
     console.trace('setButton', arguments);
     switch (btn_type) {
@@ -292,3 +283,10 @@ function keepNewWordInputSynchronized(event) {
         return event.target;
     }
 }
+
+//
+/* function setAttachedWord() {
+    console.trace('setAttachedWord', arguments);
+    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
+${setButton('attach')}`;
+} */

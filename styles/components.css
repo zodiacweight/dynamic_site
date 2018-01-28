@@ -22,10 +22,8 @@
     padding: 12px 20px;
 }
 
-.btn-attach{
-    margin: 8px 6px 6px 5px;
-    /* background-color: #f7941d; */
-    /* color: white; */
+#forms{
+    margin-top: 94px;
 }
 
 #input-attach{
@@ -46,12 +44,20 @@
     float: left;
 }
 
+#page{
+    position: relative;
+}
+
 #sentences-translated{
     background-color: white;
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
     outline: solid 2px #ddd;
-    min-height: 80px;
+    overflow: auto;
+    min-height: 60px;
+    max-height: 150px;
     margin-bottom: 10px;
+    position: absolute;
+    width: calc(100% - 40px);
 }
 
 #sentences-translated.initial:before{
