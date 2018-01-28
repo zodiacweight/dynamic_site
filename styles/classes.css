@@ -4,23 +4,71 @@
     /* padding: 4px 8px 5px 8px !important; */
     /* margin: 0 -4px -1px -4px; */
 }
+.btn-apply{
+    /* box-shadow: -2px 0 14px rgba(190, 215, 61, 1); */
+    font-weight: bold;
+    height: 32px;
+    line-height: 29px;
+    position: absolute;
+    right: 11px;
+    top: 8px;
+    font-family: Arial;
+    border: solid 2px #96b300;
+    border-left-width: 3px;
+    width: 35px;
+    background: #bed73d;
+    /* background-color: rgba(190, 215, 61, 0.6); */
+    text-align: center;
+    z-index: 10;
+} 
 .btn-add{
     background-color: rgb(61, 215, 190);
     font-size: 22px;
     height: 27px;
     width: 27px;
 }
-.btn-edit{
-    border: solid 1px #95a08e;
-    background-color: rgb(230, 245, 251);
+.btn-cancel,
+.btn-edit {
+    background-color: transparent;
+    border: navajowhite;
     font-size: 20px;
     height: 27px;
     width: 27px;
+}
+.btn-cancel{
+    position: relative;
+}
+.btn-cancel::before{
+    /* outline: solid 1px; */
+    content: '+';
+    display: inline-block;
+    font-size: 34px;
+    line-height: 0.6;
+    left: 2px;
+    position: absolute;
+    top: 3px;
+    transform: rotate(45deg);
+    /* margin: -4px 4px auto -4px; */
+}
+.btn-edit{
+    border-color: #95a08e;
+    background-color: rgb(230, 245, 251);
+    border: solid 1px #999;
 }
 .btn-edit::before{
     content: '🖉';
     display: inline-block;
     margin: -4px 4px auto -4px;
+}
+.editable{
+    background: white;
+    border: solid 1px #aaa;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
+    color: red;
+    display: inline-block;
+    margin-left: -6px;
+    padding: 4px 32px 4px 6px;
+    width: calc(100% - 32px);
 }
 .word{
     clear: both;

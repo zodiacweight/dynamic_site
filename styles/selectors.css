@@ -1,3 +1,6 @@
+.active .btn-cancel{
+    color: red;
+}
 form label{
     display: inline-block;
     margin: 12px auto;
@@ -70,6 +73,7 @@ section > .wrapper{
     display: block;
     min-width: 200px;
     padding: 8px 4px 9px;
+    position: relative;
     width: 60%;
 }
 

@@ -94,7 +94,6 @@ function clearList() {
     $view.html("");
     $sentencesTranslated.html("");
 }
-
 /** Вызывает функцию getData и передает ей подстроку и переменную, означающую выбранный язык.
  * Параметры: 
  * подстрока в текстовом поле;
@@ -156,17 +155,36 @@ function addForm() {
     </form>`);
 }
 //
+function getNativeWord(element) {
+    console.trace('getNativeWord', arguments);
+    return $(element).parent().find(".nativeWord");
+}
+//
+function handleTranslateWord(element, add) {
+    console.trace('handleTranslateWord', arguments);
+    var $nativeWordSpan = getNativeWord(element),
+        classAction = 'remove',
+        btnEditClassAction = 'add', 
+        editableState = false;
+    if (add) {
+        btnEditClassAction = 'remove';
+        classAction = 'add';
+        editableState = true;
+        $nativeWordSpan.after(`<div class="${btnApplySelector}">✔</div>`);
+    } else {
+        $nativeWordSpan.next(`.${btnApplySelector}`).remove();
+    }
+    $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
+    $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);}
+//
 function editTranslatedWord(element) {
     console.trace('editTranslatedWord', arguments);
-    var $nativeWordSpan = $(element).parent().find(".nativeWord"),
-        translatedWordsSpan = $(".translatedWord"),
-        nativeWord = $nativeWordSpan.text();
-    //translatedWord = $(".translatedWord").text(),
-    //sentence = $(".sentence").text();
-    //
-    $nativeWordSpan.contentEditable = true;
-    translatedWordsSpan.contentEditable = true;
-    addForm();
+    handleTranslateWord(element, true);
+}
+//
+function editTranslatedWordCancel(element) {
+    console.trace('editTranslatedWordCancel', arguments);
+    handleTranslateWord(element);
 }
 //
 function manageSentence(element, eventType) {
@@ -204,7 +222,7 @@ function removeForm() {
 //
 function setAttachedWord() {
     console.trace('setAttachedWord', arguments);
-    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachId}" id="${inputAttachId}">
+    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
 ${setButton('attach')}`;
 }
 function handleAttachedWordInput() {
@@ -218,13 +236,13 @@ function setButton(btn_type) {
             return `<input class="btn-add" type="button">`;
             break;
         case 'edit':
-            return `<button class='btn-edit' type="button">&nbsp;</button>`;
+            return `<button class='${btnEditSelector}' type="button">&nbsp;</button>`;
             break;
         case 'save':
-            return `<input type="button" value="Сохранить" id="${btnSaveId}">`;
+            return `<input type="button" value="Сохранить" id="${btnSaveSelector}">`;
             break;
         case 'attach':
-            return `<button class='btn-attach' type="button">Добавить</button>`;
+            return `<button class='${btnAttachSelector}' type="button">Добавить</button>`;
             break;
     }
 }
@@ -265,7 +283,7 @@ function storeWord(element) {
  * word in the search string
  * @param {Object} event 
  */
-function keepNewWordInputSynchronized (event) {
+function keepNewWordInputSynchronized(event) {
     console.log('keepNewWordInputSynchronized', arguments);
     const wordValue = $(`#${wordId}`).val();
     // console.log(event.target, event.target.value, event.target.value.length);

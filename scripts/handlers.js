@@ -1,7 +1,7 @@
 // git -c http.sslVerify=false push origin master
 $(function () {
     /** 
-     * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
+     * Creates words list and add / remove form
     */
     $(`#${wordId}`).on('input keyup', e => { // calling on jQuery object
         //console.log("input: ", e.target.value);
@@ -62,16 +62,19 @@ $(function () {
     $view.on('mouseenter mouseleave', '> .word, .wrapper >span', function (event) {
         manageSentence(this, event.type);
     }) // click on the button to edit translated word
-        .on("click", ".btn-edit", function () {
+        .on("click", `.${btnEditSelector}`, function () {
             editTranslatedWord(this);
         })
-        .on('keypress input blur', `#${inputAttachId}`, keepNewWordInputSynchronized);
+        .on('click', `.${btnCancelSelector}`, function () {
+            editTranslatedWordCancel(this);
+        })
+        .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
     $chooseLanguage.on("click", `#${addWordStr}`, () => {
         $chooseLanguage.after(createForm());
     });
     // store the word
-    $forms.on("click", `${btnSaveId}`, function () {
+    $forms.on("click", `#${btnSaveSelector}`, function () {
         storeWord(this)
     });
 });
