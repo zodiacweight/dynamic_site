@@ -67,7 +67,8 @@ $(function () {
         })
         .on('click', `.${btnCancelSelector}`, function () {
             editTranslatedWordCancel(this);
-        });
+        }) 
+        .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
     $chooseLanguage.on("click", `#${addWordStr}`, () => {
         $chooseLanguage.after(createForm());
