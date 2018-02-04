@@ -39,7 +39,7 @@ $(function () {
                 }
 
                 //if(!($("#deleteWord")).length){
-                    //$chooseLanguage.append('<input type="button" id="deleteWord" value="удалить слово">');
+                    //$chooseLanguageForm.append('<input type="button" id="deleteWord" value="удалить слово">');
                 //}
                 //console.log("in this place");
             } */ /* else {
@@ -70,8 +70,8 @@ $(function () {
         }) 
         .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
-    $chooseLanguage.on("click", `#${addWordStr}`, () => {
-        $chooseLanguage.after(createForm());
+    $chooseLanguageForm.on("click", `#${addWordStr}`, () => {
+        $chooseLanguageForm.after(createForm());
     });
     // store the word
     $forms.on("click", `#${btnSaveSelector}`, function () {

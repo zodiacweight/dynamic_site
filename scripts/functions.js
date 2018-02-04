@@ -149,7 +149,7 @@ function addForm() {
     //
     if ($(`#${addWordFormStr}`).length) return;
     //
-    $chooseLanguage.after(`<form id="${addWordFormStr}">
+    $chooseLanguageForm.after(`<form id="${addWordFormStr}">
     ${createFields()}
         ${setButton('save')}
     </form>`);

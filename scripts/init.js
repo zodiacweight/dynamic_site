@@ -20,4 +20,4 @@ const languages = {
     // get container for translated content
     $sentencesTranslated = $('#sentences-translated'),
     // 
-    $chooseLanguage = $("#chooseLanguage");
+    $chooseLanguageForm = $("#chooseLanguage");
