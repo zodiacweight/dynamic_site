@@ -1,8 +1,8 @@
 // 
-const languages = {
-    "португальский": "portuguese",
-    "английский": "english"
-},
+const /* languages = {
+    "portuguese": "portugues",
+    "english": "english"
+}, */
     btnApplySelector = 'btn-apply',
     btnCancelSelector = 'btn-cancel',
     btnEditSelector = 'btn-edit',
@@ -11,7 +11,8 @@ const languages = {
     inputAttachSelector = 'input-attach',
     addWordId = 'addWordStr',
     wordId = 'word',
-    
+    $noticeChooseLanguage = $('#notice-choose_language'),
+    //
     addWordStr = "addWord",
     addWordFormStr = "addWordForm",
     activeClass = 'active',

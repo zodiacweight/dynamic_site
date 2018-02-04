@@ -5,7 +5,19 @@ $(function () {
     */
     $(`#${wordId}`).on('input keyup', e => { // calling on jQuery object
         //console.log("input: ", e.target.value);
-        var content, targetWordValue = e.target.value;
+        var $wordInput = $(e.target),
+
+            targetWordValue = $wordInput.val(),
+            disabled = 'disabled';
+        if ($wordInput.attr('disabled')) {
+            return;
+        }
+
+        if (!$chooseLanguageSelect.val()) {
+            hideInput($wordInput);
+            return;
+        }
+
         if (targetWordValue.length > 2) {
 
             const list = createWordsList(targetWordValue);
@@ -70,9 +82,12 @@ $(function () {
         }) 
         .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
+    // note: not in use, but is going to bre...
     $chooseLanguageForm.on("click", `#${addWordStr}`, () => {
         $chooseLanguageForm.after(createForm());
     });
+    // changing select option
+    $chooseLanguageSelect.on('change', showInput);
     // store the word
     $forms.on("click", `#${btnSaveSelector}`, function () {
         storeWord(this)

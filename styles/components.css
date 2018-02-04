@@ -22,6 +22,27 @@
     padding: 12px 20px;
 }
 
+#chooseLanguage select{
+    background: #eee;
+    box-shadow: 0 -8px 28px rgba(200,200,200,1) inset;
+    border-radius: 4px;
+    color: brown;
+    padding: 8px 8px 8px 4px;
+    border: 0;
+    font-weight: 700;
+}
+#notice-choose_language{
+    display: none;
+}
+#notice-choose_language > span{   
+    color: #f7941d;
+    font-weight: bold;
+    font-size: 34px;
+    display: inline-block;
+    line-height: 0;
+    margin: -4px;
+    transform: scaleX(0.5) translateY(6px);
+}
 #forms{
     margin-top: 140px;
     

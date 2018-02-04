@@ -33,10 +33,12 @@ function initData() { // becomes getData after first calling
  * Создает список слов, содержащих указанную подстроку
  */
 function createNewWordList(words, substring) {
+    console.trace('createNewWordList', arguments);
     let list = "",
         sentences = "",
         wordsLen = 0;
-    Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
+    //
+    Object.keys(words).forEach(word => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
             list += `
             <div class='word'>
@@ -73,12 +75,23 @@ function createNewWordList(words, substring) {
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function makeWordsList(dictionary, substring, currentWord) {
+function makeWordsList(dictionary, substring) {
     console.trace('makeWordsList', arguments);
     //console.trace('makeWordsList', {substring: substring});
-    const words = dictionary[ // json
-        languages[getTargetLanguage()] // portuguese | english
-    ];
+    const words = (() => {
+        return getData((dict) => {
+            return dict[getTargetLanguage()];
+        });
+    })();
+    // 
+    if (!words) {
+        console.warn('No words', {
+            languages: languages,
+            targetLang: getTargetLanguage(),
+            dict: languages[getTargetLanguage()]
+        });
+        return false;
+    }
     const [list, sentences, wordsLen] = createNewWordList(words, substring);
     //
     if (list) {
@@ -101,37 +114,28 @@ function clearList() {
     $view.html("");
     $sentencesTranslated.html("");
 }
-/** Вызывает функцию getData и передает ей подстроку и переменную, означающую выбранный язык.
- * Параметры: 
- * подстрока в текстовом поле;
- * переменная, означающая выбранный язык.
- * Ничего не возвращает.
-*/
-// fixme: do we need such a function?
-function createList(substring, currentWord) {
-    console.trace('createList', arguments);
-    return getData(makeWordsList, substring, currentWord);
-}
 /**
  * Creates list containing translated words
  * @param {*} targetWordValue 
  */
 function createWordsList(targetWordValue) {
     console.trace('createWordsList', arguments);
-    var list = "";
-    Object.keys(createList(targetWordValue)).forEach(word => {
+    let list = "";
+    Object.keys(getData(makeWordsList, targetWordValue)).forEach(word => {
         if (word.indexOf(targetWordValue) !== -1) {
             list += `<div>${word}</div>`;
-            // if we have a word with such a substring then remove the button
-            //removeForm();
         }
     });
     return list;
 }
-//
+// get chosen language string
 function getTargetLanguage() {
     console.trace('getTargetLanguage', arguments);
-    return $("#chooseLanguage input:checked").val();
+    return $chooseLanguageSelect.val() || console.warn('No selected value', {
+        $chooseLanguageSelect: $chooseLanguageSelect,
+        select: $chooseLanguageSelect.find("option:selected"),
+        value: $chooseLanguageSelect.find("option:selected").val()
+    });
 }
 //
 function createFields() {
@@ -150,6 +154,32 @@ function createForm() {
         ${setButton('save')}
         <input type="button" value="Отменить" id="btn-cancel">
     </form>`;
+}
+/**
+ * hide the word initial input as language hadn't chosen.
+ * @param {*}  
+ */
+function hideInput($wordInput) {
+    $wordInput
+        .attr('disabled', 'disabled')
+        .hide(1000, () => {
+            $noticeChooseLanguage.fadeIn();
+            return false;
+        });
+}
+/**
+ * show the word initial input if was hidden before as language hadn't chosen.
+ */
+function showInput() {
+    const $wordInput = $(`#${wordId}`),
+        disabled = 'disabled';
+    if (!$wordInput.attr(disabled)) {
+        return;
+    }
+    $noticeChooseLanguage.fadeOut(() => {
+        $wordInput.removeAttr(disabled)
+            .show(1000);
+    });
 }
 // attaches form if didn't do before
 function addForm() {
