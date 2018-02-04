@@ -22,6 +22,10 @@
     padding: 12px 20px;
 }
 
+#chooseLanguage > h4{
+    transform: translateY(6px);
+}
+
 #chooseLanguage select{
     background: #eee;
     box-shadow: 0 -8px 28px rgba(200,200,200,1) inset;

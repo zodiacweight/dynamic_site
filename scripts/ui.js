@@ -3,7 +3,7 @@
  * 
  */
 function createFields() {
-    console.trace('createFields', arguments);
+    output('createFields', arguments);
     return `<div>
     <input type="text" placeholder="translation for the word">
         <textarea placeholder="sentence for the word"></textarea>
@@ -13,7 +13,7 @@ function createFields() {
  * 
  */
 function createForm() {
-    console.trace('createForm', arguments);
+    output('createForm', arguments);
     return `<form id='${addWordFormStr}'>
     ${createFields()}
         <input type="button" value="добавить ячейку" id="${addWordStr}">
@@ -27,7 +27,7 @@ function createForm() {
  * @param {String} substring 
  */
 function createNewWordList(words, substring) {
-    console.trace('createNewWordList', arguments);
+    output('createNewWordList', arguments);
     let list = "",
         sentences = "",
         wordsLen = 0;
@@ -67,7 +67,7 @@ function createNewWordList(words, substring) {
  * @param {*} targetWordValue 
  */
 function createWordsList(targetWordValue) {
-    console.trace('createWordsList', arguments);
+    output('createWordsList', arguments, 'blue');
     let list = "";
     // getData returns words list
     Object.keys(getData(makeWordsList, targetWordValue)).forEach(word => {
@@ -81,7 +81,7 @@ function createWordsList(targetWordValue) {
  * 
  */
 function setAttachedWord() {
-    console.trace('setAttachedWord', arguments);
+    output('setAttachedWord', arguments);
     return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
 ${setButton('attach')}`;
 }
@@ -90,7 +90,7 @@ ${setButton('attach')}`;
  * @param {*} btn_type 
  */
 function setButton(btn_type) {
-    console.trace('setButton', arguments);
+    output('setButton', arguments);
     switch (btn_type) {
         case 'add':
             return `<input class="btn-add" type="button">`;

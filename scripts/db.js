@@ -1,10 +1,12 @@
 function getLang(){
+    output('getLang', arguments);
     return localStorage.getItem('lang')
 }
 /**
  * store chosen language in DB
  */
 function storeLanguageChoice() {
+    output('storeLanguageChoice', arguments);
     const ln = 'lang', lang = $chooseLanguageSelect.val();
     lang ? localStorage.setItem(ln, lang) : localStorage.removeItem(ln);
 }
@@ -13,7 +15,7 @@ function storeLanguageChoice() {
  * @param {*} element 
  */
 function storeWord(element) {
-    console.trace('storeWord', arguments);
+    output('storeWord', arguments);
     const nativeWord = $(`#${wordId}`)[0].value;
     //console.log("nativeWord: ", nativeWord);
     $(`#${addWordFormStr} div`).each(function () {

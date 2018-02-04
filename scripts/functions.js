@@ -4,7 +4,7 @@
  * @callback -- function to run inside after getting json
 */
 function initData() { // becomes getData after first calling
-    console.trace('initData', arguments);
+    output('initData', arguments);
     const lang = getLang();
     //
     if (lang !== null) {
@@ -16,7 +16,7 @@ function initData() { // becomes getData after first calling
     var dictionary;
     // после первого вызова: getData
     return (callback, ...params) => {
-        console.trace('getData', arguments);
+        output('getData', arguments, 'orange');
         if (!callback) {
             $.get(path).done(json => {
                 dictionary = json;
@@ -45,8 +45,7 @@ function initData() { // becomes getData after first calling
  * Ничего не возвращает.
 */
 function makeWordsList(dictionary, substring) {
-    console.trace('makeWordsList', arguments);
-    //console.trace('makeWordsList', {substring: substring});
+    output('makeWordsList', arguments);
     const words = (() => {
         return getData((dict) => {
             return dict[getTargetLanguage()];
@@ -79,13 +78,13 @@ function makeWordsList(dictionary, substring) {
 }
 // 
 function clearList() {
-    console.trace('clearList', arguments);
+    output('clearList', arguments);
     $view.html("");
     $sentencesTranslated.html("");
 }
 // get chosen language string
 function getTargetLanguage() {
-    console.trace('getTargetLanguage', arguments);
+    output('getTargetLanguage', arguments);
     return $chooseLanguageSelect.val() || console.warn('No selected value', {
         $chooseLanguageSelect: $chooseLanguageSelect,
         select: $chooseLanguageSelect.find("option:selected"),
@@ -97,6 +96,7 @@ function getTargetLanguage() {
  * @param {*}  
  */
 function hideInput($wordInput) {
+    output('hideInput', arguments);
     $wordInput
         .attr('disabled', 'disabled')
         .hide(1000, () => {
@@ -108,6 +108,7 @@ function hideInput($wordInput) {
  * show the word initial input if was hidden before as language hadn't chosen.
  */
 function showInput() {
+    output('showInput', arguments);
     const $wordInput = $(`#${wordId}`),
         disabled = 'disabled';
     if (!$wordInput.attr(disabled)) {
@@ -120,7 +121,7 @@ function showInput() {
 }
 // attaches form if didn't do before
 function addForm() {
-    console.trace('addForm', arguments);
+    output('addForm', arguments);
     //
     if ($(`#${addWordFormStr}`).length) return;
     //
@@ -134,7 +135,7 @@ function addForm() {
  * @param {*} element 
  */
 function getNativeWord(element) {
-    console.trace('getNativeWord', arguments);
+    output('getNativeWord', arguments);
     return $(element).parent().find(".nativeWord");
 }
 /**
@@ -143,7 +144,7 @@ function getNativeWord(element) {
  * @param {*} add 
  */
 function handleTranslateWord(element, add) {
-    console.trace('handleTranslateWord', arguments);
+    output('handleTranslateWord', arguments);
     var $nativeWordSpan = getNativeWord(element),
         classAction = 'remove',
         btnEditClassAction = 'add',
@@ -161,17 +162,17 @@ function handleTranslateWord(element, add) {
 }
 //
 function editTranslatedWord(element) {
-    console.trace('editTranslatedWord', arguments);
+    output('editTranslatedWord', arguments);
     handleTranslateWord(element, true);
 }
 //
 function editTranslatedWordCancel(element) {
-    console.trace('editTranslatedWordCancel', arguments);
+    output('editTranslatedWordCancel', arguments);
     handleTranslateWord(element);
 }
 //
 function manageSentence(element, eventType) {
-    console.trace('manageSentence', arguments);
+    output('manageSentence', arguments);
     if (element.tagName.toLowerCase() == 'span') {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent('.wrapper').index(),
@@ -198,7 +199,7 @@ function manageSentence(element, eventType) {
 }
 // removing entire form contents
 function removeForm() {
-    console.trace('removeForm', arguments);
+    output('removeForm', arguments);
     const $form = $(`#${addWordFormStr}`);
     if ($form.length) $form.remove();
 }
@@ -208,7 +209,7 @@ function removeForm() {
  * @param {Object} event 
  */
 function keepNewWordInputSynchronized(event) {
-    console.log('keepNewWordInputSynchronized', arguments);
+    output('keepNewWordInputSynchronized', arguments);
     const wordValue = $(`#${wordId}`).val();
     // console.log(event.target, event.target.value, event.target.value.length);
     if (event.target.value.length < wordValue.length) {
