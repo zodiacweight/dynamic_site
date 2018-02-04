@@ -1,11 +1,12 @@
 /** 
- * Get json file
+ * After a first call this function turnes into the getData function
+ * Get json file, store as dictionary, get Lang
  * @callback -- function to run inside after getting json
 */
 function initData() { // becomes getData after first calling
     console.trace('initData', arguments);
-    const lang = localStorage.getItem('lang');
-    
+    const lang = getLang();
+    //
     if (lang !== null) {
         // that's it, Dude: https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
         $chooseLanguageSelect.val(lang);
@@ -35,45 +36,6 @@ function initData() { // becomes getData after first calling
             }
         }
     }
-}
-/**
- * Создает список слов, содержащих указанную подстроку
- */
-function createNewWordList(words, substring) {
-    console.trace('createNewWordList', arguments);
-    let list = "",
-        sentences = "",
-        wordsLen = 0;
-    //
-    Object.keys(words).forEach(word => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
-        if (word.indexOf(substring) !== -1) {
-            list += `
-            <div class='word'>
-                ${setButton("edit")}
-                <span class="nativeWord">${word}</span>
-                <section>`;
-            ++wordsLen;
-            sentences += `
-                <div class="sentences">`;
-            //console.log('word set=>', words[word]);
-            words[word][0].forEach((translatedWord, index) => {
-                // console.log("words[wprd]: ", words[word]);
-                const sentence = words[word][1][index] || '&nbsp;';
-                sentences += `
-                    <div class='wrapper' class="sentence">${sentence}</div>`;
-                list += `
-                    <div class='wrapper'>
-                        <span class="translatedWord">${translatedWord}</span>
-                    </div>`;
-            });
-            list += `
-                </section>
-            </div>`;
-            sentences += `
-                </div>`;
-        }
-    });
-    return [list, sentences, wordsLen];
 }
 /**  Вставляет список слов в html.
  * параметры: 
@@ -121,20 +83,6 @@ function clearList() {
     $view.html("");
     $sentencesTranslated.html("");
 }
-/**
- * Creates list containing translated words
- * @param {*} targetWordValue 
- */
-function createWordsList(targetWordValue) {
-    console.trace('createWordsList', arguments);
-    let list = "";
-    Object.keys(getData(makeWordsList, targetWordValue)).forEach(word => {
-        if (word.indexOf(targetWordValue) !== -1) {
-            list += `<div>${word}</div>`;
-        }
-    });
-    return list;
-}
 // get chosen language string
 function getTargetLanguage() {
     console.trace('getTargetLanguage', arguments);
@@ -143,24 +91,6 @@ function getTargetLanguage() {
         select: $chooseLanguageSelect.find("option:selected"),
         value: $chooseLanguageSelect.find("option:selected").val()
     });
-}
-//
-function createFields() {
-    console.trace('createFields', arguments);
-    return `<div>
-    <input type="text" placeholder="translation for the word">
-        <textarea placeholder="sentence for the word"></textarea>
-</div>`;
-}
-//
-function createForm() {
-    console.trace('createForm', arguments);
-    return `<form id='${addWordFormStr}'>
-    ${createFields()}
-        <input type="button" value="добавить ячейку" id="${addWordStr}">
-        ${setButton('save')}
-        <input type="button" value="Отменить" id="btn-cancel">
-    </form>`;
 }
 /**
  * hide the word initial input as language hadn't chosen.
@@ -188,13 +118,6 @@ function showInput() {
             .show(1000);
     });
 }
-/**
- * store chosen language in DB
- */
-function storeLanguageChoice() {
-    const ln = 'lang', lang = $chooseLanguageSelect.val();
-    lang ? localStorage.setItem(ln, lang) : localStorage.removeItem(ln);
-}
 // attaches form if didn't do before
 function addForm() {
     console.trace('addForm', arguments);
@@ -206,12 +129,19 @@ function addForm() {
         ${setButton('save')}
     </form>`);
 }
-//
+/**
+ * 
+ * @param {*} element 
+ */
 function getNativeWord(element) {
     console.trace('getNativeWord', arguments);
     return $(element).parent().find(".nativeWord");
 }
-//
+/**
+ * 
+ * @param {*} element 
+ * @param {*} add 
+ */
 function handleTranslateWord(element, add) {
     console.trace('handleTranslateWord', arguments);
     var $nativeWordSpan = getNativeWord(element),
@@ -271,62 +201,6 @@ function removeForm() {
     console.trace('removeForm', arguments);
     const $form = $(`#${addWordFormStr}`);
     if ($form.length) $form.remove();
-}
-//
-function setAttachedWord() {
-    console.trace('setAttachedWord', arguments);
-    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
-${setButton('attach')}`;
-}
-//
-function setButton(btn_type) {
-    console.trace('setButton', arguments);
-    switch (btn_type) {
-        case 'add':
-            return `<input class="btn-add" type="button">`;
-            break;
-        case 'edit':
-            return `<button class='${btnEditSelector}' type="button">&nbsp;</button>`;
-            break;
-        case 'save':
-            return `<input type="button" value="Сохранить" id="${btnSaveSelector}">`;
-            break;
-        case 'attach':
-            return `<button id="" class="${btnAttachSelector}" type="button">Добавить</button>`;
-            break;
-    }
-}
-//
-function storeWord(element) {
-    console.trace('storeWord', arguments);
-    const nativeWord = $(`#${wordId}`)[0].value;
-    //console.log("nativeWord: ", nativeWord);
-    $(`#${addWordFormStr} div`).each(function () {
-        //console.log("in the cycle");
-        var $word,
-            wordValue,
-            $sentence;
-
-        if ($word = $(element).find("input[type='text']")) {
-            wordValue = $word.val();
-        }
-        if ($sentence = $(element).find("textarea")) {
-            sentenceValue = $sentence.val();
-        }
-
-        const added = JSON.stringify({ translatedWord: word, sentence: sentence });
-        localStorage.setItem(nativeWord, added);
-        console.log("localStorage[nativeWord]: ", localStorage.getItem(nativeWord));
-        const checkedLanguage = getTargetLanguage();
-        /**
-         * 1. Сначала объект получает все данные из json-файла;
-           2. Из этого объекта данные передаются в localStorage;
-           3. При клике по кнопке "сохранить":
-           3.1 Изменения в объекте;
-           3.2 Синхронизация объекта с localStorage - те же изменения;
-           3.3 Синхронизация объекта с json-данными.
-         */
-    });
 }
 /**
  * Prevents the value of the new word input to be shorter than the 
