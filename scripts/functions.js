@@ -12,7 +12,7 @@ function initData() { // becomes getData after first calling
         if (!callback) {
             $.get(path).done(json => {
                 dictionary = json;
-                console.log('I\'v got a dictionary =>', dictionary);
+                console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
             })
                 .fail(() => console.warn(`Cannot get file from ${path}`));
         } else {
@@ -239,7 +239,7 @@ function setButton(btn_type) {
             return `<input type="button" value="Сохранить" id="${btnSaveSelector}">`;
             break;
         case 'attach':
-            return `<button class='${btnAttachSelector}' type="button">Добавить</button>`;
+            return `<button id="" class="${btnAttachSelector}" type="button">Добавить</button>`;
             break;
     }
 }
