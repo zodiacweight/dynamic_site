@@ -11,6 +11,7 @@ const languages = {
     inputAttachSelector = 'input-attach',
     addWordId = 'addWordStr',
     wordId = 'word',
+    
     addWordStr = "addWord",
     addWordFormStr = "addWordForm",
     activeClass = 'active',
@@ -19,5 +20,7 @@ const languages = {
     $view = $('#view'),
     // get container for translated content
     $sentencesTranslated = $('#sentences-translated'),
-    // 
-    $chooseLanguageForm = $("#chooseLanguage");
+    // form
+    $chooseLanguageForm = $("#chooseLanguage"),
+    // select containing languages
+    $chooseLanguageSelect = $chooseLanguageForm.find('select');

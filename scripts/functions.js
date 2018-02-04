@@ -29,20 +29,10 @@ function initData() { // becomes getData after first calling
         }
     }
 }
-
-/** Создает список слов, содержащих указанную подстроку и вставляет его в html.
- * параметры: 
- * словарь (из json-данных);
- * подстрока в текстовом поле; 
- * переменная, означающая выбранный язык.
- * Ничего не возвращает.
-*/
-function makeWordsList(dictionary, substring, currentWord) {
-    console.trace('makeWordsList', arguments);
-    //console.trace('makeWordsList', {substring: substring});
-    const words = dictionary[ // json
-        languages[getTargetLanguage()] // portuguese | english
-    ];
+/**
+ * Создает список слов, содержащих указанную подстроку
+ */
+function createNewWordList(words, substring) {
     let list = "",
         sentences = "",
         wordsLen = 0;
@@ -74,6 +64,23 @@ function makeWordsList(dictionary, substring, currentWord) {
                 </div>`;
         }
     });
+    return [list, sentences, wordsLen];
+}
+/**  Вставляет список слов в html.
+ * параметры: 
+ * словарь (из json-данных);
+ * подстрока в текстовом поле; 
+ * переменная, означающая выбранный язык.
+ * Ничего не возвращает.
+*/
+function makeWordsList(dictionary, substring, currentWord) {
+    console.trace('makeWordsList', arguments);
+    //console.trace('makeWordsList', {substring: substring});
+    const words = dictionary[ // json
+        languages[getTargetLanguage()] // portuguese | english
+    ];
+    const [list, sentences, wordsLen] = createNewWordList(words, substring);
+    //
     if (list) {
         $view.html(list);
         $sentencesTranslated.html(sentences);
@@ -88,7 +95,7 @@ function makeWordsList(dictionary, substring, currentWord) {
     }
     return words;
 }
-
+// 
 function clearList() {
     console.trace('clearList', arguments);
     $view.html("");
@@ -100,6 +107,7 @@ function clearList() {
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
+// fixme: do we need such a function?
 function createList(substring, currentWord) {
     console.trace('createList', arguments);
     return getData(makeWordsList, substring, currentWord);
@@ -164,7 +172,7 @@ function handleTranslateWord(element, add) {
     console.trace('handleTranslateWord', arguments);
     var $nativeWordSpan = getNativeWord(element),
         classAction = 'remove',
-        btnEditClassAction = 'add', 
+        btnEditClassAction = 'add',
         editableState = false;
     if (add) {
         btnEditClassAction = 'remove';
@@ -175,7 +183,8 @@ function handleTranslateWord(element, add) {
         $nativeWordSpan.next(`.${btnApplySelector}`).remove();
     }
     $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
-    $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);}
+    $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);
+}
 //
 function editTranslatedWord(element) {
     console.trace('editTranslatedWord', arguments);
