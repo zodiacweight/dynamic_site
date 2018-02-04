@@ -87,7 +87,10 @@ $(function () {
         $chooseLanguageForm.after(createForm());
     });
     // changing select option
-    $chooseLanguageSelect.on('change', showInput);
+    $chooseLanguageSelect.on('change', () => {
+        showInput();
+        storeLanguageChoice();
+    });
     // store the word
     $forms.on("click", `#${btnSaveSelector}`, function () {
         storeWord(this)

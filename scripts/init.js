@@ -1,9 +1,5 @@
 // 
-const /* languages = {
-    "portuguese": "portugues",
-    "english": "english"
-}, */
-    btnApplySelector = 'btn-apply',
+const btnApplySelector = 'btn-apply',
     btnCancelSelector = 'btn-cancel',
     btnEditSelector = 'btn-edit',
     btnSaveSelector = 'btn-save',

@@ -4,6 +4,13 @@
 */
 function initData() { // becomes getData after first calling
     console.trace('initData', arguments);
+    const lang = localStorage.getItem('lang');
+    
+    if (lang !== null) {
+        // that's it, Dude: https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
+        $chooseLanguageSelect.val(lang);
+    }
+    
     const path = "jsons/dictionary.json";
     var dictionary;
     // после первого вызова: getData
@@ -180,6 +187,13 @@ function showInput() {
         $wordInput.removeAttr(disabled)
             .show(1000);
     });
+}
+/**
+ * store chosen language in DB
+ */
+function storeLanguageChoice() {
+    const ln = 'lang', lang = $chooseLanguageSelect.val();
+    lang ? localStorage.setItem(ln, lang) : localStorage.removeItem(ln);
 }
 // attaches form if didn't do before
 function addForm() {
