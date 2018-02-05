@@ -93,6 +93,6 @@ $(function () {
     });
     // store the word
     $forms.on("click", `#${btnSaveSelector}`, function () {
-        storeWord(this)
+        storeWord();
     });
 });

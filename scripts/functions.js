@@ -37,6 +37,24 @@ function initData() { // becomes getData after first calling
         }
     }
 }
+// attaches form if didn't do before
+function addForm() {
+    output('addForm', arguments);
+    //
+    if ($(`#${addWordFormStr}`).length) return;
+    //
+    $chooseLanguageForm.after(`<form id="${addWordFormStr}">
+    ${createFields()}
+        ${setButton('save')}
+        ${setButton('save-xtra')}
+    </form>`);
+}
+/**
+ * Get the part of dictionary containing words of selected language
+ */
+function getLangWords(){
+    return getData(dict => dict[getTargetLanguage()]);
+}
 /**  Вставляет список слов в html.
  * параметры: 
  * словарь (из json-данных);
@@ -45,12 +63,8 @@ function initData() { // becomes getData after first calling
  * Ничего не возвращает.
 */
 function makeWordsList(dictionary, substring) {
-    output('makeWordsList', arguments);
-    const words = (() => {
-        return getData((dict) => {
-            return dict[getTargetLanguage()];
-        });
-    })();
+    output('makeWordsList', arguments, 'violet');
+    const words = getLangWords();
     // 
     if (!words) {
         console.warn('No words', {
@@ -78,7 +92,7 @@ function makeWordsList(dictionary, substring) {
 }
 // 
 function clearList() {
-    output('clearList', arguments);
+    output('clearList', arguments, "darkkhaki");
     $view.html("");
     $sentencesTranslated.html("");
 }
@@ -118,17 +132,6 @@ function showInput() {
         $wordInput.removeAttr(disabled)
             .show(1000);
     });
-}
-// attaches form if didn't do before
-function addForm() {
-    output('addForm', arguments);
-    //
-    if ($(`#${addWordFormStr}`).length) return;
-    //
-    $chooseLanguageForm.after(`<form id="${addWordFormStr}">
-    ${createFields()}
-        ${setButton('save')}
-    </form>`);
 }
 /**
  * 
@@ -199,7 +202,7 @@ function manageSentence(element, eventType) {
 }
 // removing entire form contents
 function removeForm() {
-    output('removeForm', arguments);
+    output('removeForm', arguments, "goldenrod");
     const $form = $(`#${addWordFormStr}`);
     if ($form.length) $form.remove();
 }

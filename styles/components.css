@@ -13,6 +13,7 @@
 }
 
 #btn-save,
+#btn-save-xtra,
 .btn-attach{
     background-color: rgb(190, 215, 61);
     border: solid 1px transparent;
@@ -23,7 +24,8 @@
 }
 
 #chooseLanguage > h4{
-    transform: translateY(6px);
+    
+transform: translateY(6px);
 }
 
 #chooseLanguage select{

@@ -5,8 +5,8 @@
 function createFields() {
     output('createFields', arguments);
     return `<div>
-    <input type="text" placeholder="translation for the word">
-        <textarea placeholder="sentence for the word"></textarea>
+    <input type="text" id="${newWordId}" placeholder="translation for the word">
+    <textarea placeholder="sentence for the word"></textarea>
 </div>`;
 }
 /**
@@ -27,7 +27,7 @@ function createForm() {
  * @param {String} substring 
  */
 function createNewWordList(words, substring) {
-    output('createNewWordList', arguments);
+    output('createNewWordList', arguments, "rgb(0,100,255)");
     let list = "",
         sentences = "",
         wordsLen = 0;
@@ -90,7 +90,7 @@ ${setButton('attach')}`;
  * @param {*} btn_type 
  */
 function setButton(btn_type) {
-    output('setButton', arguments);
+    output('setButton', arguments, 'green');
     switch (btn_type) {
         case 'add':
             return `<input class="btn-add" type="button">`;
@@ -99,7 +99,10 @@ function setButton(btn_type) {
             return `<button class='${btnEditSelector}' type="button">&nbsp;</button>`;
             break;
         case 'save':
-            return `<input type="button" value="Сохранить" id="${btnSaveSelector}">`;
+            return `<input type="button" value="Save" id="${btnSaveSelector}">`;
+            break;
+        case 'save-xtra':
+            return `<input type="button" value="Save and Add" id="${btnSaveXtraSelector}">`;
             break;
         case 'attach':
             return `<button id="" class="${btnAttachSelector}" type="button">Добавить</button>`;
