@@ -4,10 +4,13 @@
  */
 function createFields() {
     output('createFields', arguments);
-    return `<div>
+    return `<section>
     <input type="text" id="${newWordId}" placeholder="translation for the word">
-    <textarea placeholder="sentence for the word"></textarea>
-</div>`;
+    <div id="new-word-sentences">
+        <textarea placeholder="sentence for the word"></textarea>
+        <button class="add-textarea">+</button>
+    </div>
+</section>`;
 }
 /**
  * 
@@ -102,7 +105,7 @@ function setButton(btn_type) {
             return `<input type="button" value="Save" id="${btnSaveSelector}">`;
             break;
         case 'save-xtra':
-            return `<input type="button" value="Save and Add" id="${btnSaveXtraSelector}">`;
+            return `<input type="button" value="Save & Add" id="${btnSaveXtraSelector}">`;
             break;
         case 'attach':
             return `<button id="" class="${btnAttachSelector}" type="button">Добавить</button>`;

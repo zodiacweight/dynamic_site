@@ -21,6 +21,7 @@ function initData() { // becomes getData after first calling
             $.get(path).done(json => {
                 dictionary = json;
                 console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
+                console.log('%cIf you have no a dictionary in the localStorage, you have to store it by language!', 'background:lightgreen');
             })
                 .fail(() => console.warn(`Cannot get file from ${path}`));
         } else {

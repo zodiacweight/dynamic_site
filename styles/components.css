@@ -10,12 +10,33 @@
     color: rebeccapurple;
     display: block;
     min-height: 80px;
+    padding-right: 42px;
 }
 
+#new-word-sentences {
+    max-width: 400px;
+    position:relative;
+}
+
+#new-word-sentences .add-textarea{
+ bottom: 40px;
+ border: none;
+ font-size: 20px;
+ font-weight: bold;
+ height: 32px;
+ position:absolute;
+ right: 8px;
+ width: 32px;
+}
+.add-textarea,
 #btn-save,
 #btn-save-xtra,
 .btn-attach{
     background-color: rgb(190, 215, 61);
+}
+#btn-save,
+#btn-save-xtra,
+.btn-attach{
     border: solid 1px transparent;
     border-radius: 5px;
     font-size: 1.2em;

@@ -2,6 +2,9 @@ function getLang() {
     output('getLang', arguments);
     return localStorage.getItem('lang')
 }
+function storeDictionary(dict, lang){
+    localStorage.setItem('');
+}
 /**
  * store chosen language in DB
  */
@@ -17,7 +20,8 @@ function storeLanguageChoice() {
 function storeWord() {
     output('storeWord', arguments);
     const nativeWord = $(`#${wordId}`).val(),
-        translatedValue = $(`#${newWordId}`).val();
+        translatedValue = $(`#${newWordId}`).val(),
+        $textAreas = $(`#${newWordSentencesId} textarea`);
 
     const dict = getLangWords();
 
@@ -25,9 +29,32 @@ function storeWord() {
         console.error('Have no any translated word...');
         return false;
     }
-
-    dict[translatedValue] = [];
-
+    // set array element, index 0
+    // then we get thing like this:
+    // 
+    dict[nativeWord] = [[translatedValue]];
+    dict[nativeWord].push([]);
+    let sentences;
+    // here we need to detect what to add into word array 
+    // as translated sentence -- a string, if there
+    // is only a single textarea resides or an array
+    // if there is more than one.
+    if ($textAreas.length>1){
+        sentences = [];
+        $textAreas.each(function(){
+            sentences.push(this.value);
+        });
+    } else {
+        sentences = $textAreas.eq(0).val();
+    }
+    // push the second element into array
+    dict[nativeWord][1].push(sentences);
+    console.log('Check result=>', {
+        nativeWord:nativeWord,
+        'dict[nativeWord]':dict[nativeWord],
+        sentences:sentences,
+        dict:dict
+    });
     //const added = JSON.stringify({ word: wordValue, sentence: sentenceValue });
     //localStorage.setItem(nativeWord, added);
     //console.log("localStorage[nativeWord]: ", localStorage.getItem(nativeWord));

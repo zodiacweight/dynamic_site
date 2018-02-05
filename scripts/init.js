@@ -9,6 +9,7 @@ const btnApplySelector = 'btn-apply',
     addWordId = 'addWordStr',
     wordId = 'word',
     newWordId = 'new-word',
+    newWordSentencesId = 'new-word-sentences',
     $noticeChooseLanguage = $('#notice-choose_language'),
     //
     addWordStr = "addWord",
