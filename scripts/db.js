@@ -32,8 +32,6 @@ function storeLanguagesSet() {
     }); 
     console.log('set langs',langs);
     localStorage.setItem('langs', JSON.stringify(langs));
-    //const ln = 'lang', lang = $chooseLanguageSelect.val();
-    //lang ? localStorage.setItem(ln, lang) : localStorage.removeItem(ln);
 }
 /**
  * 

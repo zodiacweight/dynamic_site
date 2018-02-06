@@ -1,3 +1,32 @@
+/**
+ * 
+ * @param {*} dictionary 
+ * @param {*} langs 
+ */
+function setInitInterface(dictionary, langs){
+    const tmpl = dictionary ? 'main' : 'settings';
+    // get template
+    $.get(`tmpl/${tmpl}.html`).done(contents => {
+        $mainSection.html(contents);
+        if (langs) {
+            // create lang list
+            setLangsInfo()
+        } else {
+            setLangInit();
+        }
+    })
+        .fail(() => console.warn(`Cannot get ${tmpl}.html file`));
+}
+function setMainInterface(){
+    $.get(`tmpl/main.html`).done(contents => {
+        $mainSection.html(contents);
+        setLangsInfo();
+    })
+        .fail(() => console.warn(`Cannot get mai}.html file`));
+}
+function setLangsInfo(){
+    $chooseLanguageSelect.append('<div>Native to Foreign</div>');
+}
 /** 
  * After a first call this function turnes into the getData function
  * Get json file, store as dictionary, get Lang
@@ -15,18 +44,7 @@ function initData() { // becomes getData after first calling
     }
     // no stored dictionary
     // show settings
-    const tmpl = dictionary ? 'main' : 'settings';
-    // get template
-    $.get(`tmpl/${tmpl}.html`).done(contents => {
-        $mainSection.html(contents);
-        if (langs) {
-            // create lang list
-            $chooseLanguageSelect.append('<div>Native to Foreign</div>');
-        } else {
-            setLangInit();
-        }
-    })
-        .fail(() => console.warn(`Cannot get ${tmpl}.html file`));
+    setInitInterface(dictionary, langs);
     //
     const path = "jsons/dictionary.json";
     // после первого вызова: getData

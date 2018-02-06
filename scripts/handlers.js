@@ -79,7 +79,7 @@ $(function () {
         })
         .on('click', `.${btnCancelSelector}`, function () {
             editTranslatedWordCancel(this);
-        }) 
+        })
         .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
     // note: not in use, but is going to be...
@@ -101,6 +101,7 @@ $(function () {
     })  // store languages in localStorage
         .on('click', `#${btnSaveSelector}`, () => {
             storeLanguagesSet();
+            setMainInterface()
         });
 
 });
