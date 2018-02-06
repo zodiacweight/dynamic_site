@@ -15,7 +15,8 @@ const btnApplySelector = 'btn-apply',
     langSelects = `#${sectionChooseLangId} select`,
     languages = {
         english:'English',
-        portuguese:'Portugues'
+        portuguese:'Portugues',
+        russian: 'Русский'
     },
     //
     addWordStr = "addWord",

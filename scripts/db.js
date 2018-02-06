@@ -21,12 +21,19 @@ function storeDictionary(dict, lang){
     localStorage.setItem(`dict_${lang}`, dict);
 }
 /**
- * store chosen language in DB
+ * store chosen languages set in DB
  */
-function storeLanguageChoice() {
-    output('storeLanguageChoice', arguments);
-    const ln = 'lang', lang = $chooseLanguageSelect.val();
-    lang ? localStorage.setItem(ln, lang) : localStorage.removeItem(ln);
+function storeLanguagesSet() {
+    output('storeLanguagesSet', arguments);
+    const lngsType = ['native', 'foreign'],
+        langs = {};
+    $(langSelects).each((index, select) => {
+        langs[lngsType[index]] = $(select).val();
+    }); 
+    console.log('set langs',langs);
+    localStorage.setItem('langs', JSON.stringify(langs));
+    //const ln = 'lang', lang = $chooseLanguageSelect.val();
+    //lang ? localStorage.setItem(ln, lang) : localStorage.removeItem(ln);
 }
 /**
  * 

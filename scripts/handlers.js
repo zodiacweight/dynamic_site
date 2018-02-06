@@ -82,15 +82,15 @@ $(function () {
         }) 
         .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
-    // note: not in use, but is going to bre...
+    // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${addWordStr}`, () => {
         $chooseLanguageForm.after(createForm());
     });
     // changing select option
-    $chooseLanguageSelect.on('change', () => {
+    /* $chooseLanguageSelect.on('change', () => {
         showInput();
-        storeLanguageChoice();
-    });
+        storeLanguagesSet();
+    }); */
     // store the word
     $forms.on("click", `#${btnSaveSelector}`, function () {
         storeWord();
@@ -98,5 +98,9 @@ $(function () {
     // changing the language in the initial lists (native/foregn)
     $mainSection.on('change', langSelects, function () {
         setInitLangs(this);
-    });
+    })  // store languages in localStorage
+        .on('click', `#${btnSaveSelector}`, () => {
+            storeLanguagesSet();
+        });
+
 });

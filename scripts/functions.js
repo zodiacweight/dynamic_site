@@ -6,12 +6,12 @@
 function initData() { // becomes getData after first calling
     output('initData', arguments);
     // get lang
-    const lang = getLang();
+    const langs = getLang();
     // var to store dictionary
     let dictionary;
     // get dictionary from localStorage
-    if (lang) {
-        dictionary = getDictionary(lang);
+    if (langs) {
+        dictionary = getDictionary(langs.foreign);
     }
     // no stored dictionary
     // show settings
@@ -19,14 +19,9 @@ function initData() { // becomes getData after first calling
     // get template
     $.get(`tmpl/${tmpl}.html`).done(contents => {
         $mainSection.html(contents);
-        if (dictionary) {
+        if (langs) {
             // create lang list
-            $chooseLanguageSelect.append(makeLangSelectOptions());
-            //
-            if (lang !== null) {
-                // that's it, Dude: https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
-                $chooseLanguageSelect.val(lang);
-            }
+            $chooseLanguageSelect.append('<div>Native to Foreign</div>');
         } else {
             setLangInit();
         }
@@ -42,7 +37,7 @@ function initData() { // becomes getData after first calling
                 console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
             }
             // if there is a dict in localStorage
-            if (dictionary = getDictionary(lang)) {
+            if (langs && (dictionary = getDictionary(langs.foreign))) {
                 gotDict(dictionary);
                 return true;
             }
@@ -166,7 +161,7 @@ function setLangInit() {
 /**
  * show the word initial input if was hidden before as language hadn't chosen.
  */
-function showInput() {
+/* function showInput() {
     output('showInput', arguments);
     const $wordInput = $(`#${wordId}`),
         disabled = 'disabled';
@@ -177,7 +172,7 @@ function showInput() {
         $wordInput.removeAttr(disabled)
             .show(1000);
     });
-}
+} */
 /**
  * 
  * @param {*} element 
