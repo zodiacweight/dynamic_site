@@ -13,6 +13,10 @@
     padding-right: 42px;
 }
 
+#main{
+    float: left;
+}
+
 #new-word-sentences {
     max-width: 400px;
     position:relative;
@@ -45,8 +49,7 @@
 }
 
 #chooseLanguage > h4{
-    
-transform: translateY(6px);
+    transform: translateY(-6px);
 }
 
 #chooseLanguage select{
