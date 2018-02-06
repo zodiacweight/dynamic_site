@@ -95,4 +95,24 @@ $(function () {
     $forms.on("click", `#${btnSaveSelector}`, function () {
         storeWord();
     });
+    const langSelects = `#${sectionChooseLangId} select`;
+    // changing the language in the initial lists (native/foregn)
+    $mainSection.on('change', langSelects, function () {
+        const tIndex = $(langSelects).index(this) ? 0 : 1,
+            selValue = $(this).val();
+        console.log('get select=>', {
+            tIndex:tIndex,
+            thisIndex:$(this).index(),
+            this:this,
+            other: {
+                select: $(langSelects).eq(tIndex),
+                optionToDelete: $(langSelects).eq(tIndex).find(`option[value="${selValue}"]`)
+            },
+            lSels: $(langSelects),
+            selValue: selValue
+        });        
+        $(langSelects).eq(tIndex)
+            .find(`option[value="${selValue}"]`)
+            .remove();
+    });
 });

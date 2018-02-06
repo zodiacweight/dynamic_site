@@ -5,22 +5,52 @@
 */
 function initData() { // becomes getData after first calling
     output('initData', arguments);
+    // get lang
     const lang = getLang();
-    //
-    if (lang !== null) {
-        // that's it, Dude: https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
-        $chooseLanguageSelect.val(lang);
+    // var to store dictionary
+    let dictionary;
+    // get dictionary from localStorage
+    if (lang) {
+        dictionary = getDictionary(lang);
     }
-    
+    // no stored dictionary
+    // show settings
+    const tmpl = dictionary ? 'main' : 'settings';
+    // get template
+    $.get(`tmpl/${tmpl}.html`).done(contents => {
+        $mainSection.html(contents);
+        if (dictionary) {
+            // create lang list
+            $chooseLanguageSelect.append(makeLangSelectOptions());
+            //
+            if (lang !== null) {
+                // that's it, Dude: https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
+                $chooseLanguageSelect.val(lang);
+            }
+        } else {
+            setLangInit();
+        }
+    })
+        .fail(() => console.warn(`Cannot get ${tmpl}.html file`));
+    //
     const path = "jsons/dictionary.json";
-    var dictionary;
     // после первого вызова: getData
     return (callback, ...params) => {
         output('getData', arguments, 'orange');
         if (!callback) {
+            function gotDict(dictionary) {
+                console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
+            }
+            // if there is a dict in localStorage
+            if (dictionary = getDictionary(lang)) {
+                gotDict(dictionary);
+                return true;
+            }
+            // if not, get it from remote DB
             $.get(path).done(json => {
                 dictionary = json;
-                console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
+                gotDict(dictionary);
+                storeDictionary(dictionary);
                 console.log('%cIf you have no a dictionary in the localStorage, you have to store it by language!', 'background:lightgreen');
             })
                 .fail(() => console.warn(`Cannot get file from ${path}`));
@@ -53,7 +83,7 @@ function addForm() {
 /**
  * Get the part of dictionary containing words of selected language
  */
-function getLangWords(){
+function getLangWords() {
     return getData(dict => dict[getTargetLanguage()]);
 }
 /**  Вставляет список слов в html.
@@ -118,6 +148,20 @@ function hideInput($wordInput) {
             $noticeChooseLanguage.fadeIn();
             return false;
         });
+}
+/**
+ * Set an initial lang choice
+ */
+function setLangInit() {
+    const $sectLang = $(`#${sectionChooseLangId}`),
+        $chooseLangHeader = $sectLang.find('h4');
+    let selId;
+    $(Object.keys(languages)).each((index, lang) => {
+        selId = `lang-${lang}`;
+        $chooseLangHeader.eq(index).append(makeSelect(selId));
+        $(`#${selId}`).append(makeLangSelectOptions());
+    });
+    $sectLang.append(setButton('save'));
 }
 /**
  * show the word initial input if was hidden before as language hadn't chosen.

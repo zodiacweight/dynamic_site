@@ -1,9 +1,24 @@
+/**
+ * 
+ * @param {String} lang 
+ */
+function getDictionary(lang){
+    return localStorage.getItem(`dict_${lang}`);
+}
+/**
+ * 
+ */
 function getLang() {
     output('getLang', arguments);
     return localStorage.getItem('lang')
 }
+/**
+ * 
+ * @param {*} dict -- data
+ * @param {*} lang -- language
+ */
 function storeDictionary(dict, lang){
-    localStorage.setItem('');
+    localStorage.setItem(`dict_${lang}`, dict);
 }
 /**
  * store chosen language in DB

@@ -11,11 +11,18 @@ const btnApplySelector = 'btn-apply',
     newWordId = 'new-word',
     newWordSentencesId = 'new-word-sentences',
     $noticeChooseLanguage = $('#notice-choose_language'),
+    sectionChooseLangId = 'section-choose-language',
+    languages = {
+        english:'English',
+        portuguese:'Portugues'
+    },
     //
     addWordStr = "addWord",
     addWordFormStr = "addWordForm",
     activeClass = 'active',
     $forms = $("#forms"),
+    // section above view
+    $mainSection = $('#main'),
     // get container for dynamic contente
     $view = $('#view'),
     // get container for translated content

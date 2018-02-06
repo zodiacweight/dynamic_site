@@ -66,6 +66,25 @@ function createNewWordList(words, substring) {
     return [list, sentences, wordsLen];
 }
 /**
+ * 
+ * @param {String} id 
+ */
+function makeSelect(id) {
+    return `<select id="${id}">
+    <option value="">-choose-</option>
+</select>`;
+}
+/**
+ * Create options for languages listing
+ */
+function makeLangSelectOptions() {
+    var langList = '';
+    Object.keys(languages).forEach(lang => {
+        langList += `<option value="${lang}">${languages[lang]}</option>`;
+    });
+    return langList;
+}
+/**
  * Creates list containing translated words
  * @param {*} targetWordValue 
  */
