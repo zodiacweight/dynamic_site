@@ -265,3 +265,16 @@ function keepNewWordInputSynchronized(event) {
         return event.target;
     }
 }
+/**
+ * Make initial languages choice
+ */
+function setInitLangs(currentSel) {
+    // all selects
+    const $langSelects = $(langSelects);
+    // find opposite select
+    $langSelects.eq($langSelects.index(currentSel) ? 0 : 1)
+        // find value which was chosen in the first select
+        .find(`option[value="${$(currentSel).val()}"]`)
+        // remove that value in order not to choose the same
+        .remove();
+}

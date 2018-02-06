@@ -12,6 +12,7 @@ const btnApplySelector = 'btn-apply',
     newWordSentencesId = 'new-word-sentences',
     $noticeChooseLanguage = $('#notice-choose_language'),
     sectionChooseLangId = 'section-choose-language',
+    langSelects = `#${sectionChooseLangId} select`,
     languages = {
         english:'English',
         portuguese:'Portugues'
