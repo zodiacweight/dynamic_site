@@ -24,9 +24,10 @@ function storeDictionary(dict, lang){
  * store chosen languages set in DB
  */
 function storeLanguagesSet() {
-    output('storeLanguagesSet', arguments);
+    output('storeLanguagesSet', arguments, 'lime');
     const lngsType = ['native', 'foreign'],
         langs = {};
+    // go through all (2) selects
     $(langSelects).each((index, select) => {
         langs[lngsType[index]] = $(select).val();
     }); 
@@ -38,7 +39,7 @@ function storeLanguagesSet() {
  * @param {*} element 
  */
 function storeWord() {
-    output('storeWord', arguments);
+    output('storeWord', arguments, 'darkred');
     const nativeWord = $(`#${wordId}`).val(),
         translatedValue = $(`#${newWordId}`).val(),
         $textAreas = $(`#${newWordSentencesId} textarea`);

@@ -97,11 +97,18 @@ $(function () {
     });
     // changing the language in the initial lists (native/foregn)
     $mainSection.on('change', langSelects, function () {
-        setInitLangs(this);
+        checkInitLangs(this);
     })  // store languages in localStorage
         .on('click', `#${btnSaveSelector}`, () => {
-            storeLanguagesSet();
-            setMainInterface()
+            
+            if (storeSelects.getState()=='canceled'){
+                alert('You have chosen the same language');
+                return false;
+            } else {
+                console.log('state=>', storeSelects.getState());
+                storeLanguagesSet();
+                setMainInterface();
+            }
         });
 
 });
