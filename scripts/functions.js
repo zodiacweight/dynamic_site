@@ -284,10 +284,18 @@ function keepNewWordInputSynchronized(event) {
 function setInitLangs(currentSel) {
     // all selects
     const $langSelects = $(langSelects);
+    
+    if ($langSelects.eq(0).val() == $langSelects.eq(1).val()) {
+        // alert('You have chosen the same language');
+        $langSelects.addClass('border-red-outline');
+        return false;
+    }
+
+    /* let index = $langSelects.index(currentSel) ? 0 : 1;
     // find opposite select
-    $langSelects.eq($langSelects.index(currentSel) ? 0 : 1)
+    $langSelects.eq(index)
         // find value which was chosen in the first select
         .find(`option[value="${$(currentSel).val()}"]`)
         // remove that value in order not to choose the same
-        .remove();
+        .remove(); */
 }

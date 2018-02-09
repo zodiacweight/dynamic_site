@@ -4,6 +4,9 @@
     /* padding: 4px 8px 5px 8px !important; */
     /* margin: 0 -4px -1px -4px; */
 }
+.border-red-outline{
+    outline: solid red;
+}
 .btn-apply{
     /* box-shadow: -2px 0 14px rgba(190, 215, 61, 1); */
     font-weight: bold;
