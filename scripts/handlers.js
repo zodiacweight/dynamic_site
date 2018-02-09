@@ -13,10 +13,10 @@ $(function () {
             return;
         }
 
-        if (!$chooseLanguageSelect.val()) {
+        /* if (!$chooseLanguageSelect.val()) {
             hideInput($wordInput);
             return;
-        }
+        } */
 
         if (targetWordValue.length > 2) {
 
@@ -105,10 +105,9 @@ $(function () {
                 alert('You have chosen the same language');
                 return false;
             } else {
-                console.log('state=>', storeSelects.getState());
                 storeLanguagesSet();
-                setMainInterface();
+                setMainView();
             }
-        });
-
+        })
+        .on('click', `#${cmdSettingsLang}`, setInitView);
 });

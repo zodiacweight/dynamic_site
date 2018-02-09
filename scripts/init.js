@@ -1,12 +1,15 @@
 // 
-const btnApplySelector = 'btn-apply',
+const
+    addWordId = 'addWordStr',
+    btnApplySelector = 'btn-apply',
     btnCancelSelector = 'btn-cancel',
     btnEditSelector = 'btn-edit',
     btnSaveSelector = 'btn-save',
     btnSaveXtraSelector = 'btn-save-xtra',
     btnAttachSelector = 'btn-attach',
+    cmdSettingsLang = 'command-settings-langs',
+    hdrLanguage = 'header-language',
     inputAttachSelector = 'input-attach',
-    addWordId = 'addWordStr',
     wordId = 'word',
     newWordId = 'new-word',
     newWordSentencesId = 'new-word-sentences',
@@ -14,8 +17,8 @@ const btnApplySelector = 'btn-apply',
     sectionChooseLangId = 'section-choose-language',
     langSelects = `#${sectionChooseLangId} select`,
     languages = {
-        english:'English',
-        portuguese:'Portugues',
+        english: 'English',
+        portuguese: 'Portugues',
         russian: 'Русский'
     },
     //

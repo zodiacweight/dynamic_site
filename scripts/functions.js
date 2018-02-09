@@ -1,31 +1,16 @@
 /**
  * 
- * @param {*} dictionary 
- * @param {*} langs 
  */
-function setInitInterface(dictionary, langs){
-    const tmpl = dictionary ? 'main' : 'settings';
-    // get template
-    $.get(`tmpl/${tmpl}.html`).done(contents => {
-        $mainSection.html(contents);
-        if (langs) {
-            // create lang list
-            setLangsInfo()
-        } else {
-            setLangInit();
-        }
-    })
-        .fail(() => console.warn(`Cannot get ${tmpl}.html file`));
-}
-function setMainInterface(){
-    $.get(`tmpl/main.html`).done(contents => {
-        $mainSection.html(contents);
-        setLangsInfo();
-    })
-        .fail(() => console.warn(`Cannot get mai}.html file`));
-}
 function setLangsInfo(){
-    $chooseLanguageSelect.append('<div>Native to Foreign</div>');
+    output('setLangsInfo', arguments, 'green');
+    const langs = getLang();
+    $(Object.keys(langs)).each((index, element) => {
+        console.log({
+            data: index+':'+element,
+            selector: $(`#${hdrLanguage}`).find(`span[data-lang="${element}"]`),
+            text: langs[element]
+        });
+    });
 }
 /** 
  * After a first call this function turnes into the getData function
@@ -44,7 +29,7 @@ function initData() { // becomes getData after first calling
     }
     // no stored dictionary
     // show settings
-    setInitInterface(dictionary, langs);
+    setInitView(dictionary, langs);
     //
     const path = "jsons/dictionary.json";
     // после первого вызова: getData

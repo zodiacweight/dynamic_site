@@ -3,14 +3,14 @@
  * @param {String} lang 
  */
 function getDictionary(lang){
-    return localStorage.getItem(`dict_${lang}`);
+    return JSON.parse(localStorage.getItem(`dict_${lang}`));
 }
 /**
  * 
  */
 function getLang() {
     output('getLang', arguments);
-    return localStorage.getItem('lang')
+    return JSON.parse(localStorage.getItem('langs'));
 }
 /**
  * 
