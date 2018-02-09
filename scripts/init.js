@@ -10,7 +10,7 @@ const btnApplySelector = 'btn-apply',
     wordId = 'word',
     newWordId = 'new-word',
     newWordSentencesId = 'new-word-sentences',
-    $noticeChooseLanguage = $('#notice-choose_language'),
+    //$noticeChooseLanguage = $('#notice-choose_language'),
     sectionChooseLangId = 'section-choose-language',
     langSelects = `#${sectionChooseLangId} select`,
     languages = {
@@ -30,6 +30,7 @@ const btnApplySelector = 'btn-apply',
     // get container for translated content
     $sentencesTranslated = $('#sentences-translated'),
     // form
-    $chooseLanguageForm = $("#chooseLanguage"),
+    $chooseLanguageForm = $("#chooseLanguage")
     // select containing languages
-    $chooseLanguageSelect = $chooseLanguageForm.find('select');
+    // ,$chooseLanguageSelect = $chooseLanguageForm.find('select')
+    ;

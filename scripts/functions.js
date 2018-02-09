@@ -112,9 +112,9 @@ function makeWordsList(dictionary, substring) {
     // 
     if (!words) {
         console.warn('No words', {
-            languages: languages,
+            languages: languages/* ,
             targetLang: getTargetLanguage(),
-            dict: languages[getTargetLanguage()]
+            dict: languages[getTargetLanguage()] */
         });
         return false;
     }
@@ -141,19 +141,19 @@ function clearList() {
     $sentencesTranslated.html("");
 }
 // get chosen language string
-function getTargetLanguage() {
+/* function getTargetLanguage() {
     output('getTargetLanguage', arguments);
     return $chooseLanguageSelect.val() || console.warn('No selected value', {
         $chooseLanguageSelect: $chooseLanguageSelect,
         select: $chooseLanguageSelect.find("option:selected"),
         value: $chooseLanguageSelect.find("option:selected").val()
     });
-}
+} */
 /**
  * hide the word initial input as language hadn't chosen.
  * @param {*}  
  */
-function hideInput($wordInput) {
+/* function hideInput($wordInput) {
     output('hideInput', arguments);
     $wordInput
         .attr('disabled', 'disabled')
@@ -161,7 +161,7 @@ function hideInput($wordInput) {
             $noticeChooseLanguage.fadeIn();
             return false;
         });
-}
+} */
 /**
  * Set an initial lang choice
  */
