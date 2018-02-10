@@ -1,10 +1,12 @@
 /**
  * 
  */
-function setLangsInfo(){
+function setLangsInfo(langs){
     output('setLangsInfo', arguments, 'green');
-    const langs = getLang(),
-        $langsBlock =  $(`#${hdrLanguage}`);
+    if (!langs) {
+        langs = getLang();
+    }
+    const $langsBlock =  $(`#${hdrLanguage}`);
     $(Object.keys(langs)).each((index, element) => {
         console.log({
             data: index+':'+element,

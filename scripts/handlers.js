@@ -109,5 +109,7 @@ $(function () {
                 setMainView();
             }
         })
-        .on('click', `#${cmdSettingsLang}`, setInitView);
+        .on('click', `#${cmdSettingsLang}`, () => {
+            setInitView(false, getLang());
+        });
 });

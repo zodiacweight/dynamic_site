@@ -1,25 +1,20 @@
 /**
  * 
- * @param {Object | Event} dictionary 
+ * @param {Object | Boolean} dictionary 
  * @param {String} langs 
  */
 function setInitView(dictionary, langs){
     output('setInitView', arguments, 'blue');
-    // fixme: not very reliabe approach to check if the dictionary is Event or data :(
-    const tmpl = ( !dictionary || 'type' in dictionary )
-        ? 'settings' 
-        : 'main';
-    console.log('check it=>', {
-        dictionary:dictionary,
-        typeof: typeof dictionary,
-        file: `tmpl/${tmpl}.html`
-    });
-        // get template
+    //
+    const tmpl = (dictionary)
+        ? 'main' 
+        : 'settings';
+    // get template
     $.get(`tmpl/${tmpl}.html`).done(contents => {
         $mainSection.html(contents);
         if (langs) {
             // create lang list
-            setLangsInfo();
+            setLangsInfo(langs);
         } else {
             setLangInit();
         }
