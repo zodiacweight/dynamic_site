@@ -3,13 +3,15 @@
  */
 function setLangsInfo(){
     output('setLangsInfo', arguments, 'green');
-    const langs = getLang();
+    const langs = getLang(),
+        $langsBlock =  $(`#${hdrLanguage}`);
     $(Object.keys(langs)).each((index, element) => {
         console.log({
             data: index+':'+element,
-            selector: $(`#${hdrLanguage}`).find(`span[data-lang="${element}"]`),
+            selector: $langsBlock.find(`span[data-lang="${element}"]`),
             text: langs[element]
         });
+       $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
 }
 /** 
