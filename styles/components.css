@@ -99,6 +99,21 @@
     position: relative;
 }
 
+#section-choose-language select{
+    background: linear-gradient(to bottom, #fff, #eee);
+    margin-left: 4px;
+    padding: 4px;
+}
+
+#section-choose-language h4:nth-child(1),
+[data-lang="native"]{
+    color: #40c5ff;
+}
+#section-choose-language h4:nth-child(2),
+[data-lang="foreign"]{
+    color: #f7941d;
+}
+
 #sentences-translated{
     background-color: white;
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
