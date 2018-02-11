@@ -8,9 +8,19 @@ function getDictionary(lang){
 /**
  * 
  */
-function getLang() {
+function getLang(toArray) {
     output('getLang', arguments);
-    return JSON.parse(localStorage.getItem('langs'));
+    const langs = JSON.parse(localStorage.getItem('langs'));
+
+    if (toArray) {
+        const langKeys = Object.keys(langs);
+        return (langs && langKeys.length) 
+            ? langKeys.map(function(k){
+                return langs[k];
+            }) : null;
+    } else {
+        return langs;
+    }
 }
 /**
  * 

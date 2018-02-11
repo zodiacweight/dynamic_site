@@ -79,8 +79,8 @@ function makeSelect(id) {
  */
 function makeLangSelectOptions() {
     var langList = '';
-    Object.keys(languages).forEach(lang => {
-        langList += `<option value="${lang}">${languages[lang]}</option>`;
+    Object.keys(globals.languages).forEach(lang => {
+        langList += `<option value="${lang}">${globals.languages[lang]}</option>`;
     });
     return langList;
 }

@@ -110,6 +110,6 @@ $(function () {
             }
         })
         .on('click', `#${cmdSettingsLang}`, () => {
-            setInitView(false, getLang());
+            setInitView(false);
         });
 });

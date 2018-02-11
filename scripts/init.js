@@ -16,10 +16,12 @@ const
     //$noticeChooseLanguage = $('#notice-choose_language'),
     sectionChooseLangId = 'section-choose-language',
     langSelects = `#${sectionChooseLangId} select`,
-    languages = {
-        english: 'English',
-        portuguese: 'Portugues',
-        russian: 'Русский'
+    globals = {
+        languages : {
+            english: 'English',
+            portuguese: 'Portugues',
+            russian: 'Русский'
+        }
     },
     //
     addWordStr = "addWord",

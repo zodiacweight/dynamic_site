@@ -1,21 +1,3 @@
-/**
- * 
- */
-function setLangsInfo(langs){
-    output('setLangsInfo', arguments, 'green');
-    if (!langs) {
-        langs = getLang();
-    }
-    const $langsBlock =  $(`#${hdrLanguage}`);
-    $(Object.keys(langs)).each((index, element) => {
-        console.log({
-            data: index+':'+element,
-            selector: $langsBlock.find(`span[data-lang="${element}"]`),
-            text: langs[element]
-        });
-       $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
-    });
-}
 /** 
  * After a first call this function turnes into the getData function
  * Get json file, store as dictionary, get Lang
@@ -101,9 +83,7 @@ function makeWordsList(dictionary, substring) {
     // 
     if (!words) {
         console.warn('No words', {
-            languages: languages/* ,
-            targetLang: getTargetLanguage(),
-            dict: languages[getTargetLanguage()] */
+            'globals.languages': globals.languages
         });
         return false;
     }
@@ -155,13 +135,22 @@ function clearList() {
  * Set an initial lang choice
  */
 function setLangInit() {
+    output('setLangInit', arguments);
     const $sectLang = $(`#${sectionChooseLangId}`),
-        $chooseLangHeader = $sectLang.find('h4');
+        $chooseLangHeader = $sectLang.find('h4'),
+        activeLangs = getLang(true);
     let selId;
-    $(Object.keys(languages)).each((index, lang) => {
+    // 
+    $(Object.keys(globals.languages)).each((index, lang) => {
         selId = `lang-${lang}`;
+        // append select
         $chooseLangHeader.eq(index).append(makeSelect(selId));
-        $(`#${selId}`).append(makeLangSelectOptions());
+        const $selBlock = $(`#${selId}`);
+        $selBlock.append(makeLangSelectOptions())
+        // select option
+        if (activeLangs && activeLangs[index]) {
+            $selBlock.val(activeLangs[index]);
+        }
     });
     $sectLang.append(setButton('save'));
 }
@@ -280,4 +269,22 @@ function checkInitLangs(currentSel) {
     //
     $langSelects[`${action}Class`]('border-red-outline');
     storeSelects.dispatch({type:type});
+}
+/**
+ * 
+ */
+function setLangsInfo(langs){
+    output('setLangsInfo', arguments, 'green');
+    if (!langs) {
+        langs = getLang();
+    }
+    const $langsBlock =  $(`#${hdrLanguage}`);
+    $(Object.keys(langs)).each((index, element) => {
+        console.log({
+            data: index+':'+element,
+            selector: $langsBlock.find(`span[data-lang="${element}"]`),
+            text: langs[element]
+        });
+       $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
+    });
 }

@@ -6,8 +6,8 @@
 function setInitView(dictionary, langs){
     output('setInitView', arguments, 'blue');
     //
-    const tmpl = (dictionary)
-        ? 'main' 
+    const tmpl = (langs)
+        ? 'main'
         : 'settings';
     // get template
     $.get(`tmpl/${tmpl}.html`).done(contents => {
