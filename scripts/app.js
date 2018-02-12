@@ -1,8 +1,8 @@
 
-const getData = initData(), // return function 
+const dataStore = initData(), // return getter and setter 
     trans = $("#translation")[0];
 // store data in local dictionary
-getData();
+// getData();
 
 // ===============
 

@@ -100,13 +100,18 @@ $(function () {
         checkInitLangs(this);
     })  // store languages in localStorage
         .on('click', `#${btnSaveSelector}`, () => {
-            
+            //
             if (storeSelects.getState()=='canceled'){
                 alert('You have chosen the same language');
                 return false;
             } else {
-                storeLanguagesSet();
-                setMainView();
+                const langs = storeLanguagesSet();
+                // store language
+                if (dataStore.get()) {
+                    setMainView();
+                } else {
+                    loadDictionary(langs, setMainView);
+                }
             }
         })
         .on('click', `#${cmdSettingsLang}`, () => {

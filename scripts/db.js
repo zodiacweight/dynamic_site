@@ -1,15 +1,28 @@
+function loadDictionary(lang, callback){
+    output('loadDictionary', arguments,'rgb(215, 215, 0)');
+    // if not, get it from remote DB
+    $.get(`db/${lang.native}/${lang.foreign}.json`).done(dictionary => {
+        console.log('got dictionary=>', dictionary);
+        dataStore.set(storeDictionary(dictionary));
+        if (callback) {
+            callback();
+        }
+    })
+        .fail(() => console.warn(`Cannot get file from db/${lang.native}/${lang.foreign}.json`));
+}
 /**
  * 
  * @param {String} lang 
  */
-function getDictionary(lang){
-    return JSON.parse(localStorage.getItem(`dict_${lang}`));
+function getDictionary(){
+    output('getDictionary', arguments,'rgb(235, 235, 0)');
+    return JSON.parse(localStorage.getItem('dictionary'));
 }
 /**
  * 
  */
 function getLang(toArray) {
-    output('getLang', arguments);
+    output('getLang', arguments,'rgb(235, 235, 0)');
     const langs = JSON.parse(localStorage.getItem('langs'));
 
     if (langs && toArray) {
@@ -27,8 +40,10 @@ function getLang(toArray) {
  * @param {*} dict -- data
  * @param {*} lang -- language
  */
-function storeDictionary(dict, lang){
-    localStorage.setItem(`dict_${lang}`, dict);
+function storeDictionary(dict){
+    output('storeDictionary', arguments,'rgb(235, 235, 0)');
+    localStorage.setItem('dictionary', JSON.stringify(dict));
+    return dict;
 }
 /**
  * store chosen languages set in DB
@@ -43,6 +58,7 @@ function storeLanguagesSet() {
     }); 
     console.log('set langs',langs);
     localStorage.setItem('langs', JSON.stringify(langs));
+    return langs;
 }
 /**
  * 

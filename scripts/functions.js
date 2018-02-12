@@ -11,22 +11,32 @@ function initData() { // becomes getData after first calling
     let dictionary;
     // get dictionary from localStorage
     if (langs) {
-        dictionary = getDictionary(langs.foreign);
+        dictionary = getDictionary();
     }
     // no stored dictionary
     // show settings
     setInitView(langs);
     //
-    const path = "jsons/dictionary.json";
-    // после первого вызова: getData
-    return (callback, ...params) => {
-        output('getData', arguments, 'orange');
-        if (!callback) {
+    return {
+        get: function () {
+            output('getData.get', arguments, 'orange');
+            if (!dictionary) {
+                console.warn('Have no dictionary yet');
+                return false;
+            }
+            return dictionary;
+        },
+        set: function (dict) {
+            dictionary = dict;
+        }
+
+        // the first call
+        /* if (!callback) {
             function gotDict(dictionary) {
                 console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
             }
             // if there is a dict in localStorage
-            if (langs && (dictionary = getDictionary(langs.foreign))) {
+            if (langs && (dictionary = getDictionary())) {
                 gotDict(dictionary);
                 return true;
             }
@@ -38,7 +48,7 @@ function initData() { // becomes getData after first calling
                 console.log('%cIf you have no a dictionary in the localStorage, you have to store it by language!', 'background:lightgreen');
             })
                 .fail(() => console.warn(`Cannot get file from ${path}`));
-        } else {
+        } else { // all other calls
             if (dictionary) {
                 return callback(dictionary, ...params);
             } else {
@@ -49,7 +59,7 @@ function initData() { // becomes getData after first calling
                 })
                     .fail(() => console.warn(`Cannot get file from ${path}`));
             }
-        }
+        } */
     }
 }
 // attaches form if didn't do before
@@ -263,28 +273,28 @@ function checkInitLangs(currentSel) {
     // all selects
     const $langSelects = $(langSelects);
     //
-    $langSelects.eq(0).val() == $langSelects.eq(1).val() 
-        ? (type = 'cancel', action = 'add') 
+    $langSelects.eq(0).val() == $langSelects.eq(1).val()
+        ? (type = 'cancel', action = 'add')
         : (type = 'submit', action = 'remove');
     //
     $langSelects[`${action}Class`]('border-red-outline');
-    storeSelects.dispatch({type:type});
+    storeSelects.dispatch({ type: type });
 }
 /**
  * 
  */
-function setLangsInfo(langs){
+function setLangsInfo(langs) {
     output('setLangsInfo', arguments, 'green');
     if (!langs) {
         langs = getLang();
     }
-    const $langsBlock =  $(`#${hdrLanguage}`);
+    const $langsBlock = $(`#${hdrLanguage}`);
     $(Object.keys(langs)).each((index, element) => {
         console.log({
-            data: index+':'+element,
+            data: index + ':' + element,
             selector: $langsBlock.find(`span[data-lang="${element}"]`),
             text: langs[element]
         });
-       $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
+        $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
 }
