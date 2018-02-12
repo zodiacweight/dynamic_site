@@ -15,7 +15,7 @@ function initData() { // becomes getData after first calling
     }
     // no stored dictionary
     // show settings
-    setInitView(dictionary, langs);
+    setInitView(langs);
     //
     const path = "jsons/dictionary.json";
     // после первого вызова: getData

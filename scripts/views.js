@@ -1,9 +1,9 @@
 /**
- * 
+ * Set view -- Main or Settings
  * @param {Object | Boolean} dictionary 
  * @param {String} langs 
  */
-function setInitView(dictionary, langs){
+function setInitView(langs){
     output('setInitView', arguments, 'blue');
     //
     const tmpl = (langs)
