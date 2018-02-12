@@ -12,9 +12,9 @@ function getLang(toArray) {
     output('getLang', arguments);
     const langs = JSON.parse(localStorage.getItem('langs'));
 
-    if (toArray) {
+    if (langs && toArray) {
         const langKeys = Object.keys(langs);
-        return (langs && langKeys.length) 
+        return (langKeys.length) 
             ? langKeys.map(function(k){
                 return langs[k];
             }) : null;
