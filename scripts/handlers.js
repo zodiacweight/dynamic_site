@@ -105,13 +105,7 @@ $(function () {
                 alert('You have chosen the same language');
                 return false;
             } else {
-                const langs = storeLanguagesSet();
-                // store language
-                if (dataStore.get()) {
-                    setMainView();
-                } else {
-                    loadDictionary(langs, setMainView);
-                }
+                loadDictionary(storeLanguagesSet(), setMainView);
             }
         })
         .on('click', `#${cmdSettingsLang}`, () => {

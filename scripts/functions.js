@@ -16,50 +16,20 @@ function initData() { // becomes getData after first calling
     // no stored dictionary
     // show settings
     setInitView(langs);
-    //
+    // dataStore object
     return {
-        get: function () {
-            output('getData.get', arguments, 'orange');
+        get() {
+            output('dataStore.get', arguments, 'orange');
             if (!dictionary) {
                 console.warn('Have no dictionary yet');
                 return false;
             }
             return dictionary;
         },
-        set: function (dict) {
+        set(dict) {
+            output('dataStore.set', arguments, 'goldenrod');
             dictionary = dict;
         }
-
-        // the first call
-        /* if (!callback) {
-            function gotDict(dictionary) {
-                console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
-            }
-            // if there is a dict in localStorage
-            if (langs && (dictionary = getDictionary())) {
-                gotDict(dictionary);
-                return true;
-            }
-            // if not, get it from remote DB
-            $.get(path).done(json => {
-                dictionary = json;
-                gotDict(dictionary);
-                storeDictionary(dictionary);
-                console.log('%cIf you have no a dictionary in the localStorage, you have to store it by language!', 'background:lightgreen');
-            })
-                .fail(() => console.warn(`Cannot get file from ${path}`));
-        } else { // all other calls
-            if (dictionary) {
-                return callback(dictionary, ...params);
-            } else {
-                console.warn('Has NO dictionary');
-                $.get(path).done(json => {
-                    dictionary = json;
-                    callback(dictionary, ...params);
-                })
-                    .fail(() => console.warn(`Cannot get file from ${path}`));
-            }
-        } */
     }
 }
 // attaches form if didn't do before
