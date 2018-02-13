@@ -38,7 +38,7 @@ function initData() { // becomes getData after first calling
  * Ничего не возвращает.
 */
 function makeWordsList(dictionary, substring, currentWord) {
-    console.trace('makeWordsList', arguments);
+    console.trace('makeWordsList => creates and inserts translated words', arguments, 'lime');
     //console.trace('makeWordsList', {substring: substring});
     const words = dictionary[ // json
         languages[getTargetLanguage()] // portuguese | english
@@ -147,7 +147,9 @@ function createForm() {
 function addForm() {
     console.trace('addForm', arguments);
     //
-    if ($(`#${addWordFormStr}`).length) return;
+    if ($(`#${addWordFormStr}`).length) { console.log('No length');
+        return;
+    }
     //
     $chooseLanguage.after(`<form id="${addWordFormStr}">
     ${createFields()}
