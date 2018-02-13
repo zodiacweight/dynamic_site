@@ -148,6 +148,16 @@ function editTranslatedWordCancel(element) {
     handleTranslateWord(element);
 }
 /**
+ * Inserts list into #view
+ * @param {String} list 
+ */
+function insertWordsList(list){
+    output('insertWordsList', arguments);
+    $view.html(list);
+    $sentencesTranslated.html(sentences);
+    $view.append(setAttachedWord());
+}
+/**
  * Prevents the value of the new word input to be shorter than the 
  * word in the search string
  * @param {Object} event 
@@ -169,7 +179,7 @@ function keepNewWordInputSynchronized(event) {
  * Ничего не возвращает.
 */
 function makeWordsList(dictionary, substring) {
-    output('makeWordsList', arguments, 'violet');
+    output('makeWordsList => CREATES words list', arguments, 'violet');
     const words = getLangWords();
     // 
     if (!words) {
@@ -180,17 +190,10 @@ function makeWordsList(dictionary, substring) {
     }
     const [list, sentences, wordsLen] = createNewWordList(words, substring);
     //
-    if (list) {
-        $view.html(list);
-        $sentencesTranslated.html(sentences);
-        $view.append(setAttachedWord());
-    } else {
-        clearList();
-    }
+    list ? insertWordsList(list) : clearList();
     // 
     if (wordsLen === 1) {
-        $view.find('>.word').trigger('mouseenter');
-        //console.log('mouseenter');
+        $view.find('>.word').trigger('mouseenter'); //console.log('mouseenter');
     }
     return words;
 }
