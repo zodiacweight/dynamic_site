@@ -91,12 +91,12 @@ function makeLangSelectOptions() {
 function createWordsList(targetWordValue) {
     output('createWordsList', arguments, 'blue');
     let list = "";
-    // getData returns words list
-    Object.keys(getData(makeWordsList, targetWordValue)).forEach(word => {
+    // dataStore.get returns words list
+    Object.keys(dataStore.get(targetWordValue)).forEach(word => {
         if (word.indexOf(targetWordValue) !== -1) {
             list += `<div>${word}</div>`;
         }
-    });
+    }); console.log('list=>', list);
     return list;
 }
 /**

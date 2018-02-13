@@ -1,8 +1,6 @@
 
 const dataStore = initData(), // return getter and setter 
     trans = $("#translation")[0];
-// store data in local dictionary
-// getData();
 
 // ===============
 

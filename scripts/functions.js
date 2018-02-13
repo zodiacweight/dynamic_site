@@ -1,9 +1,9 @@
 /** 
- * After a first call this function turnes into the getData function
+ * After a first call this function turnes into the dataStore object having get/set
  * Get json file, store as dictionary, get Lang
  * @callback -- function to run inside after getting json
 */
-function initData() { // becomes getData after first calling
+function initData() {
     output('initData', arguments);
     // get lang
     const langs = getLang();
@@ -45,43 +45,18 @@ function addForm() {
     </form>`);
 }
 /**
- * Get the part of dictionary containing words of selected language
+ * Make initial languages choice
  */
-function getLangWords() {
-    return getData(dict => dict[getTargetLanguage()]);
-}
-/**  Вставляет список слов в html.
- * параметры: 
- * словарь (из json-данных);
- * подстрока в текстовом поле; 
- * переменная, означающая выбранный язык.
- * Ничего не возвращает.
-*/
-function makeWordsList(dictionary, substring) {
-    output('makeWordsList', arguments, 'violet');
-    const words = getLangWords();
-    // 
-    if (!words) {
-        console.warn('No words', {
-            'globals.languages': globals.languages
-        });
-        return false;
-    }
-    const [list, sentences, wordsLen] = createNewWordList(words, substring);
+function checkInitLangs(currentSel) {
+    // all selects
+    const $langSelects = $(langSelects);
     //
-    if (list) {
-        $view.html(list);
-        $sentencesTranslated.html(sentences);
-        $view.append(setAttachedWord());
-    } else {
-        clearList();
-    }
-    // 
-    if (wordsLen === 1) {
-        $view.find('>.word').trigger('mouseenter');
-        //console.log('mouseenter');
-    }
-    return words;
+    $langSelects.eq(0).val() == $langSelects.eq(1).val()
+        ? (type = 'cancel', action = 'add')
+        : (type = 'submit', action = 'remove');
+    //
+    $langSelects[`${action}Class`]('border-red-outline');
+    storeSelects.dispatch({ type: type });
 }
 // 
 function clearList() {
@@ -112,29 +87,6 @@ function clearList() {
         });
 } */
 /**
- * Set an initial lang choice
- */
-function setLangInit() {
-    output('setLangInit', arguments);
-    const $sectLang = $(`#${sectionChooseLangId}`),
-        $chooseLangHeader = $sectLang.find('h4'),
-        activeLangs = getLang(true);
-    let selId;
-    // 
-    $(Object.keys(globals.languages)).each((index, lang) => {
-        selId = `lang-${lang}`;
-        // append select
-        $chooseLangHeader.eq(index).append(makeSelect(selId));
-        const $selBlock = $(`#${selId}`);
-        $selBlock.append(makeLangSelectOptions())
-        // select option
-        if (activeLangs && activeLangs[index]) {
-            $selBlock.val(activeLangs[index]);
-        }
-    });
-    $sectLang.append(setButton('save'));
-}
-/**
  * show the word initial input if was hidden before as language hadn't chosen.
  */
 /* function showInput() {
@@ -149,6 +101,12 @@ function setLangInit() {
             .show(1000);
     });
 } */
+/**
+ * Get the part of dictionary containing words of selected language
+ */
+function getLangWords() {
+    return dataStore.get(/* dict => dict[getTargetLanguage()] */);
+}
 /**
  * 
  * @param {*} element 
@@ -189,6 +147,53 @@ function editTranslatedWordCancel(element) {
     output('editTranslatedWordCancel', arguments);
     handleTranslateWord(element);
 }
+/**
+ * Prevents the value of the new word input to be shorter than the 
+ * word in the search string
+ * @param {Object} event 
+ */
+function keepNewWordInputSynchronized(event) {
+    output('keepNewWordInputSynchronized', arguments);
+    const wordValue = $(`#${wordId}`).val();
+    // console.log(event.target, event.target.value, event.target.value.length);
+    if (event.target.value.length < wordValue.length) {
+        event.target.value = wordValue;
+        return event.target;
+    }
+}
+/**  Вставляет список слов в html.
+ * параметры: 
+ * словарь (из json-данных);
+ * подстрока в текстовом поле; 
+ * переменная, означающая выбранный язык.
+ * Ничего не возвращает.
+*/
+function makeWordsList(dictionary, substring) {
+    output('makeWordsList', arguments, 'violet');
+    const words = getLangWords();
+    // 
+    if (!words) {
+        console.warn('No words', {
+            'globals.languages': globals.languages
+        });
+        return false;
+    }
+    const [list, sentences, wordsLen] = createNewWordList(words, substring);
+    //
+    if (list) {
+        $view.html(list);
+        $sentencesTranslated.html(sentences);
+        $view.append(setAttachedWord());
+    } else {
+        clearList();
+    }
+    // 
+    if (wordsLen === 1) {
+        $view.find('>.word').trigger('mouseenter');
+        //console.log('mouseenter');
+    }
+    return words;
+}
 //
 function manageSentence(element, eventType) {
     output('manageSentence', arguments);
@@ -223,34 +228,6 @@ function removeForm() {
     if ($form.length) $form.remove();
 }
 /**
- * Prevents the value of the new word input to be shorter than the 
- * word in the search string
- * @param {Object} event 
- */
-function keepNewWordInputSynchronized(event) {
-    output('keepNewWordInputSynchronized', arguments);
-    const wordValue = $(`#${wordId}`).val();
-    // console.log(event.target, event.target.value, event.target.value.length);
-    if (event.target.value.length < wordValue.length) {
-        event.target.value = wordValue;
-        return event.target;
-    }
-}
-/**
- * Make initial languages choice
- */
-function checkInitLangs(currentSel) {
-    // all selects
-    const $langSelects = $(langSelects);
-    //
-    $langSelects.eq(0).val() == $langSelects.eq(1).val()
-        ? (type = 'cancel', action = 'add')
-        : (type = 'submit', action = 'remove');
-    //
-    $langSelects[`${action}Class`]('border-red-outline');
-    storeSelects.dispatch({ type: type });
-}
-/**
  * 
  */
 function setLangsInfo(langs) {
@@ -267,4 +244,27 @@ function setLangsInfo(langs) {
         });
         $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
+}
+/**
+ * Set an initial lang choice
+ */
+function setLangInit() {
+    output('setLangInit', arguments);
+    const $sectLang = $(`#${sectionChooseLangId}`),
+        $chooseLangHeader = $sectLang.find('h4'),
+        activeLangs = getLang(true);
+    let selId;
+    // 
+    $(Object.keys(globals.languages)).each((index, lang) => {
+        selId = `lang-${lang}`;
+        // append select
+        $chooseLangHeader.eq(index).append(makeSelect(selId));
+        const $selBlock = $(`#${selId}`);
+        $selBlock.append(makeLangSelectOptions())
+        // select option
+        if (activeLangs && activeLangs[index]) {
+            $selBlock.val(activeLangs[index]);
+        }
+    });
+    $sectLang.append(setButton('save'));
 }
