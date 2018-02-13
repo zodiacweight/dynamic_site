@@ -151,7 +151,7 @@ function editTranslatedWordCancel(element) {
  * Inserts list into #view
  * @param {String} list 
  */
-function insertWordsList(list){
+function insertWordsList(list, sentences){
     output('insertWordsList', arguments);
     $view.html(list);
     $sentencesTranslated.html(sentences);
@@ -178,7 +178,7 @@ function keepNewWordInputSynchronized(event) {
  * переменная, означающая выбранный язык.
  * Ничего не возвращает.
 */
-function makeWordsList(dictionary, substring) {
+function makeWordsList(substring) {
     output('makeWordsList => CREATES words list', arguments, 'violet');
     const words = getLangWords();
     // 
@@ -190,7 +190,7 @@ function makeWordsList(dictionary, substring) {
     }
     const [list, sentences, wordsLen] = createNewWordList(words, substring);
     //
-    list ? insertWordsList(list) : clearList();
+    list ? insertWordsList(list, sentences) : clearList();
     // 
     if (wordsLen === 1) {
         $view.find('>.word').trigger('mouseenter'); //console.log('mouseenter');

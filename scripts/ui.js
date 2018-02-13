@@ -25,6 +25,26 @@ function createForm() {
     </form>`;
 }
 /**
+ * 
+ * @param {*} translatedWord 
+ * @param {*} sentences 
+ * @param {*} list 
+ * @param {*} sent 
+ */
+function setSentence(translatedWord, sentences, list, sent){
+    if (!sent) {
+        sent = '&nbsp;';
+    } else if (Array.isArray(sent)){
+        sent = sent.join('\n');
+    }
+    sentences += `
+        <div class='wrapper' class="sentence">${sent}</div>`;
+    list += `
+        <div class='wrapper'>
+            <span class="translatedWord">${translatedWord}</span>
+        </div>`;
+}
+/**
  * Creates words' list
  * @param {Object} words 
  * @param {String} substring 
@@ -45,17 +65,26 @@ function createNewWordList(words, substring) {
             ++wordsLen;
             sentences += `
                 <div class="sentences">`;
-            //console.log('word set=>', words[word]);
-            words[word][0].forEach((translatedWord, index) => {
-                // console.log("words[wprd]: ", words[word]);
-                const sentence = words[word][1][index] || '&nbsp;';
-                sentences += `
-                    <div class='wrapper' class="sentence">${sentence}</div>`;
-                list += `
-                    <div class='wrapper'>
-                        <span class="translatedWord">${translatedWord}</span>
-                    </div>`;
-            });
+            console.log('word set=>', { 'words[word]': words[word], 'words[word][0]': words[word][0] });
+            if (Array.isArray(words[word])) {
+                words[word][0].forEach((translatedWord, index) => {
+                    setSentence(translatedWord, sentences, list, words[word][1][index]);
+                    // console.log("words[wprd]: ", words[word]);
+                    /* const sentence = words[word][1][index] || '&nbsp;';
+                    sentences += `
+                        <div class='wrapper' class="sentence">${sentence}</div>`;
+                    list += `
+                        <div class='wrapper'>
+                            <span class="translatedWord">${translatedWord}</span>
+                        </div>`; */
+                });
+            } else if (toString.call(words[word]) === '[object Object]'){
+                Object.keys(words[word]).forEach(translatedWord => {
+                    setSentence(translatedWord, sentences, list, words[word][translatedWord]);
+                });
+            } else {
+                console.warn('words[word] is not either Array nor Object...');
+            }
             list += `
                 </section>
             </div>`;

@@ -8,17 +8,13 @@
             "Maybe there will be some statues or figures of granite. Может быть, будут статуи или фигуры из гранита."
         ]
     ],
-    "грызть": [
-        [
-            "gnaw",
-            "word2"
-        ],
-        [
+    "грызть": {
+        "gnaw":[
             "You shouldn't gnaw lollipops. - Не стоит грызть леденцы.",
             "You can broke your teeth by gnawing hard sweets. - Можно сломать зубы, грызя твердые сладости.",
             "Stupid mice gnawed the electric cables from that they had nothing to do and so they were hit by electricity and died. - Глупые мыши грызли электрические провода от нечего делать, и так их ударило током, и они погибли."
         ]
-    ],
+    },
     "грызун": {
         "gnawz": [
             "A rat is a gnawz. - Крыса грызун.",

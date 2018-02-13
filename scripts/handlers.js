@@ -55,8 +55,14 @@ $(function () {
            //
            if (targetWordValue.length > 2) {
                const list = createWordsList(targetWordValue);
+               if (list) {
+                    makeWordsList(targetWordValue);
+                    removeForm();
+               } else {
+                   addForm();
+               }
                // remove or add form depending wheter does it added already or not
-               window[list ? 'removeForm' : 'addForm']();
+               // window[list ? 'removeForm' : 'addForm']();
            } else {
                // it checks inside if the button exitss
                removeForm();
