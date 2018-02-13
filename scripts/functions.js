@@ -237,11 +237,11 @@ function setLangsInfo(langs) {
     }
     const $langsBlock = $(`#${hdrLanguage}`);
     $(Object.keys(langs)).each((index, element) => {
-        console.log({
+        /*console.log({
             data: index + ':' + element,
             selector: $langsBlock.find(`span[data-lang="${element}"]`),
             text: langs[element]
-        });
+        });*/
         $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
 }

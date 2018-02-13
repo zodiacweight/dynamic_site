@@ -6,7 +6,7 @@ const dataStore = initData(), // return getter and setter
 
 const { createStore } = Redux,
     reducerSelectsValues = (state = {}, action) => {
-        console.log('reducerSelectsValues reducer =>', { state: state, action: action });
+        // console.log('reducerSelectsValues reducer =>', { state: state, action: action });
         switch (action.type) {
             case 'cancel':
                 state = 'canceled';
