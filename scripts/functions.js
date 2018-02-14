@@ -197,7 +197,11 @@ function makeWordsList(substring) {
     }
     return words;
 }
-//
+/**
+ * 
+ * @param {*} element 
+ * @param {*} eventType 
+ */
 function manageSentence(element, eventType) {
     output('manageSentence', arguments);
     if (element.tagName.toLowerCase() == 'span') {
