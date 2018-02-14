@@ -189,6 +189,9 @@ function makeWordsList(substring) {
         return false;
     }
     const [list, sentences, wordsLen] = createNewWordList(words, substring);
+    console.log('check mkWL=>',{
+        list:list, sentences:sentences, wordsLen:wordsLen
+    });
     //
     list ? insertWordsList(list, sentences) : clearList();
     // 

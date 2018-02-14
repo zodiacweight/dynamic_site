@@ -1,3 +1,6 @@
 {
-    
+    "Olá":["hello"],
+    "Tchau":["goodbye"],
+    "por favor":["please"],
+    "obrigado":["thank you"]
 }
