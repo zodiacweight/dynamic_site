@@ -186,7 +186,11 @@ function editTranslatedWordCancel(element) {
     console.trace('editTranslatedWordCancel', arguments);
     handleTranslateWord(element);
 }
-//
+/**
+ * 
+ * @param {HTMLElement} element => div.word || span.translatedWord // barsetta, caseino
+ * @param {Event} eventType => mouseenter || mouseleave
+ */
 function manageSentence(element, eventType) {
     console.trace('manageSentence', arguments);
     if (element.tagName.toLowerCase() == 'span') {
