@@ -14,6 +14,7 @@
 }
 
 #main{
+    clear: both;
     float: left;
 }
 
@@ -136,8 +137,8 @@
 }
 
 #view {
+    clear: both;
     float: left;
-    /* background: rgb(217, 217, 217); */
     font-size: 1.1em;
     margin-top: 20px;
     padding: 4px;
