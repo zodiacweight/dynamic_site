@@ -43,9 +43,10 @@ $(function () {
             setInitView(false);
         })
         // Creates words list and add / remove form
-       .on('input keyup', `#${wordId}`, e => { // calling on jQuery object
-           //console.log("input: ", e.target.value);
-           const $wordInput = $(e.target),
+       .on('input keyup', `#${wordId}`, // input#word
+            event => { // calling on jQuery object
+           //console.log("input: ", event.target.value);
+           const $wordInput = $(event.target),
                targetWordValue = $wordInput.val(),
                disabled = 'disabled';
            

@@ -44,6 +44,7 @@ function setSentence(translatedWord, sentences, list, sent) {
         <div class='wrapper'>
             <span class="translatedWord">${translatedWord}</span>
         </div>`;
+    return [sentences, list];
 }
 /**
  * Creates words' list
@@ -73,11 +74,11 @@ function createNewWordList(words, substring) {
             });
             if (Array.isArray(words[word])) {
                 words[word][0].forEach((translatedWord,index)=>{
-                    setSentence(translatedWord, sentences, list, words[word][1][index]);
+                    [sentences, list] = setSentence(translatedWord, sentences, list, words[word][1][index]);
                 });
             } else if (toString.call(words[word]) === '[object Object]') {
                 Object.keys(words[word]).forEach(translatedWord=>{
-                    setSentence(translatedWord, sentences, list, // ["A rat is a gnawz. - Крыса грызун.", "Следующее предложение"]
+                    [sentences, list] = setSentence(translatedWord, sentences, list, // ["A rat is a gnawz. - Крыса грызун.", "Следующее предложение"]
                     words[word][translatedWord]);
                 });
             } else {
