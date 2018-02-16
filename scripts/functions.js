@@ -62,7 +62,7 @@ function checkInitLangs(currentSel) {
 function clearList() {
     output('clearList', arguments, "darkkhaki");
     $view.html("");
-    $sentencesTranslated.html("");
+    $sentencesTranslated().html("");
 }
 // get chosen language string
 /* function getTargetLanguage() {
@@ -154,7 +154,7 @@ function editTranslatedWordCancel(element) {
 function insertWordsList(list, sentences){
     output('insertWordsList', arguments);
     $view.html(list);
-    $sentencesTranslated.html(sentences);
+    $sentencesTranslated().html(sentences);
     $view.append(setAttachedWord());
 }
 /**
@@ -210,7 +210,7 @@ function manageSentence(element, eventType) {
     if (element.tagName.toLowerCase() == 'span') {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent('.wrapper').index(),
-            $sentence = $sentencesTranslated
+            $sentence = $sentencesTranslated()
                 .find('.sentences')
                 .eq(indexWord)
                 .find('.wrapper').eq(indexSentence);
@@ -218,7 +218,7 @@ function manageSentence(element, eventType) {
             $sentence.fadeIn(200)
             : $sentence.hide();
         // manage pseudoelement :before
-        $sentencesTranslated.toggleClass('initial');
+        $sentencesTranslated().toggleClass('initial');
     } else {
         if (eventType == 'mouseenter') {
             if (!$(element).hasClass(activeClass)) {

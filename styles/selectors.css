@@ -40,10 +40,9 @@ main > div {
 }
 
 section > .wrapper{
-    background: rgb(93, 103, 124);
+    background: rgb(130,140,140);
+    /* box-shadow: 4px 4px 10px rgba(0,0,0,0.7); */
     color: white;
-    margin-bottom: 1px;
-    /* margin-left: 10px; */
     padding: 11px 14px 11px 10px;
 }
 

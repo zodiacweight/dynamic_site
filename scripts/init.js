@@ -33,7 +33,7 @@ const
     // get container for dynamic contente
     $view = $('#view'),
     // get container for translated content
-    $sentencesTranslated = $('#sentences-translated'),
+    $sentencesTranslated = () => $('#sentences-translated'),
     // form
     $chooseLanguageForm = $("#chooseLanguage")
     // select containing languages
