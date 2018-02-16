@@ -202,7 +202,7 @@ function makeWordsList(substring) {
 }
 /**
  * 
- * @param {*} element 
+ * @param {*} element .word || .wrapper >span'
  * @param {*} eventType 
  */
 function manageSentence(element, eventType) {
