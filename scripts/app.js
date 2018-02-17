@@ -24,7 +24,7 @@ const { createStore } = Redux,
                 return state;
         }
     },
-    reducerEditWord = (state = {}, action) => {
+    /* reducerEditWord = (state = {}, action) => {
         switch (action.type) {
             case 'cancel':
                 state = 'canceled';
@@ -42,9 +42,9 @@ const { createStore } = Redux,
                 state = 'edited';
                 return state;
         }        
-    },
-    storeSelects = createStore(reducerSelectsValues),
-    storeWordEdit = createStore(reducerEditWord);
+    }, */
+    storeSelects = createStore(reducerSelectsValues)
+    /*, storeWordEdit = createStore(reducerEditWord) */;
 
 // ===============
 

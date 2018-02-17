@@ -8,7 +8,7 @@ function initData() {
     // get lang
     const langs = getLang();
     // var to store dictionary
-    let dictionary, 
+    let dictionary,
         editor = {};
     // get dictionary from localStorage
     if (langs) {
@@ -31,14 +31,17 @@ function initData() {
             output('dataStore.set', arguments, 'goldenrod');
             dictionary = dict;
         },
-        editor:{
+        editor: {
             get(index) {
-                return (index) 
+                return (index >= 0)
                     ? editor[index]
                     : editor;
             },
             set(index, value) {
                 editor[index] = value;
+            },
+            remove(index) {
+                delete editor[index];
             }
         }
     }
@@ -129,13 +132,13 @@ function getNativeWord(element) {
 }
 /**
  * 
- * @param {*} element 
+ * @param {HTMLElement} btn 
  * @param {*} add 
  */
-function handleTranslateWord(element, add) {
+function handleTranslateWord(btn, add) {
     output('handleTranslateWord', arguments);
-    var $nativeWordSpan = getNativeWord(element),
-        classAction = 'remove',
+    const $nativeWordSpan = getNativeWord(btn);
+    let classAction = 'remove',
         btnEditClassAction = 'add',
         editableState = false;
     if (add) {
@@ -147,31 +150,50 @@ function handleTranslateWord(element, add) {
         $nativeWordSpan.next(`.${btnApplySelector}`).remove();
     }
     $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
-    $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);
+    $(btn)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);
+    return $nativeWordSpan;
 }
 /**
- * 
- * @param {*} btnEdit 
+ * return jQuery object, index
+ * @param {HTMLElement} btn 
+ */
+function indexEditorBtn(btn) {
+    output('indexEditorBtn', arguments);
+    const $btn = $(btn),
+        btnIndex = $btn.parent('.word').index();
+    return [$btn, btnIndex];
+}
+/**
+ * Store edited word, transorm span to the editable area
+ * @param {HTMLElement} btnEdit 
  */
 function editTranslatedWord(btnEdit) {
     output('editTranslatedWord', arguments);
-    storeWordEdit.dispatch({ type: 'edit' }); // default
-    const $btnEdit = $(btnEdit),
-        btnIndex = $btnEdit.parent('.word').index();
+    // storeWordEdit.dispatch({ type: 'edit' }); // default
+    //const $btnEdit = $(btnEdit), btnIndex = $btnEdit.parent('.word').index();
+    const [$btnEdit, btnIndex] = indexEditorBtn(btnEdit);
     dataStore.editor.set(btnIndex, $btnEdit.next().text());
-    console.log('get state=>',{ state:storeWordEdit.getState(), editorStored: dataStore.editor.get()});
+    console.log('get state=>', { $btnEdit:$btnEdit, btnIndex:btnIndex, editorStored: dataStore.editor.get() });
     handleTranslateWord(btnEdit, true);
 }
-//
-function editTranslatedWordCancel(element) {
+/**
+ * Get edited word back, transorm the editable area into span
+ * @param {HTMLElement} btnCancel 
+ */
+function editTranslatedWordCancel(btnCancel) {
     output('editTranslatedWordCancel', arguments);
-    handleTranslateWord(element);
+    const [$btnCancel, btnIndex] = indexEditorBtn(btnCancel),
+        storedValue = dataStore.editor.get(btnIndex);
+    
+    handleTranslateWord(btnCancel).text(storedValue);
+    dataStore.editor.remove(btnIndex);
+    console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
 }
 /**
  * Inserts list into #view
  * @param {String} list 
  */
-function insertWordsList(list, sentences){
+function insertWordsList(list, sentences) {
     output('insertWordsList', arguments);
     $view.html(list);
     $sentencesTranslated().html(sentences);
