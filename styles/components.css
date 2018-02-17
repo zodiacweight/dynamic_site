@@ -10,11 +10,38 @@
     color: rebeccapurple;
     display: block;
     min-height: 80px;
+    padding-right: 42px;
 }
 
+#main{
+    clear: both;
+    float: left;
+}
+
+#new-word-sentences {
+    max-width: 400px;
+    position:relative;
+}
+
+#new-word-sentences .add-textarea{
+ bottom: 40px;
+ border: none;
+ font-size: 20px;
+ font-weight: bold;
+ height: 32px;
+ position:absolute;
+ right: 8px;
+ width: 32px;
+}
+.add-textarea,
 #btn-save,
+#btn-save-xtra,
 .btn-attach{
     background-color: rgb(190, 215, 61);
+}
+#btn-save,
+#btn-save-xtra,
+.btn-attach{
     border: solid 1px transparent;
     border-radius: 5px;
     font-size: 1.2em;
@@ -22,6 +49,19 @@
     padding: 12px 20px;
 }
 
+#chooseLanguage > h4{
+    transform: translateY(-6px);
+}
+
+#chooseLanguage select{
+    background: #eee;
+    box-shadow: 0 -8px 28px rgba(200,200,200,1) inset;
+    border-radius: 4px;
+    color: brown;
+    padding: 8px 8px 8px 4px;
+    border: 0;
+    font-weight: 700;
+}
 #forms{
     margin-top: 140px;
     
@@ -60,16 +100,32 @@
     position: relative;
 }
 
+#section-choose-language select{
+    background: linear-gradient(to bottom, #fff, #eee);
+    margin-left: 4px;
+    padding: 4px;
+}
+
+#section-choose-language h4:nth-child(1),
+[data-lang="native"]{
+    color: #40c5ff;
+}
+#section-choose-language h4:nth-child(2),
+[data-lang="foreign"]{
+    color: #f7941d;
+}
+
 #sentences-translated{
     background-color: white;
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
     outline: solid 2px #ddd;
     overflow: auto;
     min-height: 60px;
-    max-height: 150px;
+    /* max-height: 150px; */
     margin-bottom: 10px;
     position: absolute;
     width: calc(100% - 40px);
+    z-index: 1;
 }
 
 #sentences-translated.initial:before{
@@ -81,8 +137,8 @@
 }
 
 #view {
+    clear: both;
     float: left;
-    /* background: rgb(217, 217, 217); */
     font-size: 1.1em;
     margin-top: 20px;
     padding: 4px;

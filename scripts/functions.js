@@ -1,172 +1,130 @@
 /** 
- * Get json file
+ * After a first call this function turnes into the dataStore object having get/set
+ * Get json file, store as dictionary, get Lang
  * @callback -- function to run inside after getting json
 */
-function initData() { // becomes getData after first calling
-    console.trace('initData', arguments);
-    const path = "jsons/dictionary.json";
-    var dictionary;
-    // после первого вызова: getData
-    return (callback, ...params) => {
-        console.trace('getData', arguments);
-        if (!callback) {
-            $.get(path).done(json => {
-                dictionary = json;
-                console.log('%cI\'v got a dictionary =>', 'background-color: lightskyblue', dictionary);
-            })
-                .fail(() => console.warn(`Cannot get file from ${path}`));
-        } else {
-            if (dictionary) {
-                return callback(dictionary, ...params);
-            } else {
-                console.warn('Has NO dictionary');
-                $.get(path).done(json => {
-                    dictionary = json;
-                    callback(dictionary, ...params);
-                })
-                    .fail(() => console.warn(`Cannot get file from ${path}`));
+function initData() {
+    output('initData', arguments);
+    // get lang
+    const langs = getLang();
+    // var to store dictionary
+    let dictionary;
+    // get dictionary from localStorage
+    if (langs) {
+        dictionary = getDictionary();
+    }
+    // no stored dictionary
+    // show settings
+    setInitView(langs);
+    // dataStore object
+    return {
+        get() {
+            output('dataStore.get', arguments, 'orange');
+            if (!dictionary) {
+                console.warn('Have no dictionary yet');
+                return false;
             }
+            return dictionary;
+        },
+        set(dict) {
+            output('dataStore.set', arguments, 'goldenrod');
+            dictionary = dict;
         }
     }
-}
-
-/** Создает список слов, содержащих указанную подстроку и вставляет его в html.
- * параметры: 
- * словарь (из json-данных);
- * подстрока в текстовом поле; 
- * переменная, означающая выбранный язык.
- * Ничего не возвращает.
-*/
-function makeWordsList(dictionary, substring, currentWord) {
-    console.trace('makeWordsList => creates and inserts translated words', arguments, 'lime');
-    //console.trace('makeWordsList', {substring: substring});
-    const words = dictionary[ // json
-        languages[getTargetLanguage()] // portuguese | english
-    ];
-    let list = "",
-        sentences = "",
-        wordsLen = 0;
-    Object.keys(words).forEach((word) => { // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
-        if (word.indexOf(substring) !== -1) {
-            list += `
-            <div class='word'>
-                ${setButton("edit")}
-                <span class="nativeWord">${word}</span>
-                <section>`;
-            ++wordsLen;
-            sentences += `
-                <div class="sentences">`;
-            //console.log('word set=>', words[word]);
-            words[word][0].forEach((translatedWord, index) => {
-                // console.log("words[wprd]: ", words[word]);
-                const sentence = words[word][1][index] || '&nbsp;';
-                sentences += `
-                    <div class='wrapper' class="sentence">${sentence}</div>`;
-                list += `
-                    <div class='wrapper'>
-                        <span class="translatedWord">${translatedWord}</span>
-                    </div>`;
-            });
-            list += `
-                </section>
-            </div>`;
-            sentences += `
-                </div>`;
-        }
-    });
-    if (list) {
-        $view.html(list);
-        $sentencesTranslated.html(sentences);
-        $view.append(setAttachedWord());
-    } else {
-        clearList();
-    }
-    // 
-    if (wordsLen === 1) {
-        $view.find('>.word').trigger('mouseenter');
-        //console.log('mouseenter');
-    }
-    return words;
-}
-
-function clearList() {
-    console.trace('clearList', arguments);
-    $view.html("");
-    $sentencesTranslated.html("");
-}
-/** Вызывает функцию getData и передает ей подстроку и переменную, означающую выбранный язык.
- * Параметры: 
- * подстрока в текстовом поле;
- * переменная, означающая выбранный язык.
- * Ничего не возвращает.
-*/
-function createList(substring, currentWord) {
-    console.trace('createList', arguments);
-    return getData(makeWordsList, substring, currentWord);
-}
-/**
- * Creates list containing translated words
- * @param {*} targetWordValue 
- */
-function createWordsList(targetWordValue) {
-    console.trace('createWordsList', arguments);
-    var list = "";
-    Object.keys(createList(targetWordValue)).forEach(word => {
-        if (word.indexOf(targetWordValue) !== -1) {
-            list += `<div>${word}</div>`;
-            // if we have a word with such a substring then remove the button
-            //removeForm();
-        }
-    });
-    return list;
-}
-//
-function getTargetLanguage() {
-    console.trace('getTargetLanguage', arguments);
-    return $("#chooseLanguage input:checked").val();
-}
-//
-function createFields() {
-    console.trace('createFields', arguments);
-    return `<div>
-    <input type="text" placeholder="translation for the word">
-        <textarea placeholder="sentence for the word"></textarea>
-</div>`;
-}
-//
-function createForm() {
-    console.trace('createForm', arguments);
-    return `<form id='${addWordFormStr}'>
-    ${createFields()}
-        <input type="button" value="добавить ячейку" id="${addWordStr}">
-        ${setButton('save')}
-        <input type="button" value="Отменить" id="btn-cancel">
-    </form>`;
 }
 // attaches form if didn't do before
 function addForm() {
-    console.trace('addForm', arguments);
+    output('addForm', arguments);
     //
-    if ($(`#${addWordFormStr}`).length) { console.log('No length');
-        return;
-    }
+    if ($(`#${addWordFormStr}`).length) return;
     //
-    $chooseLanguage.after(`<form id="${addWordFormStr}">
+    $chooseLanguageForm.after(`<form id="${addWordFormStr}">
     ${createFields()}
         ${setButton('save')}
+        ${setButton('save-xtra')}
     </form>`);
 }
-//
+/**
+ * Make initial languages choice
+ */
+function checkInitLangs(currentSel) {
+    // all selects
+    const $langSelects = $(langSelects);
+    //
+    $langSelects.eq(0).val() == $langSelects.eq(1).val()
+        ? (type = 'cancel', action = 'add')
+        : (type = 'submit', action = 'remove');
+    //
+    $langSelects[`${action}Class`]('border-red-outline');
+    storeSelects.dispatch({ type: type });
+}
+// 
+function clearList() {
+    output('clearList', arguments, "darkkhaki");
+    $view.html("");
+    $sentencesTranslated().html("");
+}
+// get chosen language string
+/* function getTargetLanguage() {
+    output('getTargetLanguage', arguments);
+    return $chooseLanguageSelect.val() || console.warn('No selected value', {
+        $chooseLanguageSelect: $chooseLanguageSelect,
+        select: $chooseLanguageSelect.find("option:selected"),
+        value: $chooseLanguageSelect.find("option:selected").val()
+    });
+} */
+/**
+ * hide the word initial input as language hadn't chosen.
+ * @param {*}  
+ */
+/* function hideInput($wordInput) {
+    output('hideInput', arguments);
+    $wordInput
+        .attr('disabled', 'disabled')
+        .hide(1000, () => {
+            $noticeChooseLanguage.fadeIn();
+            return false;
+        });
+} */
+/**
+ * show the word initial input if was hidden before as language hadn't chosen.
+ */
+/* function showInput() {
+    output('showInput', arguments);
+    const $wordInput = $(`#${wordId}`),
+        disabled = 'disabled';
+    if (!$wordInput.attr(disabled)) {
+        return;
+    }
+    $noticeChooseLanguage.fadeOut(() => {
+        $wordInput.removeAttr(disabled)
+            .show(1000);
+    });
+} */
+/**
+ * Get the part of dictionary containing words of selected language
+ */
+function getLangWords() {
+    return dataStore.get(/* dict => dict[getTargetLanguage()] */);
+}
+/**
+ * 
+ * @param {*} element 
+ */
 function getNativeWord(element) {
-    console.trace('getNativeWord', arguments);
+    output('getNativeWord', arguments);
     return $(element).parent().find(".nativeWord");
 }
-//
+/**
+ * 
+ * @param {*} element 
+ * @param {*} add 
+ */
 function handleTranslateWord(element, add) {
-    console.trace('handleTranslateWord', arguments);
+    output('handleTranslateWord', arguments);
     var $nativeWordSpan = getNativeWord(element),
         classAction = 'remove',
-        btnEditClassAction = 'add', 
+        btnEditClassAction = 'add',
         editableState = false;
     if (add) {
         btnEditClassAction = 'remove';
@@ -177,24 +135,82 @@ function handleTranslateWord(element, add) {
         $nativeWordSpan.next(`.${btnApplySelector}`).remove();
     }
     $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
-    $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);}
+    $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);
+}
 //
 function editTranslatedWord(element) {
-    console.trace('editTranslatedWord', arguments);
+    output('editTranslatedWord', arguments);
     handleTranslateWord(element, true);
 }
 //
 function editTranslatedWordCancel(element) {
-    console.trace('editTranslatedWordCancel', arguments);
+    output('editTranslatedWordCancel', arguments);
     handleTranslateWord(element);
 }
-//
+/**
+ * Inserts list into #view
+ * @param {String} list 
+ */
+function insertWordsList(list, sentences){
+    output('insertWordsList', arguments);
+    $view.html(list);
+    $sentencesTranslated().html(sentences);
+    $view.append(setAttachedWord());
+}
+/**
+ * Prevents the value of the new word input to be shorter than the 
+ * word in the search string
+ * @param {Object} event 
+ */
+function keepNewWordInputSynchronized(event) {
+    output('keepNewWordInputSynchronized', arguments);
+    const wordValue = $(`#${wordId}`).val();
+    // console.log(event.target, event.target.value, event.target.value.length);
+    if (event.target.value.length < wordValue.length) {
+        event.target.value = wordValue;
+        return event.target;
+    }
+}
+/**  Вставляет список слов в html.
+ * параметры: 
+ * словарь (из json-данных);
+ * подстрока в текстовом поле; 
+ * переменная, означающая выбранный язык.
+ * Ничего не возвращает.
+*/
+function makeWordsList(substring) {
+    output('makeWordsList => CREATES words list', arguments, 'violet');
+    const words = getLangWords();
+    // 
+    if (!words) {
+        console.warn('No words', {
+            'globals.languages': globals.languages
+        });
+        return false;
+    }
+    const [list, sentences, wordsLen] = createNewWordList(words, substring);
+    console.log('check mkWL=>',{
+        list:list, sentences:sentences, wordsLen:wordsLen
+    });
+    //
+    list ? insertWordsList(list, sentences) : clearList();
+    // 
+    if (wordsLen === 1) {
+        $view.find('>.word').trigger('mouseenter'); //console.log('mouseenter');
+    }
+    return words;
+}
+/**
+ * 
+ * @param {*} element .word || .wrapper >span'
+ * @param {*} eventType 
+ */
 function manageSentence(element, eventType) {
-    console.trace('manageSentence', arguments);
+    output('manageSentence', arguments);
     if (element.tagName.toLowerCase() == 'span') {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent('.wrapper').index(),
-            $sentence = $sentencesTranslated
+            $sentence = $sentencesTranslated()
                 .find('.sentences')
                 .eq(indexWord)
                 .find('.wrapper').eq(indexSentence);
@@ -202,7 +218,7 @@ function manageSentence(element, eventType) {
             $sentence.fadeIn(200)
             : $sentence.hide();
         // manage pseudoelement :before
-        $sentencesTranslated.toggleClass('initial');
+        $sentencesTranslated().toggleClass('initial');
     } else {
         if (eventType == 'mouseenter') {
             if (!$(element).hasClass(activeClass)) {
@@ -217,77 +233,48 @@ function manageSentence(element, eventType) {
 }
 // removing entire form contents
 function removeForm() {
-    console.trace('removeForm', arguments);
+    output('removeForm', arguments, "goldenrod");
     const $form = $(`#${addWordFormStr}`);
     if ($form.length) $form.remove();
 }
-//
-function setAttachedWord() {
-    console.trace('setAttachedWord', arguments);
-    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
-${setButton('attach')}`;
-}
-//
-function setButton(btn_type) {
-    console.trace('setButton', arguments);
-    switch (btn_type) {
-        case 'add':
-            return `<input class="btn-add" type="button">`;
-            break;
-        case 'edit':
-            return `<button class='${btnEditSelector}' type="button">&nbsp;</button>`;
-            break;
-        case 'save':
-            return `<input type="button" value="Сохранить" id="${btnSaveSelector}">`;
-            break;
-        case 'attach':
-            return `<button id="" class="${btnAttachSelector}" type="button">Добавить</button>`;
-            break;
+/**
+ * 
+ */
+function setLangsInfo(langs) {
+    output('setLangsInfo', arguments, 'green');
+    if (!langs) {
+        langs = getLang();
     }
-}
-//
-function storeWord(element) {
-    console.trace('storeWord', arguments);
-    const nativeWord = $(`#${wordId}`)[0].value;
-    //console.log("nativeWord: ", nativeWord);
-    $(`#${addWordFormStr} div`).each(function () {
-        //console.log("in the cycle");
-        var $word,
-            wordValue,
-            $sentence;
-
-        if ($word = $(element).find("input[type='text']")) {
-            wordValue = $word.val();
-        }
-        if ($sentence = $(element).find("textarea")) {
-            sentenceValue = $sentence.val();
-        }
-
-        const added = JSON.stringify({ translatedWord: word, sentence: sentence });
-        localStorage.setItem(nativeWord, added);
-        console.log("localStorage[nativeWord]: ", localStorage.getItem(nativeWord));
-        const checkedLanguage = getTargetLanguage();
-        /**
-         * 1. Сначала объект получает все данные из json-файла;
-           2. Из этого объекта данные передаются в localStorage;
-           3. При клике по кнопке "сохранить":
-           3.1 Изменения в объекте;
-           3.2 Синхронизация объекта с localStorage - те же изменения;
-           3.3 Синхронизация объекта с json-данными.
-         */
+    const $langsBlock = $(`#${hdrLanguage}`);
+    $(Object.keys(langs)).each((index, element) => {
+        /*console.log({
+            data: index + ':' + element,
+            selector: $langsBlock.find(`span[data-lang="${element}"]`),
+            text: langs[element]
+        });*/
+        $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
 }
 /**
- * Prevents the value of the new word input to be shorter than the 
- * word in the search string
- * @param {Object} event 
+ * Set an initial lang choice
  */
-function keepNewWordInputSynchronized(event) {
-    console.log('keepNewWordInputSynchronized', arguments);
-    const wordValue = $(`#${wordId}`).val();
-    // console.log(event.target, event.target.value, event.target.value.length);
-    if (event.target.value.length < wordValue.length) {
-        event.target.value = wordValue;
-        return event.target;
-    }
+function setLangInit() {
+    output('setLangInit', arguments);
+    const $sectLang = $(`#${sectionChooseLangId}`),
+        $chooseLangHeader = $sectLang.find('h4'),
+        activeLangs = getLang(true);
+    let selId;
+    // 
+    $(Object.keys(globals.languages)).each((index, lang) => {
+        selId = `lang-${lang}`;
+        // append select
+        $chooseLangHeader.eq(index).append(makeSelect(selId));
+        const $selBlock = $(`#${selId}`);
+        $selBlock.append(makeLangSelectOptions())
+        // select option
+        if (activeLangs && activeLangs[index]) {
+            $selBlock.val(activeLangs[index]);
+        }
+    });
+    $sectLang.append(setButton('save'));
 }

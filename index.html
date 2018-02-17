@@ -3,11 +3,12 @@
 <head>
     <meta charset=UTF-8>
     <title>Title</title>
-    <script src="scripts/libs/jquery.min.js"></script>
     <link href="styles/elements.css" rel="stylesheet"/>
     <link href="styles/classes.css" rel="stylesheet"/>
     <link href="styles/components.css" rel="stylesheet"/>
     <link href="styles/selectors.css" rel="stylesheet"/>
+    <script src="scripts/libs/jquery.min.js"></script>
+    <script src="scripts/libs/redux.min.js"></script>
 </head>
 <body>
     <main>
@@ -15,24 +16,18 @@
             <h2>
                 <span>Advanced Language Helper</span>
             </h2>
-            <section id="sentences-translated" class="initial"></section>
-            <div id = "forms">
-                <form id="chooseLanguage">
-                    <label>
-                        <input type="radio" name="radio" value="английский">English
-                    </label>
-                    <label>
-                        <input type="radio" name="radio" value="португальский" checked>Portugues
-                    </label>
-                    <input type="text" id="word">
-                </form>
+            <div id="main">
+                <h1>... loading ...</h1>
             </div> 
             <div id="view"></div>
         </div>
     </main>
     <script src="scripts/init.js"></script>
     <script src="scripts/functions.js"></script>
+    <script src="scripts/ui.js"></script>
     <script src="scripts/handlers.js"></script>
+    <script src="scripts/views.js"></script>
+    <script src="scripts/db.js"></script>
     <script src="scripts/app.js"></script>
     <script></script>
 </body>

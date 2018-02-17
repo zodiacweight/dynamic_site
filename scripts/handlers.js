@@ -1,24 +1,5 @@
 // git -c http.sslVerify=false push origin master
 $(function () {
-    /** 
-     * Creates words list and add / remove form
-    */
-    $(`#${wordId}`).on('input keyup', e => { // calling on jQuery object
-        //console.log("input: ", e.target.value);
-        var content, targetWordValue = e.target.value;
-        if (targetWordValue.length > 2) {
-
-            const list = createWordsList(targetWordValue);
-            // console.log('list=>',{list:list, length:targetWordValue.length, targetWordValue:targetWordValue});
-            // remove or add form depending wheter does it added already or not
-            window[list ? 'removeForm' : 'addForm']();
-        } else {
-            // it checks inside if the button exitss
-            removeForm();
-            // 
-            clearList();
-        }
-    });
     // show/hide words/sentences
     $view.on('mouseenter mouseleave', '> .word, .wrapper >span', function (event) {
         manageSentence(this, event.type);
@@ -28,14 +9,66 @@ $(function () {
         })
         .on('click', `.${btnCancelSelector}`, function () {
             editTranslatedWordCancel(this);
-        }) 
+        })
+        // $view 
         .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
     // click on #addWord
-    $chooseLanguage.on("click", `#${addWordStr}`, () => {
-        $chooseLanguage.after(createForm());
+    // note: not in use, but is going to be...
+    $chooseLanguageForm.on("click", `#${addWordStr}`, () => {
+        $chooseLanguageForm.after(createForm());
     });
+    // changing select option
+    /* $chooseLanguageSelect.on('change', () => {
+        showInput();
+        storeLanguagesSet();
+    }); */
     // store the word
     $forms.on("click", `#${btnSaveSelector}`, function () {
-        storeWord(this)
+        storeWord();
     });
+    // changing the language in the initial lists (native/foregn)
+    $mainSection.on('change', langSelects, function () {
+        checkInitLangs(this);
+    })  // store languages in localStorage
+        .on('click', `#${btnSaveSelector}`, () => {
+            //
+            if (storeSelects.getState()=='canceled'){
+                alert('You have chosen the same language');
+                return false;
+            } else {
+                loadDictionary(storeLanguagesSet(), setMainView);
+            }
+        })
+        .on('click', `#${cmdSettingsLang}`, () => {
+            setInitView(false);
+        })
+        // Creates words list and add / remove form
+       .on('input keyup', `#${wordId}`, // input#word
+            event => { // calling on jQuery object
+           //console.log("input: ", event.target.value);
+           const $wordInput = $(event.target),
+               targetWordValue = $wordInput.val(),
+               disabled = 'disabled';
+           
+           if ($wordInput.attr('disabled')) {
+               return;
+           }
+           //
+           if (targetWordValue.length > 2) {
+               const list = createWordsList(targetWordValue);
+               if (list) {
+                    makeWordsList(targetWordValue);
+                    removeForm();
+               } else {
+                   addForm();
+               }
+               // remove or add form depending wheter does it added already or not
+               // window[list ? 'removeForm' : 'addForm']();
+           } else {
+               // it checks inside if the button exitss
+               removeForm();
+               // 
+               clearList();
+           }
+       });
 });
