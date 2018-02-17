@@ -8,7 +8,8 @@ function initData() {
     // get lang
     const langs = getLang();
     // var to store dictionary
-    let dictionary;
+    let dictionary, 
+        editor = {};
     // get dictionary from localStorage
     if (langs) {
         dictionary = getDictionary();
@@ -29,6 +30,16 @@ function initData() {
         set(dict) {
             output('dataStore.set', arguments, 'goldenrod');
             dictionary = dict;
+        },
+        editor:{
+            get(index) {
+                return (index) 
+                    ? editor[index]
+                    : editor;
+            },
+            set(index, value) {
+                editor[index] = value;
+            }
         }
     }
 }
@@ -138,12 +149,18 @@ function handleTranslateWord(element, add) {
     $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
     $(element)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);
 }
-//
-function editTranslatedWord(element) {
+/**
+ * 
+ * @param {*} btnEdit 
+ */
+function editTranslatedWord(btnEdit) {
     output('editTranslatedWord', arguments);
     storeWordEdit.dispatch({ type: 'edit' }); // default
-    console.log('get state=>',storeWordEdit.getState());
-    handleTranslateWord(element, true);
+    const $btnEdit = $(btnEdit),
+        btnIndex = $btnEdit.parent('.word').index();
+    dataStore.editor.set(btnIndex, $btnEdit.next().text());
+    console.log('get state=>',{ state:storeWordEdit.getState(), editorStored: dataStore.editor.get()});
+    handleTranslateWord(btnEdit, true);
 }
 //
 function editTranslatedWordCancel(element) {

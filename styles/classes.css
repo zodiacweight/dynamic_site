@@ -42,6 +42,7 @@
 }
 .btn-cancel{
     position: relative;
+    transform: translateY(3px);
 }
 .btn-cancel::before{
     /* outline: solid 1px; */
