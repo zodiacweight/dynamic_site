@@ -50,6 +50,7 @@ function addForm() {
 function checkInitLangs(currentSel) {
     // all selects
     const $langSelects = $(langSelects);
+    let type, action;
     //
     $langSelects.eq(0).val() == $langSelects.eq(1).val()
         ? (type = 'cancel', action = 'add')
@@ -140,6 +141,8 @@ function handleTranslateWord(element, add) {
 //
 function editTranslatedWord(element) {
     output('editTranslatedWord', arguments);
+    storeWordEdit.dispatch({ type: 'edit' }); // default
+    console.log('get state=>',storeWordEdit.getState());
     handleTranslateWord(element, true);
 }
 //
@@ -189,9 +192,6 @@ function makeWordsList(substring) {
         return false;
     }
     const [list, sentences, wordsLen] = createNewWordList(words, substring);
-    console.log('check mkWL=>',{
-        list:list, sentences:sentences, wordsLen:wordsLen
-    });
     //
     list ? insertWordsList(list, sentences) : clearList();
     // 

@@ -68,10 +68,7 @@ function createNewWordList(words, substring) {
             ++wordsLen;
             sentences += `
                 <div class="sentences">`;
-            console.log('word set=>', {
-                'words[word]': words[word],
-                'words[word][0]': words[word][0]
-            });
+            //
             if (Array.isArray(words[word])) {
                 words[word][0].forEach((translatedWord,index)=>{
                     [sentences, list] = setSentence(translatedWord, sentences, list, words[word][1][index]);
@@ -127,8 +124,7 @@ function createWordsList(targetWordValue) {
             list += `<div>${word}</div>`;
         }
     }
-    );
-    console.log('list=>', list);
+    ); // console.log('list=>', list);
     return list;
 }
 /**

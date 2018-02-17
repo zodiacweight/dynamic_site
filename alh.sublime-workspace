@@ -1,0 +1,270 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"S",
+				"Shape"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"res",
+				"resize"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/sergei.klevtsov/Documents/Projects/-Private/AdvancedLanguageHelper"
+	],
+	"file_history":
+	[
+		"/C/Users/sergei.klevtsov/Documents/Projects/Work/anime/scripts/pc-monitor.html",
+		"/C/Users/sergei.klevtsov/OneDrive - Accenture/Projects/Elkjöp/tasks/Animation specs/Last-assigned.txt",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи, по чётным, от Медведа/Я пришёл к Ежу с приветом",
+		"/C/Users/sergei.klevtsov/Documents/Projects/Work/anime/scripts/washing-machine.html",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи, по чётным, от Медведа/Настало утро и Медвед приветствует Ежа",
+		"/C/Users/sergei.klevtsov/Downloads/tv-monitor-2.html",
+		"/C/Users/sergei.klevtsov/Documents/Projects/Work/anime/scripts/tv-monitor-2.html",
+		"/C/Users/sergei.klevtsov/Documents/Projects/Work/anime/scripts/tv-pc.WinMerge",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи, по чётным, от Медведа/Настало утро и Медвед приветствует Ежа.js",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи по нечётным/Привет, Медвед, а это Ёж",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи, по чётным/Утро новое настало",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи/С добрым утром, милый Йж!",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи/Привет Медвед, Привет Ярило",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи/Сияет солнышко с утра",
+		"/C/Users/sergei.klevtsov/OneDrive/Документы/Письма и стихи/Стихи/Взошло Ярило, засияло",
+		"/C/Temp/Animations/scripts/backups/tv-monitor-jira.html",
+		"/C/Eserver1/cartridges/target/elkjop_init/release/dbinit.properties",
+		"/C/Temp/tv-monitor-feedback.html",
+		"/C/Eserver1/cartridges/target/elkjop_init/release/dbinit_backup.properties",
+		"/C/Users/sergei.klevtsov/Documents/temp/18498/product specification.html",
+		"/C/Users/sergei.klevtsov/Documents/temp/18618/file.isml",
+		"/C/Eserver1/cartridges/target/elkjop_init/release/dbinit-updated.properties",
+		"/C/Eserver1/cartridges/target/elkjop_init/release/dbinit-backup.properties",
+		"/C/Eserver1/cartridges/source/elkjop_storefront/staticfiles/cartridge/static/default/js/common/modules/Maps.js",
+		"/C/Eserver1/cartridges/source/elkjop_storefront/staticfiles/cartridge/static/default/js/common/modules/CollectAtStore.js",
+		"/C/Users/sergei.klevtsov/Documents/temp/18498/product specification cleaned.html",
+		"/C/Users/sergei.klevtsov/Documents/temp/18498/setup component.txt",
+		"/C/Users/sergei.klevtsov/Documents/temp/18263/conditions for CSS.js",
+		"/C/Eserver1/cartridges/source/.git/config",
+		"/C/Users/sergei.klevtsov/Documents/temp/CC_ITDS_SANTANDER_PART_SupportedMethods.isml.js",
+		"/C/Users/sergei.klevtsov/Documents/temp/CC_ITDS_SANTANDER_PART_SupportedMethods.isml-new.js"
+	],
+	"find":
+	{
+		"height": 42.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"tvSplit",
+			"tvSplitKeys",
+			"checkField",
+			"infoTimeline",
+			"complete",
+			"animete",
+			"infoTimeline",
+			"\\.(relative|bottom|absolute)",
+			"-->",
+			"385|157",
+			"385",
+			"Preparer 385",
+			"svg",
+			"transition",
+			"transform",
+			"Class153",
+			"EnableBankCircuits",
+			"swish",
+			"ITDS_SWISH",
+			"PaymentServiceAssignmentsAndConfigurations_ITDS_SWISH",
+			"PaymentServiceAssignmentsAndConfigurations_ADYEN_CARD_EnableBankCircuits",
+			"1289",
+			"console.log",
+			"transform",
+			"$(window).on('DOMContentLoaded resize scroll', function () {",
+			"<text id=\"",
+			"<text id=\"high-dynamic-range_value\"",
+			"font-size=\"18\" ",
+			"console.",
+			"Typ av bildskärm",
+			".off",
+			"class380",
+			"node",
+			"campaign.campaign",
+			"IsFixedAmountMap",
+			"EffectiveInterestRateMap",
+			"DurationMap",
+			"campaignIsFixedAmountMap",
+			"campaignEffectiveInterestRateMap",
+			"campaignDurationMap",
+			"DurationMap",
+			"EffectiveInterestRateMap",
+			"campaignIsFixedAmountMap",
+			"campaignMonthlyAmountMap",
+			"campaignIsFixedAmountMap",
+			"campaignEffectiveInterestRateMap",
+			"campaignDurationMap",
+			"#Duration",
+			"'#'#"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"globals.campaign.IsFixedAmountMap",
+			"globals.campaign.EffectiveInterestRateMap",
+			"globals.campaign.DurationMap",
+			"globals.campaign.EffectiveInterestRateMap",
+			"globals.campaign.campaignIsFixedAmountMap",
+			"globals.campaign.campaignMonthlyAmountMap",
+			"globals.campaign.campaignIsFixedAmountMap",
+			"globals.campaign.EffectiveInterestRateMap",
+			"globals.campaign.DurationMap",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 42.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "alh.sublime-project",
+	"replace":
+	{
+		"height": 78.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 239.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -10,16 +10,18 @@
 .btn-apply{
     /* box-shadow: -2px 0 14px rgba(190, 215, 61, 1); */
     font-weight: bold;
-    height: 32px;
-    line-height: 29px;
+    height: 27px;
+    line-height: 27px;
     position: absolute;
-    right: 11px;
+    right: 9px;
     top: 8px;
     font-family: Arial;
-    border: solid 2px #96b300;
-    border-left-width: 3px;
+    /* border: solid 2px #96b300; */
+    /* border-left-width: 3px; */
     width: 35px;
-    background: #bed73d;
+    /* background: #bed73d; */
+    background-color: #96b300;
+    /* outline: solid 1px #aaa; */
     /* background-color: rgba(190, 215, 61, 0.6); */
     text-align: center;
     z-index: 10;
@@ -65,12 +67,12 @@
 }
 .editable{
     background: white;
-    border: solid 1px #aaa;
+    outline: solid 1px #aaa;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
     color: red;
     display: inline-block;
     margin-left: -6px;
-    padding: 4px 32px 4px 6px;
+    padding: 2px 32px 3px 6px;
     width: calc(100% - 32px);
 }
 .word{

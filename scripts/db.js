@@ -115,3 +115,13 @@ function storeWord() {
        3.3 Синхронизация объекта с json-данными.
      */
 }
+/**
+ * 
+ * @param {HTMLElement} btn -- button being clicked 
+ */
+function storeWordEdited(btn) {
+    output('storeWordEdited', arguments, 'darkred');
+    const wordEdited = $(btn).prev().text(),
+        dictionary = getDictionary();
+    console.log(wordEdited, dictionary);
+}

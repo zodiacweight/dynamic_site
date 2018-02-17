@@ -11,7 +11,10 @@ $(function () {
             editTranslatedWordCancel(this);
         })
         // $view 
-        .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
+        .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized)
+        .on('click', `#${btnApplySelector}`, function(){
+            storeWordEdited(this);
+        });
     // click on #addWord
     // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${addWordStr}`, () => {
