@@ -35,7 +35,4 @@ const
     // get container for translated content
     $sentencesTranslated = () => $('#sentences-translated'),
     // form
-    $chooseLanguageForm = $("#chooseLanguage")
-    // select containing languages
-    // ,$chooseLanguageSelect = $chooseLanguageForm.find('select')
-    ;
+    $chooseLanguageForm = $("#chooseLanguage");
