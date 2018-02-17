@@ -79,43 +79,6 @@ function clearList() {
     $view.html("");
     $sentencesTranslated().html("");
 }
-// get chosen language string
-/* function getTargetLanguage() {
-    output('getTargetLanguage', arguments);
-    return $chooseLanguageSelect.val() || console.warn('No selected value', {
-        $chooseLanguageSelect: $chooseLanguageSelect,
-        select: $chooseLanguageSelect.find("option:selected"),
-        value: $chooseLanguageSelect.find("option:selected").val()
-    });
-} */
-/**
- * hide the word initial input as language hadn't chosen.
- * @param {*}  
- */
-/* function hideInput($wordInput) {
-    output('hideInput', arguments);
-    $wordInput
-        .attr('disabled', 'disabled')
-        .hide(1000, () => {
-            $noticeChooseLanguage.fadeIn();
-            return false;
-        });
-} */
-/**
- * show the word initial input if was hidden before as language hadn't chosen.
- */
-/* function showInput() {
-    output('showInput', arguments);
-    const $wordInput = $(`#${wordId}`),
-        disabled = 'disabled';
-    if (!$wordInput.attr(disabled)) {
-        return;
-    }
-    $noticeChooseLanguage.fadeOut(() => {
-        $wordInput.removeAttr(disabled)
-            .show(1000);
-    });
-} */
 /**
  * Get the part of dictionary containing words of selected language
  */
@@ -184,10 +147,10 @@ function editTranslatedWordCancel(btnCancel) {
     output('editTranslatedWordCancel', arguments);
     const [$btnCancel, btnIndex] = indexEditorBtn(btnCancel),
         storedValue = dataStore.editor.get(btnIndex);
-    
+    //
     handleTranslateWord(btnCancel).text(storedValue);
     dataStore.editor.remove(btnIndex);
-    console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
+    // console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
 }
 /**
  * Inserts list into #view
@@ -317,3 +280,60 @@ function setLangInit() {
     });
     $sectLang.append(setButton('save'));
 }
+/**
+ * 
+ * @param {HTMLElement} btn -- button being clicked 
+ */
+function storeWordEdited(btn) {
+    output('storeWordEdited', arguments, 'darkred');
+    const wordEdited = $(btn).prev().text(),
+        dictionary = getDictionary(),
+        [$btn, btnIndex] = indexEditorBtn(btn),
+        initialWord = dataStore.editor.get(btnIndex),
+        editedWord = getNativeWord(btn).text();
+    console.log(initialWord+'=>'+editedWord,{dictionaryWord:dictionary[initialWord], dictionary:dictionary});
+    dictionary[editedWord] = Object.assign(dictionary[initialWord]);
+    delete dictionary[initialWord];
+    dataStore.editor.remove(btnIndex);
+    console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
+    storeDictionary(dictionary);
+}
+//--
+
+// get chosen language string
+/* function getTargetLanguage() {
+    output('getTargetLanguage', arguments);
+    return $chooseLanguageSelect.val() || console.warn('No selected value', {
+        $chooseLanguageSelect: $chooseLanguageSelect,
+        select: $chooseLanguageSelect.find("option:selected"),
+        value: $chooseLanguageSelect.find("option:selected").val()
+    });
+} */
+/**
+ * hide the word initial input as language hadn't chosen.
+ * @param {*}  
+ */
+/* function hideInput($wordInput) {
+    output('hideInput', arguments);
+    $wordInput
+        .attr('disabled', 'disabled')
+        .hide(1000, () => {
+            $noticeChooseLanguage.fadeIn();
+            return false;
+        });
+} */
+/**
+ * show the word initial input if was hidden before as language hadn't chosen.
+ */
+/* function showInput() {
+    output('showInput', arguments);
+    const $wordInput = $(`#${wordId}`),
+        disabled = 'disabled';
+    if (!$wordInput.attr(disabled)) {
+        return;
+    }
+    $noticeChooseLanguage.fadeOut(() => {
+        $wordInput.removeAttr(disabled)
+            .show(1000);
+    });
+} */

@@ -38,7 +38,6 @@ function getLang(toArray) {
 /**
  * 
  * @param {*} dict -- data
- * @param {*} lang -- language
  */
 function storeDictionary(dict){
     output('storeDictionary', arguments,'rgb(235, 235, 0)');
@@ -114,14 +113,4 @@ function storeWord() {
        3.2 Синхронизация объекта с localStorage - те же изменения;
        3.3 Синхронизация объекта с json-данными.
      */
-}
-/**
- * 
- * @param {HTMLElement} btn -- button being clicked 
- */
-function storeWordEdited(btn) {
-    output('storeWordEdited', arguments, 'darkred');
-    const wordEdited = $(btn).prev().text(),
-        dictionary = getDictionary();
-    console.log(wordEdited, dictionary);
 }

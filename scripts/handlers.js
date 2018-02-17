@@ -12,7 +12,7 @@ $(function () {
         })
         // $view 
         .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized)
-        .on('click', `#${btnApplySelector}`, function(){
+        .on('click', `.${btnApplySelector}`, function(){
             storeWordEdited(this);
         });
     // click on #addWord
