@@ -1,28 +1,21 @@
 .active{
     background-color: #5d677c !important;
     color: white;
-    /* padding: 4px 8px 5px 8px !important; */
-    /* margin: 0 -4px -1px -4px; */
 }
 .border-red-outline{
     outline: solid red;
 }
 .btn-apply{
-    /* box-shadow: -2px 0 14px rgba(190, 215, 61, 1); */
     font-weight: bold;
+    cursor: default;
     height: 27px;
     line-height: 27px;
     position: absolute;
     right: 9px;
     top: 8px;
     font-family: Arial;
-    /* border: solid 2px #96b300; */
-    /* border-left-width: 3px; */
     width: 35px;
-    /* background: #bed73d; */
     background-color: #96b300;
-    /* outline: solid 1px #aaa; */
-    /* background-color: rgba(190, 215, 61, 0.6); */
     text-align: center;
     z-index: 10;
 } 
@@ -32,29 +25,50 @@
     height: 27px;
     width: 27px;
 }
+.btn-cancel{
+    transform: translateY(2px);    
+}
+.btn-cancel,
+.btn-edit{
+    font-size: 20px;
+    height: 27px;
+    width: 27px;    
+}
+.btn-remove{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    right: 13px;
+    top: 5px;
+    position: absolute !important;
+}
 .btn-cancel,
 .btn-edit {
     background-color: transparent;
     border: navajowhite;
-    font-size: 20px;
-    height: 27px;
-    width: 27px;
 }
-.btn-cancel{
+.btn-cancel,
+.btn-remove{
     position: relative;
-    transform: translateY(3px);
+}
+.btn-remove::before,
+.btn-cancel::before{
+    position: absolute;
 }
 .btn-cancel::before{
-    /* outline: solid 1px; */
     content: '+';
     display: inline-block;
     font-size: 34px;
+    left: 2.75px;
     line-height: 0.6;
-    left: 2px;
-    position: absolute;
-    top: 3px;
+    top: 3.72px;
     transform: rotate(45deg);
-    /* margin: -4px 4px auto -4px; */
+}
+.btn-remove::before{
+    content: '🚮';
+    left: 50%;
+    top: -0.5px;
+    transform: translate(-50%);
 }
 .btn-edit{
     border-color: #95a08e;

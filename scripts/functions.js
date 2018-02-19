@@ -135,10 +135,11 @@ function editTranslatedWord(btnEdit) {
     output('editTranslatedWord', arguments);
     // storeWordEdit.dispatch({ type: 'edit' }); // default
     //const $btnEdit = $(btnEdit), btnIndex = $btnEdit.parent('.word').index();
-    const [$btnEdit, btnIndex] = indexEditorBtn(btnEdit);
+    const [$btnEdit, btnIndex, $parent] = indexEditorBtn(btnEdit);
     dataStore.editor.set(btnIndex, $btnEdit.next().text());
     console.log('get state=>', { $btnEdit:$btnEdit, btnIndex:btnIndex, editorStored: dataStore.editor.get() });
     handleTranslateWord(btnEdit, true);
+    $parent.find(`.${btnRemoveSelector}`).hide();
 }
 /**
  * Get edited word back, transorm the editable area into span
@@ -146,11 +147,12 @@ function editTranslatedWord(btnEdit) {
  */
 function editTranslatedWordCancel(btnCancel) {
     output('editTranslatedWordCancel', arguments);
-    const [$btnCancel, btnIndex] = indexEditorBtn(btnCancel),
+    const [$btnCancel, btnIndex, $parent] = indexEditorBtn(btnCancel),
         storedValue = dataStore.editor.get(btnIndex);
     //
     handleTranslateWord(btnCancel).text(storedValue);
     dataStore.editor.remove(btnIndex);
+    $parent.find(`.${btnRemoveSelector}`).show();
     // console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
 }
 /**

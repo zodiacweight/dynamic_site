@@ -8,11 +8,12 @@ const globals = {
     },
     // buttons (classes, ids)
     btnApplySelector = 'btn-apply',
+    btnAttachSelector = 'btn-attach',
     btnCancelSelector = 'btn-cancel',
     btnEditSelector = 'btn-edit',
+    btnRemoveSelector = 'btn-remove',
     btnSaveSelector = 'btn-save',
     btnSaveXtraSelector = 'btn-save-xtra',
-    btnAttachSelector = 'btn-attach',
     // ids
     addWordId = "addWord",
     addWordFormId = "addWordForm",
