@@ -1,7 +1,7 @@
 // git -c http.sslVerify=false push origin master
 $(function () {
     // show/hide words/sentences
-    $view.on('mouseenter mouseleave', '> .word, .wrapper >span', function (event) {
+    $view.on('mouseenter mouseleave', `> .${wordClass}, .wrapper >span`, function (event) {
         manageSentence(this, event.type);
     }) // click on the button to edit translated word
         .on("click", `.${btnEditSelector}`, function () {
@@ -11,13 +11,13 @@ $(function () {
             editTranslatedWordCancel(this);
         })
         // $view 
-        .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized)
+        .on('keypress input blur', `#${inputAttachId}`, keepNewWordInputSynchronized)
         .on('click', `.${btnApplySelector}`, function(){
             storeWordEdited(this);
         });
     // click on #addWord
     // note: not in use, but is going to be...
-    $chooseLanguageForm.on("click", `#${addWordStr}`, () => {
+    $chooseLanguageForm.on("click", `#${addWordId}`, () => {
         $chooseLanguageForm.after(createForm());
     });
     // changing select option
@@ -42,7 +42,7 @@ $(function () {
                 loadDictionary(storeLanguagesSet(), setMainView);
             }
         })
-        .on('click', `#${cmdSettingsLang}`, () => {
+        .on('click', `#${cmdSettingsLangId}`, () => {
             setInitView(false);
         })
         // Creates words list and add / remove form

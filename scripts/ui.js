@@ -17,9 +17,9 @@ function createFields() {
  */
 function createForm() {
     output('createForm', arguments);
-    return `<form id='${addWordFormStr}'>
+    return `<form id='${addWordFormId}'>
     ${createFields()}
-        <input type="button" value="добавить ячейку" id="${addWordStr}">
+        <input type="button" value="добавить ячейку" id="${addWordId}">
         ${setButton('save')}
         <input type="button" value="Отменить" id="btn-cancel">
     </form>`;
@@ -63,7 +63,7 @@ function createNewWordList(words, substring) {
             list += `
             <div class='word'>
                 ${setButton("edit")}
-                <span class="nativeWord">${word}</span>
+                <span class="${nativeWordClass}">${word}</span>
                 <section>`;
             ++wordsLen;
             sentences += `
@@ -132,7 +132,7 @@ function createWordsList(targetWordValue) {
  */
 function setAttachedWord() {
     output('setAttachedWord', arguments);
-    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachSelector}" id="${inputAttachSelector}">
+    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachClass}" id="${inputAttachId}">
 ${setButton('attach')}`;
 }
 /**

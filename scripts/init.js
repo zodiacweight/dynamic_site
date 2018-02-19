@@ -1,32 +1,40 @@
 // 
-const
-    addWordId = 'addWordStr',
+const globals = {
+        languages: {
+            english: 'English',
+            portuguese: 'Portugues',
+            russian: 'Русский'
+        }
+    },
+    // buttons (classes, ids)
     btnApplySelector = 'btn-apply',
     btnCancelSelector = 'btn-cancel',
     btnEditSelector = 'btn-edit',
     btnSaveSelector = 'btn-save',
     btnSaveXtraSelector = 'btn-save-xtra',
     btnAttachSelector = 'btn-attach',
-    cmdSettingsLang = 'command-settings-langs',
-    hdrLanguage = 'header-language',
-    inputAttachSelector = 'input-attach',
+    // ids
+    addWordId = "addWord",
+    addWordFormId = "addWordForm",
+    cmdSettingsLangId = 'command-settings-langs',
+    inputAttachId = 'input-attach',
+    hdrLanguageId = 'header-language',
     wordId = 'word',
     newWordId = 'new-word',
     newWordSentencesId = 'new-word-sentences',
-    //$noticeChooseLanguage = $('#notice-choose_language'),
     sectionChooseLangId = 'section-choose-language',
-    langSelects = `#${sectionChooseLangId} select`,
-    globals = {
-        languages : {
-            english: 'English',
-            portuguese: 'Portugues',
-            russian: 'Русский'
-        }
-    },
-    //
-    addWordStr = "addWord",
-    addWordFormStr = "addWordForm",
+    // end ids
+    // classes
     activeClass = 'active',
+    editableClass = 'editable',
+    inputAttachClass = 'input-attach',
+    nativeWordClass = 'nativeWord',
+    wordClass = 'word',
+    // end classes
+    // selectors
+    langSelects = `#${sectionChooseLangId} select`,
+    // end selectors
+    // elements
     $forms = $("#forms"),
     // section above view
     $mainSection = $('#main'),
