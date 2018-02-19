@@ -243,6 +243,21 @@ function removeForm() {
     if ($form.length) $form.remove();
 }
 /**
+ * Remove the word from dictionary, call to store
+ * @param {HTMLElement} btn 
+ */
+function removeWord(btn){
+    output('removeWord', arguments, 'red');
+    const [, , $parent] = indexEditorBtn(btn),
+        dict = dataStore.get();
+    //
+    delete dict[$parent.find(`.${nativeWordClass}`).text()];
+    console.log(dict);
+    storeDictionary(dict);
+    // remove word container (hide in order not to touch editor object)
+    $parent.hide();
+}
+/**
  * 
  */
 function setLangsInfo(langs) {

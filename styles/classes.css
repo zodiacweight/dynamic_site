@@ -90,6 +90,9 @@
     padding: 2px 32px 3px 6px;
     width: calc(100% - 32px);
 }
+.invisible{
+    
+}
 .word{
     clear: both;
     float: left;

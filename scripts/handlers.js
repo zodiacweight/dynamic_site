@@ -10,6 +10,11 @@ $(function () {
         .on('click', `.${btnCancelSelector}`, function () {
             editTranslatedWordCancel(this);
         })
+        .on('click', `.${btnRemoveSelector}`, function () {
+            if (confirm('Are you sure?')) {
+                removeWord(this);
+            }
+        })
         // $view 
         .on('keypress input blur', `#${inputAttachId}`, keepNewWordInputSynchronized)
         .on('click', `.${btnApplySelector}`, function(){
