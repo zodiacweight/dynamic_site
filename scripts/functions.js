@@ -12,10 +12,15 @@ function initData() {
         editor = {};
     // get dictionary from localStorage
     if (langs) {
-        dictionary = getDictionary();
+        // if for some reason we have languages, but haven't dictionary
+        // (it is possible if we have deleted it explicitly and got main view here)
+        // then load it
+        if (!(dictionary = getDictionary())){
+            loadDictionary(langs);
+        }
     }
     // no stored dictionary
-    // show settings
+    // if not langs, show settings, otherwise -- main view
     setInitView(langs);
     // dataStore object
     return {

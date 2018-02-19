@@ -44,6 +44,7 @@ $(function () {
                 alert('You have chosen the same language');
                 return false;
             } else {
+                // load it anyway, as we click the button explicitly
                 loadDictionary(storeLanguagesSet(), setMainView);
             }
         })
