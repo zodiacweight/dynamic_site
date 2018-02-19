@@ -63,7 +63,7 @@ $(function () {
                return;
            }
            //
-           if (targetWordValue.length > 2) {
+           if (targetWordValue.length > minWordLength) {
                const list = createWordsList(targetWordValue);
                if (list) {
                     makeWordsList(targetWordValue);

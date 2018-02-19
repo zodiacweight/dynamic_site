@@ -6,6 +6,7 @@ const globals = {
             russian: 'Русский'
         }
     },
+    minWordLength = 1,
     // buttons (classes, ids)
     btnApplySelector = 'btn-apply',
     btnAttachSelector = 'btn-attach',

@@ -16,6 +16,7 @@ function setInitView(langs){
             // create lang list
             setLangsInfo(langs);
         } else {
+            $view.html('');
             setLangInit();
         }
     })
