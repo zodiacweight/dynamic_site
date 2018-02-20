@@ -1,17 +1,35 @@
 /**
  * // check string length and keep a minimal one
  * @param {Object} event 
- */ 
-function checkInputLength(event){
-    output('checkInputLength', arguments);
-    const w = event.target.innerHTML,
+ */
+function checkInputText(event) {
+    output('checkInputText', arguments);
+    const span = event.target,
+        w = span.innerHTML,
         len = w.length,
-        minLen = minWordLength +1;
+        minLen = minWordLength + 1;
+
+    $(`span.${nativeWordClass}`).each(function () {
+        if (span !== this) {
+            $(this).parent(`.${wordClass}`)[
+                this.innerText === w
+                    ? 'addClass'
+                    : 'removeClass'
+            ](repeatedClass);
+        }
+    });
+    const $repeated = $(`.${repeatedClass}`);
+    $(span).parent(`.${wordClass}`)[
+        ( $repeated.length && ($repeated.length > 1 || $repeated.eq(0).find(`span.${editableClass}`)[0] != span))
+        ? 'addClass'
+        : 'removeClass'
+    ](repeatedClass)
+
     if (len === minLen) {
         dataStore.editor.words.set(w);
         return 1;
     } else if (len < minLen) {
-        alert('Too short: '+event.target.innerHTML.length);
+        alert('Too short: ' + event.target.innerHTML.length);
         event.target.innerHTML = dataStore.editor.words.get();
         return false;
     }

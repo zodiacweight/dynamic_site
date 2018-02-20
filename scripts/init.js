@@ -31,6 +31,7 @@ const globals = {
     editableClass = 'editable',
     inputAttachClass = 'input-attach',
     nativeWordClass = 'nativeWord',
+    repeatedClass = 'repeated',
     wordClass = 'word',
     // end classes
     // selectors

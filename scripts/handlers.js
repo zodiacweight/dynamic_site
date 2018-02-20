@@ -16,7 +16,7 @@ $(function () {
         .on('click', 
             `.${btnApplySelector}`, storeWordEdited)
         .on('keypress input',
-            `.${nativeWordClass}.${editableClass}`, checkInputLength);
+            `.${nativeWordClass}.${editableClass}`, checkInputText);
     // click on #addWord
     // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${addWordId}`, () => {
