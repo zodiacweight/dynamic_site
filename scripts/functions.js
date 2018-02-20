@@ -205,8 +205,8 @@ function manageSentence(event) {
  * 
  * @param {Object} ob 
  */
-function notEvent(ob){
-    return ! ob.originalEvent instanceof Event;
+function notEvnt(ob){
+    return ! (ob.originalEvent && ob.originalEvent instanceof Event);
 }
 // removing entire form contents
 function removeForm() {
@@ -220,7 +220,7 @@ function removeForm() {
 function setLangsInfo(langs) {
     output('setLangsInfo', arguments, 'green');
     //
-    if (!langs || !notEvent(langs)) {
+    if (!langs || !notEvnt(langs)) {
         langs = getLang(); console.log('get langs =>', langs);
     }
     const $langsBlock = $(`#${hdrLanguageId}`);

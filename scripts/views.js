@@ -6,7 +6,7 @@
 function setInitView(langs){
     output('setInitView', arguments, 'blue');
     //
-    const notEvent = notEvent(langs),
+    const notEvent = notEvnt(langs),
         tmpl = (langs && notEvent)
         ? 'main'
         : 'settings';
