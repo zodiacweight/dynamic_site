@@ -1,5 +1,6 @@
 // git -c http.sslVerify=false push origin master
 $(function () {
+    let wordStore;
     // show/hide words/sentences
     $view // click on the button to edit translated word
         .on('mouseenter mouseleave',
@@ -13,7 +14,9 @@ $(function () {
         .on('keypress input blur', 
             `#${inputAttachId}`, keepNewWordInputSynchronized)
         .on('click', 
-            `.${btnApplySelector}`, storeWordEdited);
+            `.${btnApplySelector}`, storeWordEdited)
+        .on('keypress input',
+            `.${nativeWordClass}.${editableClass}`, checkInputLength);
     // click on #addWord
     // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${addWordId}`, () => {

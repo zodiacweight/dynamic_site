@@ -9,7 +9,8 @@ function initData() {
     const langs = getLang();
     // var to store dictionary
     let dictionary,
-        editor = {};
+        editor = {},
+        wordEdited;
     // get dictionary from localStorage
     if (langs) {
         // if for some reason we have languages, but haven't dictionary
@@ -47,6 +48,14 @@ function initData() {
             },
             remove(index) {
                 delete editor[index];
+            },
+            words: {
+                get() {
+                    return wordEdited;
+                },
+                set(word) {
+                    wordEdited = word;
+                }
             }
         }
     }
@@ -170,11 +179,12 @@ function makeWordsList(substring) {
     return words;
 }
 /**
- * 
+ * // fixme: optimize target/currentTarget
  * @param {Object} event .word || .wrapper >span'
  */
 function manageSentence(event) {
     output('manageSentence', arguments);
+    // target or currentTarget matter on mouseleave
     const element = event.currentTarget,
         eventType = event.type;
     if (element.tagName.toLowerCase() == 'span') {
@@ -189,7 +199,7 @@ function manageSentence(event) {
             : $sentence.hide();
         // manage pseudoelement :before
         $sentencesTranslated().toggleClass('initial');
-    } else {
+    } else { // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
         if (eventType == 'mouseenter') {
             if (!$(element).hasClass(activeClass)) {
                 $(element).addClass(activeClass);

@@ -96,6 +96,23 @@
     float: left;
 }
 
+#loader{
+    background-color: rgb(190, 215, 61) !important;
+    background-size: cover;
+    border-radius: 50%;
+    height: 24px;
+    opacity: 0;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 24px;
+}
+#loader.active{
+    animation-name: loading;
+    animation-duration: 1.5s;
+    animation-iteration-count:infinite;
+    animation-timing-function: ease-in-out;
+}
 #page{
     position: relative;
 }

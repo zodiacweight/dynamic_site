@@ -1,4 +1,22 @@
-
+/**
+ * // check string length and keep a minimal one
+ * @param {Object} event 
+ */ 
+function checkInputLength(event){
+    output('checkInputLength', arguments);
+    const w = event.target.innerHTML,
+        len = w.length,
+        minLen = minWordLength +1;
+    if (len === minLen) {
+        dataStore.editor.words.set(w);
+        return 1;
+    } else if (len < minLen) {
+        alert('Too short: '+event.target.innerHTML.length);
+        event.target.innerHTML = dataStore.editor.words.get();
+        return false;
+    }
+    return true;
+}
 /**
  * Store edited word, transorm span to the editable area
  * @param {Object} event 
