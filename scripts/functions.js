@@ -175,7 +175,7 @@ function makeWordsList(substring) {
  */
 function manageSentence(event) {
     output('manageSentence', arguments);
-    const element = event.target,
+    const element = event.currentTarget,
         eventType = event.type;
     if (element.tagName.toLowerCase() == 'span') {
         const indexWord = $(element).parents('.active').eq(0).index(),

@@ -2,12 +2,18 @@
 $(function () {
     // show/hide words/sentences
     $view // click on the button to edit translated word
-        .on('mouseenter mouseleave', `> .${wordClass}, .wrapper >span`, manageSentence) 
-        .on("click", `.${btnEditSelector}`, editTranslatedWord)
-        .on('click', `.${btnCancelSelector}`, editTranslatedWordCancel)
-        .on('click', `.${btnRemoveSelector}`, removeWord)
-        .on('keypress input blur', `#${inputAttachId}`, keepNewWordInputSynchronized)
-        .on('click', `.${btnApplySelector}`, storeWordEdited);
+        .on('mouseenter mouseleave',
+            `> .${wordClass}, .wrapper >span`, manageSentence)
+        .on("click", 
+            `.${btnEditSelector}`, editTranslatedWord)
+        .on('click', 
+            `.${btnCancelSelector}`, editTranslatedWordCancel)
+        .on('click', 
+            `.${btnRemoveSelector}`, removeWord)
+        .on('keypress input blur', 
+            `#${inputAttachId}`, keepNewWordInputSynchronized)
+        .on('click', 
+            `.${btnApplySelector}`, storeWordEdited);
     // click on #addWord
     // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${addWordId}`, () => {
