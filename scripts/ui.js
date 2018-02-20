@@ -28,10 +28,10 @@ function createForm() {
  * 
  * @param {*} translatedWord 
  * @param {*} sentences 
- * @param {*} list 
+ * @param {*} listHTML 
  * @param {*} sent 
  */
-function setSentence(translatedWord, sentences, list, sent) {
+function setSentence(translatedWord, sentences, listHTML, sent) {
     output('setSentence', arguments, "rgb(200,100,255)");
     if (!sent) {
         sent = '&nbsp;';
@@ -40,11 +40,11 @@ function setSentence(translatedWord, sentences, list, sent) {
     }
     sentences += `
         <div class='wrapper' class="sentence">${sent}</div>`;
-    list += `
+    listHTML += `
         <div class='wrapper'>
             <span class="translatedWord">${translatedWord}</span>
         </div>`;
-    return [sentences, list];
+    return [sentences, listHTML];
 }
 /**
  * Creates words' list
@@ -53,14 +53,14 @@ function setSentence(translatedWord, sentences, list, sent) {
  */
 function createNewWordList(words, substring) {
     output('createNewWordList', arguments, "rgb(0,100,255)");
-    let list = ""
-        , sentences = ""
-        , wordsLen = 0;
+    let listHTML = "", 
+        sentences = "", 
+        wordsLen = 0;
     //
     Object.keys(words).forEach(word => {
         // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
-            list += `
+            listHTML += `
             <div class='word'>
                 ${setButton("edit")}
                 <span class="${nativeWordClass}">${word}</span>
@@ -72,17 +72,17 @@ function createNewWordList(words, substring) {
             //
             if (Array.isArray(words[word])) {
                 words[word][0].forEach((translatedWord, index) => {
-                    [sentences, list] = setSentence(translatedWord, sentences, list, words[word][1][index]);
+                    [sentences, listHTML] = setSentence(translatedWord, sentences, listHTML, words[word][1][index]);
                 });
             } else if (toString.call(words[word]) === '[object Object]') {
                 Object.keys(words[word]).forEach(translatedWord => {
-                    [sentences, list] = setSentence(translatedWord, sentences, list, // ["A rat is a gnawz. - Крыса грызун.", "Следующее предложение"]
+                    [sentences, listHTML] = setSentence(translatedWord, sentences, listHTML, // ["A rat is a gnawz. - Крыса грызун.", "Следующее предложение"]
                         words[word][translatedWord]);
                 });
             } else {
                 console.warn('words[word] is not either Array nor Object...');
             }
-            list += `
+            listHTML += `
                 </section>
             </div>`;
             sentences += `
@@ -90,7 +90,7 @@ function createNewWordList(words, substring) {
         }
     }
     );
-    return [list, sentences, wordsLen];
+    return [listHTML, sentences, wordsLen];
 }
 /**
  * 

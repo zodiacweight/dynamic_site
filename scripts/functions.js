@@ -15,7 +15,7 @@ function initData() {
         // if for some reason we have languages, but haven't dictionary
         // (it is possible if we have deleted it explicitly and got main view here)
         // then load it
-        if (!(dictionary = getDictionary())){
+        if (!(dictionary = getDictionary())) {
             loadDictionary(langs);
         }
     }
@@ -66,9 +66,10 @@ function addForm() {
 /**
  * Make initial languages choice
  */
-function checkInitLangs(currentSel) {
+function checkInitLangs(event) {
     // all selects
-    const $langSelects = $(langSelects);
+    const currentSel = event.target,
+        $langSelects = $(langSelects);
     let type, action;
     //
     $langSelects.eq(0).val() == $langSelects.eq(1).val()
@@ -133,34 +134,6 @@ function indexEditorBtn(btn) {
     return [$btn, btnIndex, $parent];
 }
 /**
- * Store edited word, transorm span to the editable area
- * @param {HTMLElement} btnEdit 
- */
-function editTranslatedWord(btnEdit) {
-    output('editTranslatedWord', arguments);
-    // storeWordEdit.dispatch({ type: 'edit' }); // default
-    //const $btnEdit = $(btnEdit), btnIndex = $btnEdit.parent('.word').index();
-    const [$btnEdit, btnIndex, $parent] = indexEditorBtn(btnEdit);
-    dataStore.editor.set(btnIndex, $btnEdit.next().text());
-    console.log('get state=>', { $btnEdit:$btnEdit, btnIndex:btnIndex, editorStored: dataStore.editor.get() });
-    handleTranslateWord(btnEdit, true);
-    $parent.find(`.${btnRemoveSelector}`).hide();
-}
-/**
- * Get edited word back, transorm the editable area into span
- * @param {HTMLElement} btnCancel 
- */
-function editTranslatedWordCancel(btnCancel) {
-    output('editTranslatedWordCancel', arguments);
-    const [$btnCancel, btnIndex, $parent] = indexEditorBtn(btnCancel),
-        storedValue = dataStore.editor.get(btnIndex);
-    //
-    handleTranslateWord(btnCancel).text(storedValue);
-    dataStore.editor.remove(btnIndex);
-    $parent.find(`.${btnRemoveSelector}`).show();
-    // console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
-}
-/**
  * Inserts list into #view
  * @param {String} list 
  */
@@ -169,20 +142,6 @@ function insertWordsList(list, sentences) {
     $view.html(list);
     $sentencesTranslated().html(sentences);
     $view.append(setAttachedWord());
-}
-/**
- * Prevents the value of the new word input to be shorter than the 
- * word in the search string
- * @param {Object} event 
- */
-function keepNewWordInputSynchronized(event) {
-    output('keepNewWordInputSynchronized', arguments);
-    const wordValue = $(`#${wordId}`).val();
-    // console.log(event.target, event.target.value, event.target.value.length);
-    if (event.target.value.length < wordValue.length) {
-        event.target.value = wordValue;
-        return event.target;
-    }
 }
 /**  Вставляет список слов в html.
  * параметры: 
@@ -212,11 +171,12 @@ function makeWordsList(substring) {
 }
 /**
  * 
- * @param {*} element .word || .wrapper >span'
- * @param {*} eventType 
+ * @param {Object} event .word || .wrapper >span'
  */
-function manageSentence(element, eventType) {
+function manageSentence(event) {
     output('manageSentence', arguments);
+    const element = event.target,
+        eventType = event.type;
     if (element.tagName.toLowerCase() == 'span') {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent('.wrapper').index(),
@@ -241,6 +201,13 @@ function manageSentence(element, eventType) {
         }
     }
 }
+/**
+ * 
+ * @param {Object} ob 
+ */
+function notEvent(ob){
+    return ! ob.originalEvent instanceof Event;
+}
 // removing entire form contents
 function removeForm() {
     output('removeForm', arguments, "goldenrod");
@@ -248,35 +215,16 @@ function removeForm() {
     if ($form.length) $form.remove();
 }
 /**
- * Remove the word from dictionary, call to store
- * @param {HTMLElement} btn 
- */
-function removeWord(btn){
-    output('removeWord', arguments, 'red');
-    const [, , $parent] = indexEditorBtn(btn),
-        dict = dataStore.get();
-    //
-    delete dict[$parent.find(`.${nativeWordClass}`).text()];
-    console.log(dict);
-    storeDictionary(dict);
-    // remove word container (hide in order not to touch editor object)
-    $parent.hide();
-}
-/**
  * 
  */
 function setLangsInfo(langs) {
     output('setLangsInfo', arguments, 'green');
-    if (!langs) {
-        langs = getLang();
+    //
+    if (!langs || !notEvent(langs)) {
+        langs = getLang(); console.log('get langs =>', langs);
     }
     const $langsBlock = $(`#${hdrLanguageId}`);
     $(Object.keys(langs)).each((index, element) => {
-        /*console.log({
-            data: index + ':' + element,
-            selector: $langsBlock.find(`span[data-lang="${element}"]`),
-            text: langs[element]
-        });*/
         $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
 }
@@ -302,24 +250,4 @@ function setLangInit() {
         }
     });
     $sectLang.append(setButton('save'));
-}
-/**
- * 
- * @param {HTMLElement} btn -- button being clicked 
- */
-function storeWordEdited(btn) {
-    output('storeWordEdited', arguments, 'darkred');
-    const wordEdited = $(btn).prev().text(),
-        dictionary = getDictionary(),
-        [$btn, btnIndex, $parent] = indexEditorBtn(btn),
-        initialWord = dataStore.editor.get(btnIndex),
-        editedWord = getNativeWord(btn).text();
-    //console.log(initialWord+'=>'+editedWord,{dictionaryWord:dictionary[initialWord], dictionary:dictionary});
-    dictionary[editedWord] = Object.assign(dictionary[initialWord]);
-    delete dictionary[initialWord];
-    dataStore.editor.remove(btnIndex);
-    //console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
-    storeDictionary(dictionary);
-    // drop editable view
-    $parent.find(`.${btnCancelSelector}`).trigger('click');
 }

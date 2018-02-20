@@ -6,13 +6,14 @@
 function setInitView(langs){
     output('setInitView', arguments, 'blue');
     //
-    const tmpl = (langs)
+    const notEvent = notEvent(langs),
+        tmpl = (langs && notEvent)
         ? 'main'
         : 'settings';
     // get template
     $.get(`tmpl/${tmpl}.html`).done(contents => {
         $mainSection.html(contents);
-        if (langs) {
+        if (langs && notEvent) {
             // create lang list
             setLangsInfo(langs);
         } else {

@@ -1,25 +1,13 @@
 // git -c http.sslVerify=false push origin master
 $(function () {
     // show/hide words/sentences
-    $view.on('mouseenter mouseleave', `> .${wordClass}, .wrapper >span`, function (event) {
-        manageSentence(this, event.type);
-    }) // click on the button to edit translated word
-        .on("click", `.${btnEditSelector}`, function () {
-            editTranslatedWord(this);
-        })
-        .on('click', `.${btnCancelSelector}`, function () {
-            editTranslatedWordCancel(this);
-        })
-        .on('click', `.${btnRemoveSelector}`, function () {
-            if (confirm('Are you sure?')) {
-                removeWord(this);
-            }
-        })
-        // $view 
+    $view // click on the button to edit translated word
+        .on('mouseenter mouseleave', `> .${wordClass}, .wrapper >span`, manageSentence) 
+        .on("click", `.${btnEditSelector}`, editTranslatedWord)
+        .on('click', `.${btnCancelSelector}`, editTranslatedWordCancel)
+        .on('click', `.${btnRemoveSelector}`, removeWord)
         .on('keypress input blur', `#${inputAttachId}`, keepNewWordInputSynchronized)
-        .on('click', `.${btnApplySelector}`, function(){
-            storeWordEdited(this);
-        });
+        .on('click', `.${btnApplySelector}`, storeWordEdited);
     // click on #addWord
     // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${addWordId}`, () => {
@@ -31,53 +19,12 @@ $(function () {
         storeLanguagesSet();
     }); */
     // store the word
-    $forms.on("click", `#${btnSaveSelector}`, function () {
-        storeWord();
-    });
+    $forms.on("click", `#${btnSaveSelector}`, storeWord);
     // changing the language in the initial lists (native/foregn)
-    $mainSection.on('change', langSelects, function () {
-        checkInitLangs(this);
-    })  // store languages in localStorage
-        .on('click', `#${btnSaveSelector}`, () => {
-            //
-            if (storeSelects.getState()=='canceled'){
-                alert('You have chosen the same language');
-                return false;
-            } else {
-                // load it anyway, as we click the button explicitly
-                loadDictionary(storeLanguagesSet(), setMainView);
-            }
-        })
-        .on('click', `#${cmdSettingsLangId}`, () => {
-            setInitView(false);
-        })
+    $mainSection
+        .on('change', langSelects, checkInitLangs)  // store languages in localStorage
+        .on('click', `#${btnSaveSelector}`, setLanguages)
+        .on('click', `#${cmdSettingsLangId}`, setInitView)
         // Creates words list and add / remove form
-       .on('input keyup', `#${wordId}`, // input#word
-            event => { // calling on jQuery object
-           //console.log("input: ", event.target.value);
-           const $wordInput = $(event.target),
-               targetWordValue = $wordInput.val(),
-               disabled = 'disabled';
-           
-           if ($wordInput.attr('disabled')) {
-               return;
-           }
-           //
-           if (targetWordValue.length > minWordLength) {
-               const list = createWordsList(targetWordValue);
-               if (list) {
-                    makeWordsList(targetWordValue);
-                    removeForm();
-               } else {
-                   addForm();
-               }
-               // remove or add form depending wheter does it added already or not
-               // window[list ? 'removeForm' : 'addForm']();
-           } else {
-               // it checks inside if the button exitss
-               removeForm();
-               // 
-               clearList();
-           }
-       });
+        .on('input keyup', `#${wordId}`, manageWordsList) // input#word
 });
