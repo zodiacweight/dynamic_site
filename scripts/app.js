@@ -1,4 +1,28 @@
 /**
+ * Add a new word to the dictionary
+ * @param {Object} event 
+ */
+function addNewWord() {
+    output('addWord', arguments);
+    console.log('new word=>', $(`#${inputAttachId}`).val());
+}
+/**
+ * Make initial languages choice
+ */
+function checkInitLangs(event) {
+    // all selects
+    const currentSel = event.target,
+        $langSelects = $(langSelects);
+    let type, action;
+    //
+    $langSelects.eq(0).val() == $langSelects.eq(1).val()
+        ? (type = 'cancel', action = 'add')
+        : (type = 'submit', action = 'remove');
+    //
+    $langSelects[`${action}Class`]('border-red-outline');
+    storeSelects.dispatch({ type: type });
+}
+/**
  * // check string length and keep a minimal one
  * @param {Object} event 
  */
@@ -66,22 +90,6 @@ function editTranslatedWordCancel(event) {
     // console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
 }
 /**
- * 
- * @param {*} toArray 
- */
-function getLang(toArray) {
-    const langs = getLangDb();
-    if (langs && toArray && !toArray.bubbles) {
-        const langKeys = Object.keys(langs);
-        return (langKeys.length)
-            ? langKeys.map(function (k) {
-                return langs[k];
-            }) : null;
-    } else {
-        return langs;
-    }
-}
-/**
  * Prevents the value of the new word input to be shorter than the 
  * word in the search string
  * @param {Object} event 
@@ -96,17 +104,46 @@ function keepNewWordInputSynchronized(event) {
     }
 }
 /**
+ * // fixme: optimize target/currentTarget
+ * @param {Object} event .word || .wrapper >span'
+ */
+function manageSentence(event) {
+    output('manageSentence', arguments);
+    // target or currentTarget matter on mouseleave
+    const element = event.currentTarget,
+        eventType = event.type;
+    if (element.tagName.toLowerCase() == 'span') {
+        const indexWord = $(element).parents('.active').eq(0).index(),
+            indexSentence = $(element).parent('.wrapper').index(),
+            $sentence = $sentencesTranslated()
+                .find('.sentences')
+                .eq(indexWord)
+                .find('.wrapper').eq(indexSentence);
+        eventType == 'mouseenter' ?
+            $sentence.fadeIn(200)
+            : $sentence.hide();
+        // manage pseudoelement :before
+        $sentencesTranslated().toggleClass('initial');
+    } else { // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
+        if (eventType == 'mouseenter') {
+            if (!$(element).hasClass(activeClass)) {
+                $(element).addClass(activeClass);
+            }
+        } else {
+            if ($view.find(`.${wordClass}`).length > 1) {
+                $(element).removeClass(activeClass);
+            }
+        }
+    }
+}
+/**
  * 
  * @param {*} event 
  */
 function manageWordsList(event) {
+    output('manageWordsList', arguments, 'orangered');
     const $wordInput = $(event.target),
-        targetWordValue = $wordInput.val(),
-        disabled = 'disabled';
-
-    if ($wordInput.attr('disabled')) {
-        return;
-    }
+        targetWordValue = $wordInput.val();
     //
     if (targetWordValue.length > minWordLength) {
         const list = createWordsList(targetWordValue);
@@ -143,7 +180,9 @@ function removeWord(event) {
     // remove word container (hide in order not to touch editor object)
     $parent.hide();
 }
-/** */
+/** 
+ * 
+*/
 function setLanguages() {
     //
     if (storeSelects.getState() == 'canceled') {
@@ -230,8 +269,8 @@ function storeWordEdited(event) {
     // drop editable view
     $parent.find(`.${btnCancelSelector}`).trigger('click');
 }
-// ===============
 
+// ===============
 function output(fnc, args, color) {
     color ? console.groupCollapsed('%c' + fnc, 'color:' + color) : console.groupCollapsed(fnc);
     console.trace();

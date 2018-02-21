@@ -72,27 +72,27 @@ function addForm() {
         ${setButton('save-xtra')}
     </form>`);
 }
-/**
- * Make initial languages choice
- */
-function checkInitLangs(event) {
-    // all selects
-    const currentSel = event.target,
-        $langSelects = $(langSelects);
-    let type, action;
-    //
-    $langSelects.eq(0).val() == $langSelects.eq(1).val()
-        ? (type = 'cancel', action = 'add')
-        : (type = 'submit', action = 'remove');
-    //
-    $langSelects[`${action}Class`]('border-red-outline');
-    storeSelects.dispatch({ type: type });
-}
 // 
 function clearList() {
     output('clearList', arguments, "darkkhaki");
     $view.html("");
     $sentencesTranslated().html("");
+}
+/**
+ * 
+ * @param {*} toArray 
+ */
+function getLang(toArray) {
+    const langs = getLangDb();
+    if (langs && toArray && !toArray.bubbles) {
+        const langKeys = Object.keys(langs);
+        return (langKeys.length)
+            ? langKeys.map(function (k) {
+                return langs[k];
+            }) : null;
+    } else {
+        return langs;
+    }
 }
 /**
  * Get the part of dictionary containing words of selected language
@@ -177,39 +177,6 @@ function makeWordsList(substring) {
         $view.find(`>.${wordClass}`).trigger('mouseenter'); //console.log('mouseenter');
     }
     return words;
-}
-/**
- * // fixme: optimize target/currentTarget
- * @param {Object} event .word || .wrapper >span'
- */
-function manageSentence(event) {
-    output('manageSentence', arguments);
-    // target or currentTarget matter on mouseleave
-    const element = event.currentTarget,
-        eventType = event.type;
-    if (element.tagName.toLowerCase() == 'span') {
-        const indexWord = $(element).parents('.active').eq(0).index(),
-            indexSentence = $(element).parent('.wrapper').index(),
-            $sentence = $sentencesTranslated()
-                .find('.sentences')
-                .eq(indexWord)
-                .find('.wrapper').eq(indexSentence);
-        eventType == 'mouseenter' ?
-            $sentence.fadeIn(200)
-            : $sentence.hide();
-        // manage pseudoelement :before
-        $sentencesTranslated().toggleClass('initial');
-    } else { // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
-        if (eventType == 'mouseenter') {
-            if (!$(element).hasClass(activeClass)) {
-                $(element).addClass(activeClass);
-            }
-        } else {
-            if ($view.find(`.${wordClass}`).length > 1) {
-                $(element).removeClass(activeClass);
-            }
-        }
-    }
 }
 /**
  * 

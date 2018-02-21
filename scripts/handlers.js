@@ -11,10 +11,12 @@ $(function () {
             `.${btnCancelSelector}`, editTranslatedWordCancel)
         .on('click', 
             `.${btnRemoveSelector}`, removeWord)
-        .on('keypress input blur', 
-            `#${inputAttachId}`, keepNewWordInputSynchronized)
         .on('click', 
             `.${btnApplySelector}`, storeWordEdited)
+        .on('click', 
+            `.${btnAttachSelector}`, addNewWord)
+        .on('keypress input blur', 
+            `#${inputAttachId}`, keepNewWordInputSynchronized)
         .on('keypress input',
             `.${nativeWordClass}.${editableClass}`, checkInputText);
     // click on #addWord
@@ -33,7 +35,7 @@ $(function () {
     $mainSection
         .on('change', langSelects, checkInitLangs)  // store languages in localStorage
         .on('click', `#${btnSaveSelector}`, setLanguages)
-        .on('click', `#${cmdSettingsLangId}`, setInitView)
+        .on('click', `#${cmdSettingsLangId}`, setInitView) // in view
         // Creates words list and add / remove form
         .on('input keyup', `#${wordId}`, manageWordsList) // input#word
 });
