@@ -28,29 +28,16 @@ function checkInitLangs(event) {
  */
 function checkInputText(event) {
     output('checkInputText', arguments);
-    const span = event.target,
-        w = span.innerHTML,
-        len = w.length,
-        minLen = minWordLength + 1;
-
-    $(`span.${nativeWordClass}`).each(function () {
-        if (span !== this) {
-            $(this).parent(`.${wordClass}`)[
-                this.innerText === w
-                    ? 'addClass'
-                    : 'removeClass'
-            ](repeatedClass);
-        }
-    });
-    const $repeated = $(`.${repeatedClass}`);
-    $(span).parent(`.${wordClass}`)[
-        ( $repeated.length && ($repeated.length > 1 || $repeated.eq(0).find(`span.${editableClass}`)[0] != span))
-        ? 'addClass'
-        : 'removeClass'
-    ](repeatedClass)
-
+    const cellToEdit = event.target,
+        len = cellToEdit.innerHTML.length,
+        minLen = minWordLength + 1,
+        // set or remove mark about the same word on the all .word, get blocks having .repeated class
+        repeated = setRepeatedMarkClass(cellToEdit);
+    // set or remove mark about the same word on the cellToEdit.[parent.word]
+    setRepeatedMarkClassEventParent(cellToEdit, repeated);
+    //
     if (len === minLen) {
-        dataStore.editor.words.set(w);
+        dataStore.editor.words.set(cellToEdit.innerHTML);
         return 1;
     } else if (len < minLen) {
         alert('Too short: ' + event.target.innerHTML.length);
@@ -70,7 +57,7 @@ function editTranslatedWord(event) {
     const btnEdit = event.target,
         [$btnEdit, btnIndex, $parent] = indexEditorBtn(btnEdit);
     dataStore.editor.set(btnIndex, $btnEdit.next().text());
-    console.log('get state=>', { $btnEdit: $btnEdit, btnIndex: btnIndex, editorStored: dataStore.editor.get() });
+    // console.log('get state=>', { $btnEdit: $btnEdit, btnIndex: btnIndex, editorStored: dataStore.editor.get() });
     handleTranslateWord(btnEdit, true);
     $parent.find(`.${btnRemoveSelector}`).hide();
 }

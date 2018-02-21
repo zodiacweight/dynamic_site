@@ -79,10 +79,49 @@ function clearList() {
     $sentencesTranslated().html("");
 }
 /**
+ * Assign or remove mark of coninsiding value
+ * @param {Object} cellToEdit event.target
+ */
+function setRepeatedMarkClass(cellToEdit){
+    output('setRepeatedMarkClass', arguments);
+    const repeated = [];
+    let action;
+    $(`span.${nativeWordClass}`).each(function () {
+        if (cellToEdit !== this) {
+            if (this.innerText === cellToEdit.innerHTML) {
+                action = 'addClass';
+                repeated.push(this);
+            } else {
+                action = 'removeClass';
+            }
+            $(this).parent(`.${wordClass}`)[action](repeatedClass);
+        }
+    });
+    return repeated;
+}
+/**
+ * set or remove mark about the same word on the cellToEdit.[parent.word]
+ * @param {HTMLELement} cellToEdit 
+ * @param {Array} repeated 
+ */
+function setRepeatedMarkClassEventParent(cellToEdit, repeated){
+    output('setRepeatedMarkClassEventParent', arguments);
+    $(cellToEdit).parent(`.${wordClass}`)[
+        ( repeated.length && // 1
+          ( repeated.length > 1 || 
+            repeated[0] != cellToEdit
+          )
+        )
+        ? 'addClass'
+        : 'removeClass'
+    ](repeatedClass);
+}
+/**
  * 
  * @param {*} toArray 
  */
 function getLang(toArray) {
+    output('getLang', arguments);
     const langs = getLangDb();
     if (langs && toArray && !toArray.bubbles) {
         const langKeys = Object.keys(langs);
@@ -98,6 +137,7 @@ function getLang(toArray) {
  * Get the part of dictionary containing words of selected language
  */
 function getLangWords() {
+    output('getLangWords', arguments);
     return dataStore.get(/* dict => dict[getTargetLanguage()] */);
 }
 /**
@@ -183,6 +223,7 @@ function makeWordsList(substring) {
  * @param {Object} ob 
  */
 function notEvnt(ob){
+    output('notEvnt', arguments, "goldenrod");
     return ! (ob.originalEvent && ob.originalEvent instanceof Event);
 }
 // removing entire form contents
