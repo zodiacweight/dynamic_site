@@ -30,11 +30,22 @@ function checkInputText(event) {
     output('checkInputText', arguments);
     const cellToEdit = event.target,
         len = cellToEdit.innerHTML.length,
-        minLen = minWordLength + 1,
-        // set or remove mark about the same word on the all .word, get blocks having .repeated class
-        repeated = setRepeatedMarkClass(cellToEdit);
-    // set or remove mark about the same word on the cellToEdit.[parent.word]
-    setRepeatedMarkClassEventParent(cellToEdit, repeated);
+        minLen = minWordLength + 1;
+    let actionClass,
+        btnApplyVisibility;
+    if (findInDictionary(cellToEdit.innerHTML)) {
+        actionClass = 'addClass';
+        btnApplyVisibility = 'hide';
+        $(cellToEdit).after(setButton('warning'));
+    } else {
+        actionClass = 'removeClass';
+        btnApplyVisibility = 'show';
+        $(cellToEdit).parent(`.${wordClass}`).find(`.${btnWarning}`).remove();
+    }
+    // set class if is repeated or remove it
+    $(cellToEdit).parent(`.${wordClass}`)[actionClass](repeatedClass);
+    // the button to save -- accordingly
+    $(`.${btnApplySelector}`)[btnApplyVisibility]();
     //
     if (len === minLen) {
         dataStore.editor.words.set(cellToEdit.innerHTML);

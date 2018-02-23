@@ -19,6 +19,15 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "The media is the most powerful entity on Earth. They have the power to make the innocent guilty and to make the guilty innocent, and that's power. Because they control the minds of the masses.",
+			"settings":
+			{
+				"buffer_size": 192,
+				"line_ending": "Windows",
+				"name": "The media is the most powerful entity on Earth. Th"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -184,8 +193,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 192,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								192,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "The media is the most powerful entity on Earth. Th",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -266,7 +304,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 239.0,
+	"side_bar_width": 276.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

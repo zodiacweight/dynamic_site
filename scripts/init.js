@@ -15,6 +15,7 @@ const globals = {
     btnRemoveSelector = 'btn-remove',
     btnSaveSelector = 'btn-save',
     btnSaveXtraSelector = 'btn-save-xtra',
+    btnWarning = 'btn-warning',
     // ids
     addWordId = "addWord",
     addWordFormId = "addWordForm",

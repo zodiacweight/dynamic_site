@@ -53,8 +53,8 @@ function setSentence(translatedWord, sentences, listHTML, sent) {
  */
 function createNewWordList(words, substring) {
     output('createNewWordList', arguments, "rgb(0,100,255)");
-    let listHTML = "", 
-        sentences = "", 
+    let listHTML = "",
+        sentences = "",
         wordsLen = 0;
     //
     Object.keys(words).forEach(word => {
@@ -146,6 +146,9 @@ function setButton(btn_type) {
         case 'add':
             return `<input class="btn-add" type="button">`;
             break;
+        case 'apply':
+            return `<button class='${btnApplySelector}' type="button">✔</button>`;
+            break;
         case 'edit':
             return `<button class='${btnEditSelector}' type="button">&nbsp;</button>`;
             break;
@@ -160,6 +163,9 @@ function setButton(btn_type) {
             break;
         case 'remove':
             return `<button class='${btnRemoveSelector}' type="button">&nbsp;</button>`;
+            break;
+        case 'warning':
+            return `<button class='${btnWarning}' type="button">&nbsp;</button>`;
             break;
     }
 }

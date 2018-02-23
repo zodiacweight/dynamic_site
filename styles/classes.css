@@ -6,19 +6,32 @@
     outline: solid red;
 }
 .btn-apply{
+    border: solid 1px darkgreen;
     font-weight: bold;
     cursor: default;
+    
+    line-height: 23px;
+    font-family: Arial;
+    background-color: #96b300;
+    text-align: center;
+} 
+.btn-apply,
+.btn-warning{
     height: 27px;
-    line-height: 27px;
     position: absolute;
     right: 9px;
     top: 8px;
-    font-family: Arial;
-    width: 35px;
-    background-color: #96b300;
-    text-align: center;
+    width: 28px;
     z-index: 10;
-} 
+}
+.btn-warning{
+    background-image: url(../images/btn-warning.png);
+    background-color: transparent;
+    background-position: 3px 4.5px;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    border: none;
+}
 .btn-add{
     background-color: rgb(61, 215, 190);
     font-size: 22px;
@@ -84,14 +97,14 @@
     background: white;
     outline: solid 1px #aaa;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
-    color: red;
+    color: blue;
     display: inline-block;
     margin-left: -6px;
     padding: 2px 32px 3px 6px;
     width: calc(100% - 32px);
 }
 .repeated{
-    background-color: yellow !important;
+    background: rgb(255, 180, 180) !important;
 }
 .word{
     clear: both;

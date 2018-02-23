@@ -79,42 +79,11 @@ function clearList() {
     $sentencesTranslated().html("");
 }
 /**
- * Assign or remove mark of coninsiding value
- * @param {Object} cellToEdit event.target
+ * Check entry in dictionary
+ * @param {String} entry 
  */
-function setRepeatedMarkClass(cellToEdit){
-    output('setRepeatedMarkClass', arguments);
-    const repeated = [];
-    let action;
-    $(`span.${nativeWordClass}`).each(function () {
-        if (cellToEdit !== this) {
-            if (this.innerText === cellToEdit.innerHTML) {
-                action = 'addClass';
-                repeated.push(this);
-            } else {
-                action = 'removeClass';
-            }
-            $(this).parent(`.${wordClass}`)[action](repeatedClass);
-        }
-    });
-    return repeated;
-}
-/**
- * set or remove mark about the same word on the cellToEdit.[parent.word]
- * @param {HTMLELement} cellToEdit 
- * @param {Array} repeated 
- */
-function setRepeatedMarkClassEventParent(cellToEdit, repeated){
-    output('setRepeatedMarkClassEventParent', arguments);
-    $(cellToEdit).parent(`.${wordClass}`)[
-        ( repeated.length && // 1
-          ( repeated.length > 1 || 
-            repeated[0] != cellToEdit
-          )
-        )
-        ? 'addClass'
-        : 'removeClass'
-    ](repeatedClass);
+function findInDictionary(entry){
+    return Object.keys(dataStore.get()).some(word => word === entry);
 }
 /**
  * 
@@ -163,7 +132,7 @@ function handleTranslateWord(btn, add) {
         btnEditClassAction = 'remove';
         classAction = 'add';
         editableState = true;
-        $nativeWordSpan.after(`<div class="${btnApplySelector}">✔</div>`);
+        $nativeWordSpan.after(setButton('apply'));
     } else {
         $nativeWordSpan.next(`.${btnApplySelector}`).remove();
     }
@@ -222,9 +191,9 @@ function makeWordsList(substring) {
  * 
  * @param {Object} ob 
  */
-function notEvnt(ob){
+function notEvnt(ob) {
     output('notEvnt', arguments, "goldenrod");
-    return ! (ob.originalEvent && ob.originalEvent instanceof Event);
+    return !(ob.originalEvent && ob.originalEvent instanceof Event);
 }
 // removing entire form contents
 function removeForm() {
