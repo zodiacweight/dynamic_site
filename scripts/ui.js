@@ -159,13 +159,13 @@ function setButton(btn_type) {
             return `<input type="button" value="Save & Add" id="${btnSaveXtraSelector}">`;
             break;
         case 'attach':
-            return `<button id="" class="${btnAttachSelector}" type="button">Добавить</button>`;
+            return `<button id="${btnAttachSelector}" class="${btnAttachSelector}" type="button">Добавить</button>`;
             break;
         case 'remove':
             return `<button class='${btnRemoveSelector}' type="button">&nbsp;</button>`;
             break;
         case 'warning':
-            return `<button class='${btnWarning}' type="button">&nbsp;</button>`;
+            return `<button class='${btnWarning}' type="button" title="${wordIsTaken}">&nbsp;</button>`;
             break;
     }
 }

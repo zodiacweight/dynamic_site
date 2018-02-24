@@ -38,6 +38,9 @@ const globals = {
     // selectors
     langSelects = `#${sectionChooseLangId} select`,
     // end selectors
+    // strings
+    wordIsTaken = 'The word is taken already',
+    // end strings
     // elements
     $forms = $("#forms"),
     // section above view

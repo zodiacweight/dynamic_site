@@ -13,6 +13,11 @@
     padding-right: 42px;
 }
 
+#input-attach.repeated{
+    background-color:#fff !important;
+    color:red;
+}
+
 #main{
     clear: both;
     float: left;

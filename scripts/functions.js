@@ -72,6 +72,22 @@ function addForm() {
         ${setButton('save-xtra')}
     </form>`);
 }
+/**
+ * 
+ * @param {jQuery Object}  $targetCell -- input field
+ * @param {String} targetCellVal -- input field text
+ */
+function checkNewWordCoincidence($targetCell, targetCellVal) {
+    let $bntAttach = $(`#${btnAttachSelector}`),
+        disabled = 'disabled';
+    if (findInDictionary(targetCellVal)) {
+        $targetCell.addClass(repeatedClass).attr('title', wordIsTaken);
+        $bntAttach.attr(disabled, disabled);
+    } else {
+        $targetCell.removeClass(repeatedClass).removeAttr('title');
+        $bntAttach.removeAttr(disabled);
+    }
+}
 // 
 function clearList() {
     output('clearList', arguments, "darkkhaki");
@@ -82,8 +98,14 @@ function clearList() {
  * Check entry in dictionary
  * @param {String} entry 
  */
-function findInDictionary(entry){
-    return Object.keys(dataStore.get()).some(word => word === entry);
+function findInDictionary(entry, storedWordIndex) {
+    const found = Object.keys(dataStore.get()).some(word => word === entry);
+    if (storedWordIndex !== undefined && 
+        dataStore.editor.get(storedWordIndex) === entry
+    ) {
+        return false;
+    }
+    return found;
 }
 /**
  * 
@@ -144,12 +166,12 @@ function handleTranslateWord(btn, add) {
  * return jQuery object, index
  * @param {HTMLElement} btn 
  */
-function indexEditorBtn(btn) {
+function indexEditorBtn(targetElement) {
     output('indexEditorBtn', arguments);
-    const $btn = $(btn),
-        $parent = $btn.parent(`.${wordClass}`),
-        btnIndex = $parent.index();
-    return [$btn, btnIndex, $parent];
+    const $target = $(targetElement),
+        $parent = $target.parent(`.${wordClass}`),
+        targetIndex = $parent.index();
+    return [$target, targetIndex, $parent];
 }
 /**
  * Inserts list into #view

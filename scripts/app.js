@@ -29,32 +29,30 @@ function checkInitLangs(event) {
 function checkInputText(event) {
     output('checkInputText', arguments);
     const cellToEdit = event.target,
+        targetHTML = cellToEdit.innerHTML,
         len = cellToEdit.innerHTML.length,
-        minLen = minWordLength + 1;
-    let actionClass,
-        btnApplyVisibility;
-    if (findInDictionary(cellToEdit.innerHTML)) {
-        actionClass = 'addClass';
-        btnApplyVisibility = 'hide';
-        $(cellToEdit).after(setButton('warning'));
+        minLen = minWordLength + 1,
+        [$cellToEdit, cellIndex, $parent] = indexEditorBtn(cellToEdit);
+    //
+    if (findInDictionary(targetHTML, cellIndex)) {
+        $parent.addClass(repeatedClass);
+        $cellToEdit.after(setButton('warning'));
+        $(`.${btnApplySelector}`).hide();
     } else {
-        actionClass = 'removeClass';
-        btnApplyVisibility = 'show';
-        $(cellToEdit).parent(`.${wordClass}`).find(`.${btnWarning}`).remove();
+        $parent.removeClass(repeatedClass).find(`.${btnWarning}`).remove();
+        $(`.${btnApplySelector}`).show();
     }
-    // set class if is repeated or remove it
-    $(cellToEdit).parent(`.${wordClass}`)[actionClass](repeatedClass);
-    // the button to save -- accordingly
-    $(`.${btnApplySelector}`)[btnApplyVisibility]();
     //
     if (len === minLen) {
-        dataStore.editor.words.set(cellToEdit.innerHTML);
+        // store minimal word in order to keep it in cell
+        dataStore.editor.words.set(targetHTML);
         return 1;
     } else if (len < minLen) {
-        alert('Too short: ' + event.target.innerHTML.length);
-        event.target.innerHTML = dataStore.editor.words.get();
+        alert('Too short: ' + len);
+        // restore minimal word
+        targetHTML = dataStore.editor.words.get();
         return false;
-    }
+    }    
     return true;
 }
 /**
@@ -94,15 +92,18 @@ function editTranslatedWordCancel(event) {
  */
 function keepNewWordInputSynchronized(event) {
     output('keepNewWordInputSynchronized', arguments);
-    const wordValue = $(`#${wordId}`).val();
+    const wordValue = $(`#${wordId}`).val(),
+        $targetCell = $(event.target),
+        targetCellVal = $targetCell.val();
     // console.log(event.target, event.target.value, event.target.value.length);
-    if (event.target.value.length < wordValue.length) {
-        event.target.value = wordValue;
-        return event.target;
+    if (targetCellVal.length < wordValue.length) {
+        targetCellVal = wordValue;
+        return;
+    } else {
+        checkNewWordCoincidence($targetCell, targetCellVal);
     }
 }
 /**
- * // fixme: optimize target/currentTarget
  * @param {Object} event .word || .wrapper >span'
  */
 function manageSentence(event) {
@@ -136,7 +137,7 @@ function manageSentence(event) {
 }
 /**
  * 
- * @param {*} event 
+ * @param {Object} event 
  */
 function manageWordsList(event) {
     output('manageWordsList', arguments, 'orangered');

@@ -5,6 +5,9 @@
 .border-red-outline{
     outline: solid red;
 }
+[class|="btn"]:disabled{
+    opacity:0.75;
+}
 .btn-apply{
     border: solid 1px darkgreen;
     font-weight: bold;
@@ -27,7 +30,7 @@
 .btn-warning{
     background-image: url(../images/btn-warning.png);
     background-color: transparent;
-    background-position: 3px 4.5px;
+    background-position: 4px 4px;
     background-repeat: no-repeat;
     background-size: 20px;
     border: none;
