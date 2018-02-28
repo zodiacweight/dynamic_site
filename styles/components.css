@@ -44,9 +44,15 @@
 .btn-attach{
     background-color: rgb(190, 215, 61);
 }
+.btn-attach-sentence{
+    background-color: rgb(61, 215, 190);
+}
+#btn-attach{
+    clear:left;
+}
 #btn-save,
 #btn-save-xtra,
-.btn-attach{
+[class|="btn-attach"]{
     border: solid 1px transparent;
     border-radius: 5px;
     font-size: 1.2em;
@@ -55,7 +61,8 @@
 }
 
 #chooseLanguage > h4{
-    transform: translateY(-6px);
+    /* transform: translateY(-6px); */
+    margin: 0 auto 0 6px;
 }
 
 #chooseLanguage select{
@@ -68,37 +75,47 @@
     font-weight: 700;
 }
 #forms{
-    margin-top: 140px;
-    
+    margin-top: 120px;
 }
 @media screen and (min-width: 338px){
     #forms{
-        margin-top: 114px;
+        margin-top: 92px;
     }
 }
 
 @media screen and (min-width: 580px){
     #forms{
-        margin-top: 94px;
+        margin-top: 74px;
     }
 }
 
-#input-attach{
-    border-color: rgba(100,100,100,0.8);
-    border-width: 2px;
-    /* display: block; */
-    clear: both;
+.input-attach ~[class|="btn-attach"]{
     float: left;
-    font-size: 18px;
-    margin: 8px auto 0 0;
-    min-height: auto;
-    min-width: auto;
-    padding: 6px;
-    width: calc(100% - 8px);
+    margin-right: 8px;
 }
 
-#input-attach +.btn-attach{
+.input-attach +[class|="btn-add-translated"]{
+    background: rgb(250, 255, 189);
+    border: solid 3px;
+    border-radius: 4px;
+    border-left-color: rgb(180,200,180);
+    border-top-color: rgb(180,200,180);
+    border-right-color: rgb(100, 140, 100);
+    border-bottom-color: rgb(100,140,100);
     float: left;
+    margin: 8px auto auto 6px;
+    height: 36px;
+    width: 36px;
+}
+
+.input-attach +[class|="btn-add-translated"]::before{
+    content:"+";
+    color:  darkgreen;
+    font-size: 30px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 26px;
+    margin-left: -1px;
 }
 
 #loader{
@@ -112,14 +129,54 @@
     top: 20px;
     width: 24px;
 }
+
 #loader.active{
     animation-name: loading;
     animation-duration: 1.5s;
     animation-iteration-count:infinite;
     animation-timing-function: ease-in-out;
 }
+
 #page{
     position: relative;
+}
+#page{
+    animation-name: compact;
+    animation-delay: 1s;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+}
+
+@media screen and (min-width: 768px){
+    #page{
+        animation: unset;
+        /*animation-fill-mode: none;*/
+        transform: translateY(0);
+    }
+}
+
+#pop-up{
+    background-color: rgba(255,255,255,0.9);
+    box-shadow: 0 0 40px 6px rgba(0,0,0,0.5), 0 0 0 10px rgba(0,0,0,0.15);
+    border-radius: 1px;
+    opacity: 0;
+    position: fixed;
+    bottom: 20px;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    max-height: calc(100% - 40px);
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+#pop-up.visible{
+    opacity: 1;
+    z-index: 2;
+}
+
+
+#pop-up .btn-cancel:before{
+    right: 0;
 }
 
 #section-choose-language select{
@@ -162,7 +219,7 @@
     clear: both;
     float: left;
     font-size: 1.1em;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     padding: 4px;
 }
 

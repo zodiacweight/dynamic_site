@@ -133,8 +133,13 @@ function createWordsList(targetWordValue) {
  */
 function setAttachedWord() {
     output('setAttachedWord', arguments);
-    return `<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachClass}" id="${inputAttachId}">
-${setButton('attach')}`;
+    return `
+<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachClass}" id="${inputAttachId}">
+<input placeholder="Input a translated word here" type="text" class="${inputAttachClass} translated">
+${setButton('add-translated')}
+    ${setButton('attach')}
+    ${setButton('sentence')}
+    `;
 }
 /**
  * 
@@ -145,6 +150,9 @@ function setButton(btn_type) {
     switch (btn_type) {
         case 'add':
             return `<input class="btn-add" type="button">`;
+            break;
+        case 'add-translated':
+            return `<button class="btn-add-translated" type="button"></button>`;
             break;
         case 'apply':
             return `<button class='${btnApplySelector}' type="button">✔</button>`;
@@ -159,7 +167,10 @@ function setButton(btn_type) {
             return `<input type="button" value="Save & Add" id="${btnSaveXtraSelector}">`;
             break;
         case 'attach':
-            return `<button id="${btnAttachSelector}" class="${btnAttachSelector}" type="button">Добавить</button>`;
+            return `<button id="${btnAttachSelector}" class="${btnAttachSelector}" type="button">Add</button>`;
+            break;
+        case 'sentence':
+            return `<button id="${btnAttachSentenceSelector}" class="${btnAttachSentenceSelector}" type="button">Add + sentence</button>`;
             break;
         case 'remove':
             return `<button class='${btnRemoveSelector}' type="button">&nbsp;</button>`;

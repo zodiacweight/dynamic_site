@@ -2,20 +2,24 @@
 $(function () {
     let wordStore;
     // show/hide words/sentences
+    $popUp.on('click', `.${btnCancelSelector}`, hidePopUp);
+    
     $view // click on the button to edit translated word
         .on('mouseenter mouseleave',
             `> .${wordClass}, .wrapper >span`, manageSentence)
-        .on("click", 
+        .on("click",
             `.${btnEditSelector}`, editTranslatedWord)
-        .on('click', 
-            `.${btnCancelSelector}`, editTranslatedWordCancel)
-        .on('click', 
+        .on('click',
+            `.${wordClass} .${btnCancelSelector}`, editTranslatedWordCancel)
+        .on('click',
             `.${btnRemoveSelector}`, removeWord)
-        .on('click', 
+        .on('click',
             `.${btnApplySelector}`, storeWordEdited)
-        .on('click', 
+        .on('click',
             `.${btnAttachSelector}`, addNewWord)
-        .on('keypress input blur', 
+        .on('click',
+            `.${btnAttachSentenceSelector}`, addNewWordAndSentence)
+        .on('keypress input blur',
             `#${inputAttachId}`, keepNewWordInputSynchronized)
         .on('keypress input',
             `.${nativeWordClass}.${editableClass}`, checkInputText);

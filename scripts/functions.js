@@ -4,7 +4,7 @@
  * @callback -- function to run inside after getting json
 */
 function initData() {
-    output('initData', arguments);
+    outputGroupped('initData', arguments);
     // get lang
     const langs = getLang();
     // var to store dictionary
@@ -23,6 +23,7 @@ function initData() {
     // no stored dictionary
     // if not langs, show settings, otherwise -- main view
     setInitView(langs);
+    console.groupEnd();
     // dataStore object
     return {
         get() {
@@ -78,6 +79,7 @@ function addForm() {
  * @param {String} targetCellVal -- input field text
  */
 function checkNewWordCoincidence($targetCell, targetCellVal) {
+    outputGroupped('addNewWordAndSentence', arguments);
     let $bntAttach = $(`#${btnAttachSelector}`),
         disabled = 'disabled';
     if (findInDictionary(targetCellVal)) {
@@ -87,6 +89,14 @@ function checkNewWordCoincidence($targetCell, targetCellVal) {
         $targetCell.removeClass(repeatedClass).removeAttr('title');
         $bntAttach.removeAttr(disabled);
     }
+    console.groupEnd();
+}
+/**
+ * @param {String} word
+ */
+function checkWordLengthTooShort(word, min=minWordLength + 1){
+    output('checkWordLengthTooShort', arguments);
+    return min >= word.length ? 'Too short word' : false;
 }
 // 
 function clearList() {
@@ -99,12 +109,13 @@ function clearList() {
  * @param {String} entry 
  */
 function findInDictionary(entry, storedWordIndex) {
+    outputGroupped('findInDictionary', arguments);
     const found = Object.keys(dataStore.get()).some(word => word === entry);
     if (storedWordIndex !== undefined && 
         dataStore.editor.get(storedWordIndex) === entry
-    ) {
+    ) { console.groupEnd();
         return false;
-    }
+    }   console.groupEnd();
     return found;
 }
 /**
@@ -210,6 +221,20 @@ function makeWordsList(substring) {
     return words;
 }
 /**
+ * mark input field as having too short length
+ * @param {jQuery object} $inputAttach
+ */
+function markInputTooShortLength($inputAttach){
+    $inputAttach.addClass(wordRedClass).attr('title',wordIsTooShort);
+}
+/**
+ * unmark input field as having too short length
+ * @param {jQuery object} $inputAttach
+ */
+function markInputTooShortLengthCancel($inputAttach){
+    $inputAttach.removeClass(wordRedClass).removeAttr('title');
+}
+/**
  * 
  * @param {Object} ob 
  */
@@ -227,15 +252,16 @@ function removeForm() {
  * 
  */
 function setLangsInfo(langs) {
-    output('setLangsInfo', arguments, 'green');
+    outputGroupped('setLangsInfo', arguments, 'green');
     //
     if (!langs || !notEvnt(langs)) {
-        langs = getLang(); console.log('get langs =>', langs);
+        langs = getLang();
     }
     const $langsBlock = $(`#${hdrLanguageId}`);
     $(Object.keys(langs)).each((index, element) => {
         $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
+    console.groupEnd();
 }
 /**
  * Set an initial lang choice

@@ -3,13 +3,37 @@
  * @param {Object} event 
  */
 function addNewWord() {
-    output('addWord', arguments);
-    console.log('new word=>', $(`#${inputAttachId}`).val());
+    outputGroupped('addNewWord', arguments);
+    const $inputAttach = $(`#${inputAttachId}`),
+        word = $inputAttach.val();
+    let mess = checkWordLengthTooShort(word);
+    if (mess) {
+        console.warn(mess);
+        markInputTooShortLength($inputAttach);
+        console.groupEnd();
+        return false;
+    }
+    console.log('new word=>', word);
+    const dictionary = dataStore.get();
+    // dictionary[word];
+    console.groupEnd();
+}
+/**
+ * Add a new word and load pop-up window to add a sentence
+ */
+function addNewWordAndSentence() {
+    outputGroupped('addNewWordAndSentence', arguments);
+    if (!addNewWord()) {
+        return false;
+    };
+    $popUp.addClass(visibleClass);
+    console.groupEnd();
 }
 /**
  * Make initial languages choice
  */
 function checkInitLangs(event) {
+    outputGroupped('checkInitLangs', arguments);
     // all selects
     const currentSel = event.target,
         $langSelects = $(langSelects);
@@ -21,13 +45,14 @@ function checkInitLangs(event) {
     //
     $langSelects[`${action}Class`]('border-red-outline');
     storeSelects.dispatch({ type: type });
+    console.groupEnd();
 }
 /**
  * // check string length and keep a minimal one
  * @param {Object} event 
  */
 function checkInputText(event) {
-    output('checkInputText', arguments);
+    outputGroupped('checkInputText', arguments, 'violet');
     const cellToEdit = event.target,
         targetHTML = cellToEdit.innerHTML,
         len = cellToEdit.innerHTML.length,
@@ -42,17 +67,20 @@ function checkInputText(event) {
         $parent.removeClass(repeatedClass).find(`.${btnWarning}`).remove();
         $(`.${btnApplySelector}`).show();
     }
-    //
+    // check if the input is not shorter than minimal length
     if (len === minLen) {
         // store minimal word in order to keep it in cell
         dataStore.editor.words.set(targetHTML);
+        console.groupEnd();
         return 1;
     } else if (len < minLen) {
         alert('Too short: ' + len);
         // restore minimal word
         targetHTML = dataStore.editor.words.get();
+        console.groupEnd();
         return false;
-    }    
+    }
+    console.groupEnd();
     return true;
 }
 /**
@@ -60,7 +88,7 @@ function checkInputText(event) {
  * @param {Object} event 
  */
 function editTranslatedWord(event) {
-    output('editTranslatedWord', arguments);
+    outputGroupped('editTranslatedWord', arguments, 'darkr');
     // storeWordEdit.dispatch({ type: 'edit' }); // default
     //const $btnEdit = $(btnEdit), btnIndex = $btnEdit.parent('.word').index();
     const btnEdit = event.target,
@@ -69,13 +97,14 @@ function editTranslatedWord(event) {
     // console.log('get state=>', { $btnEdit: $btnEdit, btnIndex: btnIndex, editorStored: dataStore.editor.get() });
     handleTranslateWord(btnEdit, true);
     $parent.find(`.${btnRemoveSelector}`).hide();
+    console.groupEnd();
 }
 /**
  * Get edited word back, transorm the editable area into span
  * @param {Object} event 
  */
 function editTranslatedWordCancel(event) {
-    output('editTranslatedWordCancel', arguments);
+    outputGroupped('editTranslatedWordCancel', arguments);
     const btnCancel = event.target,
         [$btnCancel, btnIndex, $parent] = indexEditorBtn(btnCancel),
         storedValue = dataStore.editor.get(btnIndex);
@@ -83,7 +112,11 @@ function editTranslatedWordCancel(event) {
     handleTranslateWord(btnCancel).text(storedValue);
     dataStore.editor.remove(btnIndex);
     $parent.find(`.${btnRemoveSelector}`).show();
-    // console.log('storedValue, editor =>', {$btnCancel:$btnCancel, btnIndex:btnIndex, storedValue:storedValue, editor:dataStore.editor.get()});
+    console.groupEnd();
+}
+/** */
+function hidePopUp() {
+    $popUp.removeClass(visibleClass);
 }
 /**
  * Prevents the value of the new word input to be shorter than the 
@@ -91,23 +124,28 @@ function editTranslatedWordCancel(event) {
  * @param {Object} event 
  */
 function keepNewWordInputSynchronized(event) {
-    output('keepNewWordInputSynchronized', arguments);
+    outputGroupped('keepNewWordInputSynchronized', arguments);
     const wordValue = $(`#${wordId}`).val(),
         $targetCell = $(event.target),
-        targetCellVal = $targetCell.val();
+        targetCellVal = event.target.value;
     // console.log(event.target, event.target.value, event.target.value.length);
     if (targetCellVal.length < wordValue.length) {
-        targetCellVal = wordValue;
+        $targetCell.val(wordValue);
+        console.groupEnd();
         return;
     } else {
+        // remove mark that word is too short
+        markInputTooShortLengthCancel($targetCell);
+        //
         checkNewWordCoincidence($targetCell, targetCellVal);
     }
+    console.groupEnd();
 }
 /**
  * @param {Object} event .word || .wrapper >span'
  */
 function manageSentence(event) {
-    output('manageSentence', arguments);
+    outputGroupped('manageSentence', arguments, 'blue');
     // target or currentTarget matter on mouseleave
     const element = event.currentTarget,
         eventType = event.type;
@@ -134,13 +172,14 @@ function manageSentence(event) {
             }
         }
     }
+    console.groupEnd();
 }
 /**
  * 
  * @param {Object} event 
  */
 function manageWordsList(event) {
-    output('manageWordsList', arguments, 'orangered');
+    outputGroupped('manageWordsList', arguments, 'orangered');
     const $wordInput = $(event.target),
         targetWordValue = $wordInput.val();
     //
@@ -158,15 +197,17 @@ function manageWordsList(event) {
         removeForm();
         // 
         clearList();
-    }
+    }   
+    console.groupEnd();
 }
 /**
  * Remove the word from dictionary, call to store
  * @param {Object} event 
  */
 function removeWord(event) {
-    output('removeWord', arguments, 'red');
+    outputGroupped('removeWord', arguments, 'red');
     if (!confirm('Are you sure?')) {
+        console.groupEnd();
         return;
     }
     const btn = event.target,
@@ -178,39 +219,42 @@ function removeWord(event) {
     storeDictionary(dict);
     // remove word container (hide in order not to touch editor object)
     $parent.hide();
+    console.groupEnd();
 }
 /** 
  * 
 */
 function setLanguages() {
+    outputGroupped('setLanguages', arguments);
     //
     if (storeSelects.getState() == 'canceled') {
         alert('You have chosen the same language');
+        console.groupEnd();
         return false;
     } else {
         // load it anyway, as we click the button explicitly
         loadDictionary(storeLanguagesSet(), setMainView);
     }
+    console.groupEnd();
 }
 /**
  * 
  * @param {*} element 
  */
 function storeWord() {
-    output('storeWord', arguments, 'darkred');
+    outputGroupped('storeWord', arguments, 'darkred');
     const nativeWord = $(`#${wordId}`).val(),
         translatedValue = $(`#${newWordId}`).val(),
-        $textAreas = $(`#${newWordSentencesId} textarea`);
-
-    const dict = getLangWords();
+        $textAreas = $(`#${newWordSentencesId} textarea`),
+        dict = getLangWords();
 
     if (!translatedValue) {
         console.error('Have no any translated word...');
+        console.groupEnd();
         return false;
     }
     // set array element, index 0
     // then we get thing like this:
-    // 
     dict[nativeWord] = [[translatedValue]];
     dict[nativeWord].push([]);
     let sentences;
@@ -228,31 +272,14 @@ function storeWord() {
     }
     // push the second element into array
     dict[nativeWord][1].push(sentences);
-    console.log('Check result=>', {
-        nativeWord: nativeWord,
-        'dict[nativeWord]': dict[nativeWord],
-        sentences: sentences,
-        dict: dict
-    });
-    //const added = JSON.stringify({ word: wordValue, sentence: sentenceValue });
-    //localStorage.setItem(nativeWord, added);
-    //console.log("localStorage[nativeWord]: ", localStorage.getItem(nativeWord));
-    // const checkedLanguage = getTargetLanguage();
-    /**
-     * 1. Сначала объект получает все данные из json-файла;
-       2. Из этого объекта данные передаются в localStorage;
-       3. При клике по кнопке "сохранить":
-       3.1 Изменения в объекте;
-       3.2 Синхронизация объекта с localStorage - те же изменения;
-       3.3 Синхронизация объекта с json-данными.
-     */
+    console.groupEnd();
 }
 /**
  * 
  * @param {Object} event -- button being clicked 
  */
 function storeWordEdited(event) {
-    output('storeWordEdited', arguments, 'darkred');
+    outputGroupped('storeWordEdited', arguments, 'darkred');
     const btn = event.target,
         wordEdited = $(btn).prev().text(),
         dictionary = getDictionary(),
@@ -267,12 +294,23 @@ function storeWordEdited(event) {
     storeDictionary(dictionary);
     // drop editable view
     $parent.find(`.${btnCancelSelector}`).trigger('click');
+    console.groupEnd();
 }
 
 // ===============
 function output(fnc, args, color) {
-    color ? console.groupCollapsed('%c' + fnc, 'color:' + color) : console.groupCollapsed(fnc);
+    if (fnc) {
+        color ? console.groupCollapsed(`%c${fnc}`, `color:${color}`) : console.groupCollapsed(fnc);
+    } else {
+        console.groupCollapsed(`%c^Container`, 'padding: 1px 2px; background-color:#ddd; font-weight: normal; border:solid 1px #666;');
+    }
     console.trace();
     console.log(args);
     console.groupEnd();
+}
+
+function outputGroupped(fnc, args, color) {
+    const style = 'padding:1px 2px; border:solid 1px #666;'
+    console.groupCollapsed(`%c${fnc}`, color ? `color: ${color}; ${style}` : style);
+    output(null, args, color);
 }
