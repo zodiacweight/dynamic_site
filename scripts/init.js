@@ -1,49 +1,51 @@
 // 
-const globals = {
+const _globals = {
         languages: {
             english: 'English',
             portuguese: 'Portugues',
             russian: 'Русский'
         }
     },
-    minWordLength = 1,
+    _minWordLength = 1,
     // buttons (classes, ids)
-    btnApplySelector = 'btn-apply',
-    btnAttachSelector = 'btn-attach',
-    btnAttachSentenceSelector = 'btn-attach-sentence',
-    btnCancelSelector = 'btn-cancel',
-    btnEditSelector = 'btn-edit',
-    btnRemoveSelector = 'btn-remove',
-    btnSaveSelector = 'btn-save',
-    btnSaveXtraSelector = 'btn-save-xtra',
-    btnWarning = 'btn-warning',
+    _btnAddTranslatedSelector = 'btn-add-translated',
+    _btnApplySelector = 'btn-apply',
+    _btnAttachSelector = 'btn-attach',
+    _btnAttachSentenceSelector = 'btn-attach-sentence',
+    _btnCancelSelector = 'btn-cancel',
+    _btnEditSelector = 'btn-edit',
+    _btnRemoveSelector = 'btn-remove',
+    _btnSaveSelector = 'btn-save',
+    _btnSaveXtraSelector = 'btn-save-xtra',
+    _btnWarning = 'btn-warning',
     // ids
-    addWordId = "addWord",
-    addWordFormId = "addWordForm",
-    cmdSettingsLangId = 'command-settings-langs',
-    inputAttachId = 'input-attach',
-    hdrLanguageId = 'header-language',
-    wordId = 'word',
-    newWordId = 'new-word',
-    newWordSentencesId = 'new-word-sentences',
-    sectionChooseLangId = 'section-choose-language',
+    _addWordId = "addWord",
+    _addWordFormId = "addWordForm",
+    _cmdSettingsLangId = 'command-settings-langs',
+    _inputAttachId = 'input-attach',
+    _hdrLanguageId = 'header-language',
+    _wordId = 'word',
+    _newWordId = 'new-word',
+    _newWordSentencesId = 'new-word-sentences',
+    _sectionChooseLangId = 'section-choose-language',
     // end ids
     // classes
-    activeClass = 'active',
-    editableClass = 'editable',
-    inputAttachClass = 'input-attach',
-    nativeWordClass = 'nativeWord',
-    repeatedClass = 'repeated',
-    visibleClass = 'visible',
-    wordClass = 'word',
-    wordRedClass = 'word-red',
+    _activeClass = 'active',
+    _editableClass = 'editable',
+    _inputAttachClass = 'input-attach',
+    _nativeWordClass = 'nativeWord',
+    _repeatedClass = 'repeated',
+    _translatedClass = 'translated',
+    _visibleClass = 'visible',
+    _wordClass = 'word',
+    _wordRedClass = 'word-red',
     // end classes
     // selectors
-    langSelects = `#${sectionChooseLangId} select`,
+    _langSelects = `#${_sectionChooseLangId} select`,
     // end selectors
     // strings
-    wordIsTaken = 'The word is taken already',
-    wordIsTooShort = 'The word is too short',
+    _wordIsTaken = 'The word is taken already',
+    _wordIsTooShort = 'The word is too short',
     // end strings
     // elements
     $forms = $("#forms"),

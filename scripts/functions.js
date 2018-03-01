@@ -65,9 +65,9 @@ function initData() {
 function addForm() {
     output('addForm', arguments);
     //
-    if ($(`#${addWordFormId}`).length) return;
+    if ($(`#${_addWordFormId}`).length) return;
     //
-    $chooseLanguageForm.after(`<form id="${addWordFormId}">
+    $chooseLanguageForm.after(`<form id="${_addWordFormId}">
     ${createFields()}
         ${setButton('save')}
         ${setButton('save-xtra')}
@@ -80,13 +80,13 @@ function addForm() {
  */
 function checkNewWordCoincidence($targetCell, targetCellVal) {
     outputGroupped('addNewWordAndSentence', arguments);
-    let $bntAttach = $(`#${btnAttachSelector}`),
+    let $bntAttach = $(`#${_btnAttachSelector}`),
         disabled = 'disabled';
     if (findInDictionary(targetCellVal)) {
-        $targetCell.addClass(repeatedClass).attr('title', wordIsTaken);
+        $targetCell.addClass(_repeatedClass).attr('title', _wordIsTaken);
         $bntAttach.attr(disabled, disabled);
     } else {
-        $targetCell.removeClass(repeatedClass).removeAttr('title');
+        $targetCell.removeClass(_repeatedClass).removeAttr('title');
         $bntAttach.removeAttr(disabled);
     }
     console.groupEnd();
@@ -94,7 +94,7 @@ function checkNewWordCoincidence($targetCell, targetCellVal) {
 /**
  * @param {String} word
  */
-function checkWordLengthTooShort(word, min=minWordLength + 1){
+function checkWordLengthTooShort(word, min=_minWordLength + 1){
     output('checkWordLengthTooShort', arguments);
     return min >= word.length ? 'Too short word' : false;
 }
@@ -148,7 +148,7 @@ function getLangWords() {
  */
 function getNativeWord(element) {
     output('getNativeWord', arguments);
-    return $(element).parent().find(`.${nativeWordClass}`);
+    return $(element).parent().find(`.${_nativeWordClass}`);
 }
 /**
  * 
@@ -167,10 +167,10 @@ function handleTranslateWord(btn, add) {
         editableState = true;
         $nativeWordSpan.after(setButton('apply'));
     } else {
-        $nativeWordSpan.next(`.${btnApplySelector}`).remove();
+        $nativeWordSpan.next(`.${_btnApplySelector}`).remove();
     }
     $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
-    $(btn)[`${btnEditClassAction}Class`](btnEditSelector)[`${classAction}Class`](btnCancelSelector);
+    $(btn)[`${btnEditClassAction}Class`](_btnEditSelector)[`${classAction}Class`](btnCancelSelector);
     return $nativeWordSpan;
 }
 /**
@@ -180,7 +180,7 @@ function handleTranslateWord(btn, add) {
 function indexEditorBtn(targetElement) {
     output('indexEditorBtn', arguments);
     const $target = $(targetElement),
-        $parent = $target.parent(`.${wordClass}`),
+        $parent = $target.parent(`.${_wordClass}`),
         targetIndex = $parent.index();
     return [$target, targetIndex, $parent];
 }
@@ -207,7 +207,7 @@ function makeWordsList(substring) {
     // 
     if (!words) {
         console.warn('No words', {
-            'globals.languages': globals.languages
+            '_globals.languages': _globals.languages
         });
         return false;
     }
@@ -216,7 +216,7 @@ function makeWordsList(substring) {
     list ? insertWordsList(list, sentences) : clearList();
     // 
     if (wordsLen === 1) {
-        $view.find(`>.${wordClass}`).trigger('mouseenter'); //console.log('mouseenter');
+        $view.find(`>.${_wordClass}`).trigger('mouseenter'); //console.log('mouseenter');
     }
     return words;
 }
@@ -225,14 +225,14 @@ function makeWordsList(substring) {
  * @param {jQuery object} $inputAttach
  */
 function markInputTooShortLength($inputAttach){
-    $inputAttach.addClass(wordRedClass).attr('title',wordIsTooShort);
+    $inputAttach.addClass(_wordRedClass).attr('title',_wordIsTooShort);
 }
 /**
  * unmark input field as having too short length
  * @param {jQuery object} $inputAttach
  */
 function markInputTooShortLengthCancel($inputAttach){
-    $inputAttach.removeClass(wordRedClass).removeAttr('title');
+    $inputAttach.removeClass(_wordRedClass).removeAttr('title');
 }
 /**
  * 
@@ -245,7 +245,7 @@ function notEvnt(ob) {
 // removing entire form contents
 function removeForm() {
     output('removeForm', arguments, "goldenrod");
-    const $form = $(`#${addWordFormId}`);
+    const $form = $(`#${_addWordFormId}`);
     if ($form.length) $form.remove();
 }
 /**
@@ -257,7 +257,7 @@ function setLangsInfo(langs) {
     if (!langs || !notEvnt(langs)) {
         langs = getLang();
     }
-    const $langsBlock = $(`#${hdrLanguageId}`);
+    const $langsBlock = $(`#${_hdrLanguageId}`);
     $(Object.keys(langs)).each((index, element) => {
         $langsBlock.find(`span[data-lang="${element}"]`).text(langs[element]);
     });
@@ -268,12 +268,12 @@ function setLangsInfo(langs) {
  */
 function setLangInit() {
     output('setLangInit', arguments);
-    const $sectLang = $(`#${sectionChooseLangId}`),
+    const $sectLang = $(`#${_sectionChooseLangId}`),
         $chooseLangHeader = $sectLang.find('h4'),
         activeLangs = getLang(true);
     let selId;
     // 
-    $(Object.keys(globals.languages)).each((index, lang) => {
+    $(Object.keys(_globals.languages)).each((index, lang) => {
         selId = `lang-${lang}`;
         // append select
         $chooseLangHeader.eq(index).append(makeSelect(selId));

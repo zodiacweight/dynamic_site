@@ -94,8 +94,8 @@
     margin-right: 8px;
 }
 
-.input-attach +[class|="btn-add-translated"]{
-    background: rgb(250, 255, 189);
+.btn-add-translated{
+    background: transparent;
     border: solid 3px;
     border-radius: 4px;
     border-left-color: rgb(180,200,180);
@@ -108,14 +108,17 @@
     width: 36px;
 }
 
-.input-attach +[class|="btn-add-translated"]::before{
+.btn-add-translated.active{
+    background: rgb(250, 255, 189) !important;
+}
+
+.btn-add-translated.active::before{
     content:"+";
     color:  darkgreen;
     font-size: 30px;
     font-weight: bold;
     height: 28px;
-    line-height: 26px;
-    margin-left: -1px;
+    line-height: 27px;
 }
 
 #loader{

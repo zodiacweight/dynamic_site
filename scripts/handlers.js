@@ -2,30 +2,32 @@
 $(function () {
     let wordStore;
     // show/hide words/sentences
-    $popUp.on('click', `.${btnCancelSelector}`, hidePopUp);
-    
+    $popUp.on('click', `.${_btnCancelSelector}`, hidePopUp);
+
     $view // click on the button to edit translated word
         .on('mouseenter mouseleave',
-            `> .${wordClass}, .wrapper >span`, manageSentence)
+            `> .${_wordClass}, .wrapper >span`, manageSentence)
         .on("click",
-            `.${btnEditSelector}`, editTranslatedWord)
+            `.${_btnEditSelector}`, editTranslatedWord)
         .on('click',
-            `.${wordClass} .${btnCancelSelector}`, editTranslatedWordCancel)
+            `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
         .on('click',
-            `.${btnRemoveSelector}`, removeWord)
+            `.${_btnRemoveSelector}`, removeWord)
         .on('click',
-            `.${btnApplySelector}`, storeWordEdited)
+            `.${_btnApplySelector}`, storeWordEdited)
         .on('click',
-            `.${btnAttachSelector}`, addNewWord)
+            `.${_btnAttachSelector}`, addNewWord)
         .on('click',
-            `.${btnAttachSentenceSelector}`, addNewWordAndSentence)
+            `.${_btnAttachSentenceSelector}`, addNewWordAndSentence)
         .on('keypress input blur',
-            `#${inputAttachId}`, keepNewWordInputSynchronized)
+            `#${_inputAttachId}`, keepNewWordInputSynchronized)
+        .on('keypress input blur',
+            `.${_inputAttachClass}.${_translatedClass}`, handleTranslatedWordInput)
         .on('keypress input',
-            `.${nativeWordClass}.${editableClass}`, checkInputText);
+            `.${_nativeWordClass}.${_editableClass}`, checkInputText);
     // click on #addWord
     // note: not in use, but is going to be...
-    $chooseLanguageForm.on("click", `#${addWordId}`, () => {
+    $chooseLanguageForm.on("click", `#${_addWordId}`, () => {
         $chooseLanguageForm.after(createForm());
     });
     // changing select option
@@ -34,12 +36,12 @@ $(function () {
         storeLanguagesSet();
     }); */
     // store the word
-    $forms.on("click", `#${btnSaveSelector}`, storeWord);
+    $forms.on("click", `#${_btnSaveSelector}`, storeWord);
     // changing the language in the initial lists (native/foregn)
     $mainSection
-        .on('change', langSelects, checkInitLangs)  // store languages in localStorage
-        .on('click', `#${btnSaveSelector}`, setLanguages)
-        .on('click', `#${cmdSettingsLangId}`, setInitView) // in view
+        .on('change', _langSelects, checkInitLangs)  // store languages in localStorage
+        .on('click', `#${_btnSaveSelector}`, setLanguages)
+        .on('click', `#${_cmdSettingsLangId}`, setInitView) // in view
         // Creates words list and add / remove form
-        .on('input keyup', `#${wordId}`, manageWordsList) // input#word
+        .on('input keyup', `#${_wordId}`, manageWordsList) // input#word
 });

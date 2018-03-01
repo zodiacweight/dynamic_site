@@ -4,7 +4,7 @@
  */
 function addNewWord() {
     outputGroupped('addNewWord', arguments);
-    const $inputAttach = $(`#${inputAttachId}`),
+    const $inputAttach = $(`#${_inputAttachId}`),
         word = $inputAttach.val();
     let mess = checkWordLengthTooShort(word);
     if (mess) {
@@ -26,7 +26,7 @@ function addNewWordAndSentence() {
     if (!addNewWord()) {
         return false;
     };
-    $popUp.addClass(visibleClass);
+    $popUp.addClass(_visibleClass);
     console.groupEnd();
 }
 /**
@@ -36,7 +36,7 @@ function checkInitLangs(event) {
     outputGroupped('checkInitLangs', arguments);
     // all selects
     const currentSel = event.target,
-        $langSelects = $(langSelects);
+        $langSelects = $(_langSelects);
     let type, action;
     //
     $langSelects.eq(0).val() == $langSelects.eq(1).val()
@@ -56,16 +56,16 @@ function checkInputText(event) {
     const cellToEdit = event.target,
         targetHTML = cellToEdit.innerHTML,
         len = cellToEdit.innerHTML.length,
-        minLen = minWordLength + 1,
+        minLen = _minWordLength + 1,
         [$cellToEdit, cellIndex, $parent] = indexEditorBtn(cellToEdit);
     //
     if (findInDictionary(targetHTML, cellIndex)) {
-        $parent.addClass(repeatedClass);
+        $parent.addClass(_repeatedClass);
         $cellToEdit.after(setButton('warning'));
-        $(`.${btnApplySelector}`).hide();
+        $(`.${_btnApplySelector}`).hide();
     } else {
-        $parent.removeClass(repeatedClass).find(`.${btnWarning}`).remove();
-        $(`.${btnApplySelector}`).show();
+        $parent.removeClass(_repeatedClass).find(`.${_btnWarning}`).remove();
+        $(`.${_btnApplySelector}`).show();
     }
     // check if the input is not shorter than minimal length
     if (len === minLen) {
@@ -96,7 +96,7 @@ function editTranslatedWord(event) {
     dataStore.editor.set(btnIndex, $btnEdit.next().text());
     // console.log('get state=>', { $btnEdit: $btnEdit, btnIndex: btnIndex, editorStored: dataStore.editor.get() });
     handleTranslateWord(btnEdit, true);
-    $parent.find(`.${btnRemoveSelector}`).hide();
+    $parent.find(`.${_btnRemoveSelector}`).hide();
     console.groupEnd();
 }
 /**
@@ -111,12 +111,23 @@ function editTranslatedWordCancel(event) {
     //
     handleTranslateWord(btnCancel).text(storedValue);
     dataStore.editor.remove(btnIndex);
-    $parent.find(`.${btnRemoveSelector}`).show();
+    $parent.find(`.${_btnRemoveSelector}`).show();
     console.groupEnd();
+}
+/**
+ * 
+ * @param {Object} event 
+ */
+function handleTranslatedWordInput(event) {
+    const $btn = $(event.target).next(`.${_btnAddTranslatedSelector}`),
+        attrDisabled = 'disabled';
+    checkWordLengthTooShort(event.target.value)
+        ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass)
+        : $btn.removeAttr(attrDisabled).addClass(_activeClass);
 }
 /** */
 function hidePopUp() {
-    $popUp.removeClass(visibleClass);
+    $popUp.removeClass(_visibleClass);
 }
 /**
  * Prevents the value of the new word input to be shorter than the 
@@ -125,7 +136,7 @@ function hidePopUp() {
  */
 function keepNewWordInputSynchronized(event) {
     outputGroupped('keepNewWordInputSynchronized', arguments);
-    const wordValue = $(`#${wordId}`).val(),
+    const wordValue = $(`#${_wordId}`).val(),
         $targetCell = $(event.target),
         targetCellVal = event.target.value;
     // console.log(event.target, event.target.value, event.target.value.length);
@@ -163,12 +174,12 @@ function manageSentence(event) {
         $sentencesTranslated().toggleClass('initial');
     } else { // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
         if (eventType == 'mouseenter') {
-            if (!$(element).hasClass(activeClass)) {
-                $(element).addClass(activeClass);
+            if (!$(element).hasClass(_activeClass)) {
+                $(element).addClass(_activeClass);
             }
         } else {
-            if ($view.find(`.${wordClass}`).length > 1) {
-                $(element).removeClass(activeClass);
+            if ($view.find(`.${_wordClass}`).length > 1) {
+                $(element).removeClass(_activeClass);
             }
         }
     }
@@ -183,7 +194,7 @@ function manageWordsList(event) {
     const $wordInput = $(event.target),
         targetWordValue = $wordInput.val();
     //
-    if (targetWordValue.length > minWordLength) {
+    if (targetWordValue.length > _minWordLength) {
         const list = createWordsList(targetWordValue);
         if (list) {
             makeWordsList(targetWordValue);
@@ -197,7 +208,7 @@ function manageWordsList(event) {
         removeForm();
         // 
         clearList();
-    }   
+    }
     console.groupEnd();
 }
 /**
@@ -214,7 +225,7 @@ function removeWord(event) {
         [, , $parent] = indexEditorBtn(btn),
         dict = dataStore.get();
     //
-    delete dict[$parent.find(`.${nativeWordClass}`).text()];
+    delete dict[$parent.find(`.${_nativeWordClass}`).text()];
     console.log(dict);
     storeDictionary(dict);
     // remove word container (hide in order not to touch editor object)
@@ -243,9 +254,9 @@ function setLanguages() {
  */
 function storeWord() {
     outputGroupped('storeWord', arguments, 'darkred');
-    const nativeWord = $(`#${wordId}`).val(),
-        translatedValue = $(`#${newWordId}`).val(),
-        $textAreas = $(`#${newWordSentencesId} textarea`),
+    const nativeWord = $(`#${_wordId}`).val(),
+        translatedValue = $(`#${_newWordId}`).val(),
+        $textAreas = $(`#${_newWordSentencesId} textarea`),
         dict = getLangWords();
 
     if (!translatedValue) {

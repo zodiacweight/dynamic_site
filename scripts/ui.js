@@ -5,7 +5,7 @@
 function createFields() {
     output('createFields', arguments);
     return `<section>
-    <input type="text" id="${newWordId}" placeholder="translation for the word">
+    <input type="text" id="${_newWordId}" placeholder="translation for the word">
     <div id="new-word-sentences">
         <textarea placeholder="sentence for the word"></textarea>
         <button class="add-textarea">+</button>
@@ -17,9 +17,9 @@ function createFields() {
  */
 function createForm() {
     output('createForm', arguments);
-    return `<form id='${addWordFormId}'>
+    return `<form id='${_addWordFormId}'>
     ${createFields()}
-        <input type="button" value="добавить ячейку" id="${addWordId}">
+        <input type="button" value="добавить ячейку" id="${_addWordId}">
         ${setButton('save')}
         <input type="button" value="Отменить" id="btn-cancel">
     </form>`;
@@ -63,7 +63,7 @@ function createNewWordList(words, substring) {
             listHTML += `
             <div class='word'>
                 ${setButton("edit")}
-                <span class="${nativeWordClass}">${word}</span>
+                <span class="${_nativeWordClass}">${word}</span>
                 ${setButton("remove")}
                 <section>`;
             ++wordsLen;
@@ -106,8 +106,8 @@ function makeSelect(id) {
  */
 function makeLangSelectOptions() {
     var langList = '';
-    Object.keys(globals.languages).forEach(lang => {
-        langList += `<option value="${lang}">${globals.languages[lang]}</option>`;
+    Object.keys(_globals.languages).forEach(lang => {
+        langList += `<option value="${lang}">${_globals.languages[lang]}</option>`;
     }
     );
     return langList;
@@ -134,8 +134,8 @@ function createWordsList(targetWordValue) {
 function setAttachedWord() {
     output('setAttachedWord', arguments);
     return `
-<input type="text" value="${$(`#${wordId}`).val()}" class="${inputAttachClass}" id="${inputAttachId}">
-<input placeholder="Input a translated word here" type="text" class="${inputAttachClass} translated">
+<input type="text" value="${$(`#${_wordId}`).val()}" class="${_inputAttachClass}" id="${_inputAttachId}">
+<input placeholder="Input a translated word here" type="text" class="${_inputAttachClass} translated">
 ${setButton('add-translated')}
     ${setButton('attach')}
     ${setButton('sentence')}
@@ -152,31 +152,31 @@ function setButton(btn_type) {
             return `<input class="btn-add" type="button">`;
             break;
         case 'add-translated':
-            return `<button class="btn-add-translated" type="button"></button>`;
+            return `<button class="${_btnAddTranslatedSelector}" disabled="disabled" type="button"></button>`;
             break;
         case 'apply':
-            return `<button class='${btnApplySelector}' type="button">✔</button>`;
+            return `<button class='${_btnApplySelector}' type="button">✔</button>`;
             break;
         case 'edit':
-            return `<button class='${btnEditSelector}' type="button">&nbsp;</button>`;
+            return `<button class='${_btnEditSelector}' type="button">&nbsp;</button>`;
             break;
         case 'save':
-            return `<input type="button" value="Save" id="${btnSaveSelector}">`;
+            return `<input type="button" value="Save" id="${_btnSaveSelector}">`;
             break;
         case 'save-xtra':
-            return `<input type="button" value="Save & Add" id="${btnSaveXtraSelector}">`;
+            return `<input type="button" value="Save & Add" id="${_btnSaveXtraSelector}">`;
             break;
         case 'attach':
-            return `<button id="${btnAttachSelector}" class="${btnAttachSelector}" type="button">Add</button>`;
+            return `<button id="${_btnAttachSelector}" class="${_btnAttachSelector}" type="button">Add</button>`;
             break;
         case 'sentence':
-            return `<button id="${btnAttachSentenceSelector}" class="${btnAttachSentenceSelector}" type="button">Add + sentence</button>`;
+            return `<button id="${_btnAttachSentenceSelector}" class="${_btnAttachSentenceSelector}" type="button">Add + sentence</button>`;
             break;
         case 'remove':
-            return `<button class='${btnRemoveSelector}' type="button">&nbsp;</button>`;
+            return `<button class='${_btnRemoveSelector}' type="button">&nbsp;</button>`;
             break;
         case 'warning':
-            return `<button class='${btnWarning}' type="button" title="${wordIsTaken}">&nbsp;</button>`;
+            return `<button class='${_btnWarning}' type="button" title="${_wordIsTaken}">&nbsp;</button>`;
             break;
     }
 }
