@@ -135,7 +135,7 @@ function setAttachedWord() {
     output('setAttachedWord', arguments);
     return `
 <input type="text" value="${$(`#${_wordId}`).val()}" class="${_inputAttachClass}" id="${_inputAttachId}">
-<input placeholder="Input a translated word here" type="text" class="${_inputAttachClass} translated">
+${setInput('translated')}
 ${setButton('add-translated')}
     ${setButton('attach')}
     ${setButton('sentence')}
@@ -175,8 +175,26 @@ function setButton(btn_type) {
         case 'remove':
             return `<button class='${_btnRemoveSelector}' type="button">&nbsp;</button>`;
             break;
+        case 'remove-translated':
+            return `<button class="btn-remove-translated" type="button"></button>`;
+            break;        
         case 'warning':
-            return `<button class='${_btnWarning}' type="button" title="${_wordIsTaken}">&nbsp;</button>`;
+            return `<button class='${_btnWarningSelector}' type="button" title="${_wordIsTaken}">&nbsp;</button>`;
+            break;
+    }
+}
+/**
+ * 
+ * @param {String} input 
+ */
+function setInput(input) {
+    output('setInput', arguments);
+    switch (input) {
+        case 'translated':
+            return `<input placeholder="Input a translated word here" type="text" class="${_inputAttachClass} translated">`;
+            break;
+        default:
+            return '';
             break;
     }
 }

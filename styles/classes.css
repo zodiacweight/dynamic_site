@@ -27,6 +27,28 @@
     width: 28px;
     z-index: 10;
 }
+.btn-remove-translated{
+    background: #555;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 30px;
+    line-height: 10px;
+    float: left;
+    margin: 12px auto auto -32px;
+    transform: rotate(45deg);
+    height: 28px;
+    width: 28px;
+}
+.btn-remove-translated::before{
+    content: "+";
+    font-size: 30px;
+    left: 50%;
+    line-height: 10px;
+    top: 50%;
+    position:absolute;
+    transform: translate(-50%,-50%);
+}
 .btn-warning{
     background-image: url(../images/btn-warning.png);
     background-color: transparent;
@@ -54,7 +76,7 @@
     background-color: transparent;
     border: none;
     font-size: 24px;
-    right: 13px;
+    right: -28px;
     top: 5px;
     position: absolute !important;
 }
@@ -107,7 +129,7 @@
     width: calc(100% - 32px);
 }
 .input-attach.translated{
-    width: calc(100% - 48px) !important;
+    width: calc(100% - 42px) !important;
 }
 .repeated{
     background: rgb(255, 180, 180) !important;

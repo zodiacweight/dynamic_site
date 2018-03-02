@@ -9,6 +9,7 @@ const _globals = {
     _minWordLength = 1,
     // buttons (classes, ids)
     _btnAddTranslatedSelector = 'btn-add-translated',
+    _btnRemoveTranslatedSelector = 'btn-remove-translated',
     _btnApplySelector = 'btn-apply',
     _btnAttachSelector = 'btn-attach',
     _btnAttachSentenceSelector = 'btn-attach-sentence',
@@ -17,7 +18,7 @@ const _globals = {
     _btnRemoveSelector = 'btn-remove',
     _btnSaveSelector = 'btn-save',
     _btnSaveXtraSelector = 'btn-save-xtra',
-    _btnWarning = 'btn-warning',
+    _btnWarningSelector = 'btn-warning',
     // ids
     _addWordId = "addWord",
     _addWordFormId = "addWordForm",
@@ -41,7 +42,9 @@ const _globals = {
     _wordRedClass = 'word-red',
     // end classes
     // selectors
-    _langSelects = `#${_sectionChooseLangId} select`,
+    _langSelectsSelector = `#${_sectionChooseLangId} select`,
+    _inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,    
+    //    
     // end selectors
     // strings
     _wordIsTaken = 'The word is taken already',

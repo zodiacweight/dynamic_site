@@ -1,3 +1,13 @@
+/** */
+function addNewSentenceInput() {
+    outputGroupped('addNewSentenceInput', arguments);
+    const $lastInput = () => $(_inputAttachTranslatedSelector).last();
+    $lastInput().after(setInput('translated'));
+    if ($(_inputAttachTranslatedSelector).length === 2){
+        $lastInput().after(setButton('remove-translated'));
+    }
+    console.groupEnd();
+}
 /**
  * Add a new word to the dictionary
  * @param {Object} event 
@@ -36,7 +46,7 @@ function checkInitLangs(event) {
     outputGroupped('checkInitLangs', arguments);
     // all selects
     const currentSel = event.target,
-        $langSelects = $(_langSelects);
+        $langSelects = $(_langSelectsSelector);
     let type, action;
     //
     $langSelects.eq(0).val() == $langSelects.eq(1).val()
@@ -64,7 +74,7 @@ function checkInputText(event) {
         $cellToEdit.after(setButton('warning'));
         $(`.${_btnApplySelector}`).hide();
     } else {
-        $parent.removeClass(_repeatedClass).find(`.${_btnWarning}`).remove();
+        $parent.removeClass(_repeatedClass).find(`.${_btnWarningSelector}`).remove();
         $(`.${_btnApplySelector}`).show();
     }
     // check if the input is not shorter than minimal length
@@ -210,6 +220,16 @@ function manageWordsList(event) {
         clearList();
     }
     console.groupEnd();
+}
+/**
+ * Remove input and button
+ * @param {Object} event 
+ */
+function removeNewSentenceInput(event) {
+    output('removeNewSentenceInput', arguments);
+    const $btn = $(event.target);
+    $btn.prev(_inputAttachTranslatedSelector).remove();
+    if ($(_inputAttachTranslatedSelector).length === 1) $btn.remove();
 }
 /**
  * Remove the word from dictionary, call to store
