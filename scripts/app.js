@@ -210,6 +210,7 @@ function manageWordsList(event) {
             makeWordsList(targetWordValue);
             removeForm();
         } else {
+            clearList();
             addForm();
         }
         // remove or add form depending wheter does it added already or not
