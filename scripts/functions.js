@@ -170,7 +170,7 @@ function handleTranslateWord(btn, add) {
         $nativeWordSpan.next(`.${_btnApplySelector}`).remove();
     }
     $nativeWordSpan[`${classAction}Class`]('editable')[0].contentEditable = editableState;
-    $(btn)[`${btnEditClassAction}Class`](_btnEditSelector)[`${classAction}Class`](btnCancelSelector);
+    $(btn)[`${btnEditClassAction}Class`](_btnEditSelector)[`${classAction}Class`](_btnCancelSelector);
     return $nativeWordSpan;
 }
 /**

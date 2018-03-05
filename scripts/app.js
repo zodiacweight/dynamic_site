@@ -304,7 +304,7 @@ function storeWordEdited(event) {
     //console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
     storeDictionary(dictionary);
     // drop editable view
-    $parent.find(`.${btnCancelSelector}`).trigger('click');
+    $parent.find(`.${_btnCancelSelector}`).trigger('click');
     console.groupEnd();
 }
 
