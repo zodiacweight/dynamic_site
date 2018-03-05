@@ -194,13 +194,10 @@ function insertWordsList(list, sentences) {
     $sentencesTranslated().html(sentences);
     $view.append(setAttachedWord());
 }
-/**  Вставляет список слов в html.
- * параметры: 
- * словарь (из json-данных);
- * подстрока в текстовом поле; 
- * переменная, означающая выбранный язык.
- * Ничего не возвращает.
-*/
+/**
+ * 
+ * @param {String} substring 
+ */
 function makeWordsList(substring) {
     output('makeWordsList => CREATES words list', arguments, 'violet');
     const words = getLangWords();

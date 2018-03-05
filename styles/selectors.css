@@ -51,6 +51,7 @@ section > .wrapper{
     /* box-shadow: 4px 4px 10px rgba(0,0,0,0.7); */
     color: white;
     padding: 11px 14px 12.2px 10px;
+    position: relative;
 }
 
 #sentences-translated .wrapper{
@@ -102,7 +103,39 @@ section > .wrapper{
     padding-right: 34px;
 }
 
+.word > .btn-remove{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    right: -28px;
+    top: 5px;
+    position: absolute !important;
+}
+
+.wrapper .btn-edit{
+    background: transparent;
+    border-color: rgba(255,255,255,0.45);
+    color: white;
+    margin: -2px 4px 0 -4px;
+}
+
+.wrapper .btn-remove{
+    background-color: white;
+    border: none;
+    height: 24px;
+    position: absolute;
+    top: 10px;
+    right: 4px;
+    width: 24px;
+}
+
+.wrapper .btn-remove::before{
+    font-size: 24px;
+    line-height: 28px;
+}
+
 .wrapper > span{
-    display: block;
+    display: inline-block;
+    padding-right: 20px;
 }
 

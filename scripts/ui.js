@@ -42,7 +42,9 @@ function setSentence(translatedWord, sentences, listHTML, sent) {
         <div class='wrapper' class="sentence">${sent}</div>`;
     listHTML += `
         <div class='wrapper'>
+            ${setButton("edit")}
             <span class="translatedWord">${translatedWord}</span>
+            ${setButton("remove")}
         </div>`;
     return [sentences, listHTML];
 }
@@ -177,7 +179,7 @@ function setButton(btn_type) {
             break;
         case 'remove-translated':
             return `<button class="btn-remove-translated" type="button"></button>`;
-            break;        
+            break;
         case 'warning':
             return `<button class='${_btnWarningSelector}' type="button" title="${_wordIsTaken}">&nbsp;</button>`;
             break;
