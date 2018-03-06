@@ -110,16 +110,6 @@
     display: inline-block;
     margin: -4px 4px auto -4px;
 }
-.editable{
-    background: white;
-    outline: solid 1px #aaa;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
-    color: blue;
-    display: inline-block;
-    margin-left: -6px;
-    padding: 2px 32px 3px 6px;
-    width: calc(100% - 32px);
-}
 .input-attach.translated{
     width: calc(100% - 42px) !important;
 }

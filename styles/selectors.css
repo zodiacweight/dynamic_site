@@ -1,6 +1,18 @@
 .active .btn-cancel{
     color: red;
 }
+
+.editable .nativeWord{
+    background: white;
+    outline: solid 1px #aaa;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
+    color: blue;
+    display: inline-block;
+    margin-left: -6px;
+    padding: 2px 32px 3px 6px;
+    width: calc(100% - 32px);
+}
+
 form label{
     display: inline-block;
     margin: 12px auto;
@@ -38,10 +50,12 @@ main > div {
     margin-top:auto;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
+
 #pop-up aside{
     position: absolute;
     right: 3px;
 }
+
 .word.active section > .wrapper:hover{
     background-color: #000;
 }
@@ -58,6 +72,7 @@ section > .wrapper{
     display: none;
     padding: 10px;
 }
+
 .word > section{
     display: none;
     right: 0;
@@ -70,7 +85,7 @@ section > .wrapper{
     white-space: nowrap;
 }
 
-.word.active > section {
+.word.active:not(.editable) > section {
     display: block;
     /* transform: translateY(-3px); */
 }
@@ -130,12 +145,13 @@ section > .wrapper{
 }
 
 .wrapper .btn-remove::before{
-    font-size: 24px;
-    line-height: 28px;
+    
+font-size: 24px;
+    
+line-height: 28px;
 }
 
 .wrapper > span{
     display: inline-block;
     padding-right: 20px;
 }
-

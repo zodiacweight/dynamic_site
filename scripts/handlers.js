@@ -28,7 +28,7 @@ $(function () {
         .on('keypress input blur',
             `.${_inputAttachClass}.${_translatedClass}`, handleTranslatedWordInput)
         .on('keypress input',
-            `.${_nativeWordClass}.${_editableClass}`, checkInputText);
+            `.${_editableClass} .${_nativeWordClass}`, checkInputText);
     // click on #addWord
     // note: not in use, but is going to be...
     $chooseLanguageForm.on("click", `#${_addWordId}`, () => {
