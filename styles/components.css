@@ -211,7 +211,7 @@
     z-index: 1;
 }
 
-#sentences-translated.initial:before{
+#sentences-translated.initial::before{
     color: #aaa;
     content: 'Start writting word in the field below the language choice';
     display: block;

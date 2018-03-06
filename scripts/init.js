@@ -29,10 +29,12 @@ const _globals = {
     _newWordId = 'new-word',
     _newWordSentencesId = 'new-word-sentences',
     _sectionChooseLangId = 'section-choose-language',
+    _sectionTranslatedId = 'sentences-translated',
     // end ids
     // classes
     _activeClass = 'active',
     _editableClass = 'editable',
+    _initialClass = 'initial',
     _inputAttachClass = 'input-attach',
     _nativeWordClass = 'nativeWord',
     _repeatedClass = 'repeated',
@@ -58,6 +60,6 @@ const _globals = {
     // get container for dynamic contente
     $view = $('#view'),
     // get container for translated content
-    $sentencesTranslated = () => $('#sentences-translated'),
+    $sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
     // form
     $chooseLanguageForm = $("#chooseLanguage");

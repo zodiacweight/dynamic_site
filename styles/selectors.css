@@ -64,8 +64,9 @@ section > .wrapper{
     background: rgb(130,140,140);
     /* box-shadow: 4px 4px 10px rgba(0,0,0,0.7); */
     color: white;
-    padding: 11px 14px 12.2px 10px;
+    padding: 9px 14px 10px 10px;
     position: relative;
+    z-index: 2;
 }
 
 #sentences-translated .wrapper{
@@ -129,8 +130,8 @@ section > .wrapper{
 
 .wrapper .btn-edit{
     background: transparent;
-    border-color: rgba(255,255,255,0.45);
-    color: white;
+    border-color: rgb(128, 163, 255);
+    color: rgb(192, 209, 253);
     margin: -2px 4px 0 -4px;
 }
 
@@ -145,10 +146,10 @@ section > .wrapper{
 }
 
 .wrapper .btn-remove::before{
-    
-font-size: 24px;
-    
-line-height: 28px;
+    font-size: 24px;
+    line-height: 25px;
+    opacity: 0.5;
+    color: red;
 }
 
 .wrapper > span{

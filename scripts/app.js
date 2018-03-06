@@ -3,7 +3,7 @@ function addNewSentenceInput() {
     outputGroupped('addNewSentenceInput', arguments);
     const $lastInput = () => $(_inputAttachTranslatedSelector).last();
     $lastInput().after(setInput('translated'));
-    if ($(_inputAttachTranslatedSelector).length === 2){
+    if ($(_inputAttachTranslatedSelector).length === 2) {
         $lastInput().after(setButton('remove-translated'));
     }
     console.groupEnd();
@@ -68,7 +68,7 @@ function checkInputText(event) {
         len = cellToEdit.innerHTML.length,
         minLen = _minWordLength + 1,
         [$cellToEdit, cellIndex, $parent] = indexEditorBtn(cellToEdit);
-    //
+    // check if the dictionary contains that word already
     if (findInDictionary(targetHTML, cellIndex)) {
         $parent.addClass(_repeatedClass);
         $cellToEdit.after(setButton('warning'));
@@ -170,18 +170,22 @@ function manageSentence(event) {
     // target or currentTarget matter on mouseleave
     const element = event.currentTarget,
         eventType = event.type;
-    if (element.tagName.toLowerCase() == 'span') {
+    //if (element.tagName.toLowerCase() == 'span') {
+    if (element.className == 'wrapper') {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent('.wrapper').index(),
-            $sentence = $sentencesTranslated()
+            $sentenceTranslatedBlock = $sentencesTranslated(),
+            $sentence = $sentenceTranslatedBlock
                 .find('.sentences')
                 .eq(indexWord)
                 .find('.wrapper').eq(indexSentence);
-        eventType == 'mouseenter' ?
-            $sentence.fadeIn(200)
-            : $sentence.hide();
-        // manage pseudoelement :before
-        $sentencesTranslated().toggleClass('initial');
+        if (eventType == 'mouseenter'){
+            $sentence.fadeIn(200);
+            $sentenceTranslatedBlock.removeClass(_initialClass);
+        } else {
+            $sentence.hide();
+            $sentenceTranslatedBlock.addClass(_initialClass);
+        }
     } else { // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
         if (eventType == 'mouseenter') {
             if (!$(element).hasClass(_activeClass)) {
@@ -321,6 +325,7 @@ function storeWordEdited(event) {
     //console.log(initialWord+'=>'+editedWord,{dictionaryWord:dictionary[initialWord], dictionary:dictionary});
     dictionary[editedWord] = Object.assign(dictionary[initialWord]);
     delete dictionary[initialWord];
+    //
     dataStore.editor.remove(btnIndex);
     //console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
     storeDictionary(dictionary);

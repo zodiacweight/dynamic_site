@@ -26,12 +26,13 @@ function getLangDb() {
     return JSON.parse(localStorage.getItem('langs'));
 }
 /**
- * 
+ * Stores dictionary in localStorage and synchronizes it with script
  * @param {*} dict -- data
  */
 function storeDictionary(dict) {
     output('storeDictionary', arguments, 'rgb(235, 235, 0)');
     localStorage.setItem('dictionary', JSON.stringify(dict));
+    dataStore.set(dict);
     return dict;
 }
 /**

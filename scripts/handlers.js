@@ -6,7 +6,7 @@ $(function () {
 
     $view // click on the button to edit translated word
         .on('mouseenter mouseleave',
-            `> .${_wordClass}, .wrapper >span`, manageSentence)
+            `> .${_wordClass}, .wrapper`, manageSentence)
         .on("click",
             `.${_btnEditSelector}`, editTranslatedWord)
         .on('click',
@@ -43,9 +43,13 @@ $(function () {
     $forms.on("click", `#${_btnSaveSelector}`, storeWord);
     // changing the language in the initial lists (native/foregn)
     $mainSection
-        .on('change', _langSelectsSelector, checkInitLangs)  // store languages in localStorage
-        .on('click', `#${_btnSaveSelector}`, setLanguages)
-        .on('click', `#${_cmdSettingsLangId}`, setInitView) // in view
+        .on('change', 
+            _langSelectsSelector, checkInitLangs)  // store languages in localStorage
+        .on('click', 
+            `#${_btnSaveSelector}`, setLanguages)
+        .on('click', 
+            `#${_cmdSettingsLangId}`, setInitView) // in view
         // Creates words list and add / remove form
-        .on('input keyup', `#${_wordId}`, manageWordsList) // input#word
+        .on('input keyup', 
+            `#${_wordId}`, manageWordsList); // input#word
 });
