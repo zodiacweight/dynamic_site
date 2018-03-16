@@ -64,29 +64,30 @@ function checkInitLangs(event) {
 function checkInputText(event) {
     outputGroupped('checkInputText', arguments, 'violet');
     const cellToEdit = event.target,
-        targetHTML = cellToEdit.innerHTML,
+        targetHTML = cellToEdit.innerText,
+        storedWordText = $(cellToEdit).data(_originWordStr),
         len = cellToEdit.innerHTML.length,
         minLen = _minWordLength + 1,
         [$cellToEdit, cellIndex, $parent] = indexEditorBtn(cellToEdit);
     // check if the dictionary contains that word already
-    if (findInDictionary(targetHTML, cellIndex)) {
+    if (targetHTML === storedWordText) {
+        $parent.removeClass(_repeatedClass).find(`.${_btnWarningSelector}`).remove();
+        $(`.${_btnApplySelector}`).show();
+    } else if (findInDictionary(targetHTML, storedWordText)) {
         $parent.addClass(_repeatedClass);
         $cellToEdit.after(setButton('warning'));
         $(`.${_btnApplySelector}`).hide();
-    } else {
-        $parent.removeClass(_repeatedClass).find(`.${_btnWarningSelector}`).remove();
-        $(`.${_btnApplySelector}`).show();
     }
     // check if the input is not shorter than minimal length
     if (len === minLen) {
         // store minimal word in order to keep it in cell
-        dataStore.editor.words.set(targetHTML);
+        /* dataStore.editor.words.set(targetHTML); */
         console.groupEnd();
         return 1;
     } else if (len < minLen) {
         alert('Too short: ' + len);
         // restore minimal word
-        targetHTML = dataStore.editor.words.get();
+        /* targetHTML = dataStore.editor.words.get(); */
         console.groupEnd();
         return false;
     }
@@ -103,7 +104,11 @@ function editTranslatedWord(event) {
     //const $btnEdit = $(btnEdit), btnIndex = $btnEdit.parent('.word').index();
     const btnEdit = event.target,
         [$btnEdit, btnIndex, $parent] = indexEditorBtn(btnEdit);
-    dataStore.editor.set(btnIndex, $btnEdit.next().text());
+    /*if ($btnEdit.parent(`.${_wrapperClass}`).length) {
+        console.log('Edit sentence');        
+    } else {
+        dataStore.editor.set(btnIndex, $btnEdit.next().text());
+    }*/
     // console.log('get state=>', { $btnEdit: $btnEdit, btnIndex: btnIndex, editorStored: dataStore.editor.get() });
     handleTranslateWord(btnEdit, true);
     $parent.find(`.${_btnRemoveSelector}`).hide();
@@ -116,11 +121,11 @@ function editTranslatedWord(event) {
 function editTranslatedWordCancel(event) {
     outputGroupped('editTranslatedWordCancel', arguments);
     const btnCancel = event.target,
-        [$btnCancel, btnIndex, $parent] = indexEditorBtn(btnCancel),
-        storedValue = dataStore.editor.get(btnIndex);
+        [$btnCancel, btnIndex, $parent] = indexEditorBtn(btnCancel)/* ,
+        storedValue = dataStore.editor.get(btnIndex) */;
     //
-    handleTranslateWord(btnCancel).text(storedValue);
-    dataStore.editor.remove(btnIndex);
+    handleTranslateWord(btnCancel)/* .text(storedValue) */;
+    // dataStore.editor.remove(btnIndex);
     $parent.find(`.${_btnRemoveSelector}`).show();
     console.groupEnd();
 }
@@ -171,14 +176,14 @@ function manageSentence(event) {
     const element = event.currentTarget,
         eventType = event.type;
     //if (element.tagName.toLowerCase() == 'span') {
-    if (element.className == 'wrapper') {
+    if (element.className == _wrapperClass) {
         const indexWord = $(element).parents('.active').eq(0).index(),
-            indexSentence = $(element).parent('.wrapper').index(),
+            indexSentence = $(element).parent(`.${_wrapperClass}`).index(),
             $sentenceTranslatedBlock = $sentencesTranslated(),
             $sentence = $sentenceTranslatedBlock
                 .find('.sentences')
                 .eq(indexWord)
-                .find('.wrapper').eq(indexSentence);
+                .find(`.${_wrapperClass}`).eq(indexSentence);
         if (eventType == 'mouseenter'){
             $sentence.fadeIn(200);
             $sentenceTranslatedBlock.removeClass(_initialClass);
@@ -317,18 +322,21 @@ function storeWord() {
 function storeWordEdited(event) {
     outputGroupped('storeWordEdited', arguments, 'darkred');
     const btn = event.target,
-        wordEdited = $(btn).prev().text(),
+        $wordSpan = $(btn).prev(),
+        // wordEdited = $wordSpan.text(),
         dictionary = getDictionary(),
         [$btn, btnIndex, $parent] = indexEditorBtn(btn),
-        initialWord = dataStore.editor.get(btnIndex),
-        editedWord = getNativeWord(btn).text();
+        // initialWord = dataStore.editor.get(btnIndex),
+        initialWord = $wordSpan.data(_originWordStr),
+        editedWord = $wordSpan.text();
     //console.log(initialWord+'=>'+editedWord,{dictionaryWord:dictionary[initialWord], dictionary:dictionary});
     dictionary[editedWord] = Object.assign(dictionary[initialWord]);
     delete dictionary[initialWord];
     //
-    dataStore.editor.remove(btnIndex);
+    //dataStore.editor.remove(btnIndex);
     //console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
     storeDictionary(dictionary);
+    $wordSpan.text(editedWord);
     // drop editable view
     $parent.find(`.${_btnCancelSelector}`).trigger('click');
     console.groupEnd();

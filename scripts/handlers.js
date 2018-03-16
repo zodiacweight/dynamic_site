@@ -4,12 +4,12 @@ $(function () {
     // show/hide words/sentences
     $popUp.on('click', `.${_btnCancelSelector}`, hidePopUp);
 
-    $view // click on the button to edit translated word
-        .on('mouseenter mouseleave',
-            `> .${_wordClass}, .wrapper`, manageSentence)
-        .on("click",
+    $view 
+        .on('mouseenter mouseleave', // 
+            `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
+        .on("click", // *pen* icon
             `.${_btnEditSelector}`, editTranslatedWord)
-        .on('click',
+        .on('click', // *cancel* icon which previous one is turned into
             `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
         .on('click',
             `.${_btnRemoveSelector}`, removeWord)
@@ -17,7 +17,7 @@ $(function () {
             `.${_btnAddTranslatedSelector}`, addNewSentenceInput)
         .on('click',
             `.${_btnRemoveTranslatedSelector}`, removeNewSentenceInput)
-        .on('click',
+        .on('click', // *save* edited word icon
             `.${_btnApplySelector}`, storeWordEdited)
         .on('click',
             `.${_btnAttachSelector}`, addNewWord)

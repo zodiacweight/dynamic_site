@@ -106,17 +106,12 @@ function clearList() {
 }
 /**
  * Check entry in dictionary
- * @param {String} entry 
+ * @param {String} entry
  */
-function findInDictionary(entry, storedWordIndex) {
+function findInDictionary(entry) {
     outputGroupped('findInDictionary', arguments);
-    const found = Object.keys(dataStore.get()).some(word => word === entry);
-    if (storedWordIndex !== undefined && 
-        dataStore.editor.get(storedWordIndex) === entry
-    ) { console.groupEnd();
-        return false;
-    }   console.groupEnd();
-    return found;
+    console.groupEnd();
+    return Object.keys(dataStore.get()).some(word => word === entry);
 }
 /**
  * 
@@ -148,7 +143,7 @@ function getLangWords() {
  */
 function getNativeWord(element) {
     output('getNativeWord', arguments);
-    return $(element).parent().find(`.${_nativeWordClass}`);
+    return $(element).next();
 }
 /**
  * 
@@ -157,7 +152,7 @@ function getNativeWord(element) {
  */
 function handleTranslateWord(btn, add) {
     output('handleTranslateWord', arguments);
-    const $nativeWordSpan = getNativeWord(btn);
+    const $wordToEditSpan = getNativeWord(btn);
     let classAction = 'remove',
         btnEditClassAction = 'add',
         editableState = false;
@@ -165,19 +160,24 @@ function handleTranslateWord(btn, add) {
         btnEditClassAction = 'remove';
         classAction = 'add';
         editableState = true;
-        $nativeWordSpan.after(setButton('apply'));
+        $wordToEditSpan
+            .data(_originWordStr, $wordToEditSpan.text())
+            .after(setButton('apply'));
     } else {
-        $nativeWordSpan.next(`.${_btnApplySelector}`).remove();
+        $wordToEditSpan
+            .text($wordToEditSpan.data(_originWordStr))
+            .next(`.${_btnApplySelector}`).remove()
+            .removeData();
     }
     // span containig the native word
-    $nativeWordSpan
+    $wordToEditSpan
         // make the span editable
         .attr('contentEditable', editableState)
         // assign 'editable' class to the parent block
-        .parent(`.${_wordClass}`)[`${classAction}Class`](_editableClass);
+        .parent()[`${classAction}Class`](_editableClass);
     //
     $(btn)[`${btnEditClassAction}Class`](_btnEditSelector)[`${classAction}Class`](_btnCancelSelector);
-    return $nativeWordSpan;
+    return $wordToEditSpan;
 }
 /**
  * return jQuery object, index
@@ -186,7 +186,7 @@ function handleTranslateWord(btn, add) {
 function indexEditorBtn(targetElement) {
     output('indexEditorBtn', arguments);
     const $target = $(targetElement),
-        $parent = $target.parent(`.${_wordClass}`),
+        $parent = $target.parent(),
         targetIndex = $parent.index();
     return [$target, targetIndex, $parent];
 }

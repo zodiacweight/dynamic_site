@@ -9,13 +9,13 @@ const _globals = {
     _minWordLength = 1,
     // buttons (classes, ids)
     _btnAddTranslatedSelector = 'btn-add-translated',
-    _btnRemoveTranslatedSelector = 'btn-remove-translated',
     _btnApplySelector = 'btn-apply',
     _btnAttachSelector = 'btn-attach',
     _btnAttachSentenceSelector = 'btn-attach-sentence',
     _btnCancelSelector = 'btn-cancel',
     _btnEditSelector = 'btn-edit',
     _btnRemoveSelector = 'btn-remove',
+    _btnRemoveTranslatedSelector = 'btn-remove-translated',
     _btnSaveSelector = 'btn-save',
     _btnSaveXtraSelector = 'btn-save-xtra',
     _btnWarningSelector = 'btn-warning',
@@ -42,6 +42,7 @@ const _globals = {
     _visibleClass = 'visible',
     _wordClass = 'word',
     _wordRedClass = 'word-red',
+    _wrapperClass = 'wrapper',
     // end classes
     // selectors
     _langSelectsSelector = `#${_sectionChooseLangId} select`,
@@ -49,6 +50,7 @@ const _globals = {
     //    
     // end selectors
     // strings
+    _originWordStr = 'original-word',
     _wordIsTaken = 'The word is taken already',
     _wordIsTooShort = 'The word is too short',
     // end strings

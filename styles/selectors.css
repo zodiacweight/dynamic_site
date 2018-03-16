@@ -2,7 +2,8 @@
     color: red;
 }
 
-.editable .nativeWord{
+.editable .nativeWord,
+.editable .translatedWord{
     background: white;
     outline: solid 1px #aaa;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
@@ -67,6 +68,11 @@ section > .wrapper{
     padding: 9px 14px 10px 10px;
     position: relative;
     z-index: 2;
+}
+
+section > .wrapper.editable{
+    padding-bottom: 9px;
+    padding-top: 8px;
 }
 
 #sentences-translated .wrapper{

@@ -39,9 +39,9 @@ function setSentence(translatedWord, sentences, listHTML, sent) {
         sent = sent.join('\n');
     }
     sentences += `
-        <div class='wrapper' class="sentence">${sent}</div>`;
+        <div class='${_wrapperClass}' class="sentence">${sent}</div>`;
     listHTML += `
-        <div class='wrapper'>
+        <div class='${_wrapperClass}'>
             ${setButton("edit")}
             <span class="translatedWord">${translatedWord}</span>
             ${setButton("remove")}
@@ -59,7 +59,7 @@ function createNewWordList(words, substring) {
         sentences = "",
         wordsLen = 0;
     //
-    Object.keys(words).forEach(word => {
+    Object.keys(words).sort().forEach(word => {
         // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
         if (word.indexOf(substring) !== -1) {
             listHTML += `
