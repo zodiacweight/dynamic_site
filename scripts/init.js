@@ -39,6 +39,7 @@ const _globals = {
     _nativeWordClass = 'nativeWord',
     _repeatedClass = 'repeated',
     _translatedClass = 'translated',
+    _translatedWordClass = 'translatedWord',
     _visibleClass = 'visible',
     _wordClass = 'word',
     _wordRedClass = 'word-red',

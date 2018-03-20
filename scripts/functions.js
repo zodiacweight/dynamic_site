@@ -164,10 +164,12 @@ function handleTranslateWord(btn, add) {
             .data(_originWordStr, $wordToEditSpan.text())
             .after(setButton('apply'));
     } else {
-        $wordToEditSpan
-            .text($wordToEditSpan.data(_originWordStr))
-            .next(`.${_btnApplySelector}`).remove()
-            .removeData();
+        $wordToEditSpan.next(`.${_btnApplySelector}`).remove();
+        if (Object.keys($wordToEditSpan.data()).length){
+            $wordToEditSpan
+                .removeData()
+                .text($wordToEditSpan.data(_originWordStr));
+        }
     }
     // span containig the native word
     $wordToEditSpan

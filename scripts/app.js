@@ -330,13 +330,43 @@ function storeWordEdited(event) {
         initialWord = $wordSpan.data(_originWordStr),
         editedWord = $wordSpan.text();
     //console.log(initialWord+'=>'+editedWord,{dictionaryWord:dictionary[initialWord], dictionary:dictionary});
-    dictionary[editedWord] = Object.assign(dictionary[initialWord]);
-    delete dictionary[initialWord];
+    if ($parent.hasClass(_wrapperClass)) {
+        const $nativeWord = $parent.parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`),
+            parentWord = $nativeWord.data(_originWordStr) || $nativeWord.text(),
+            // fixme: unify type (array | object)
+            wordContents = dictionary[parentWord],
+            storedWordData = $wordSpan.data(_originWordStr);
+        console.log('words=>', {editedWord:editedWord, /*granite*/ parentWord:parentWord /*гранитский*/});
+        //
+        if (Array.isArray(wordContents)) {
+            wordContents[0].some((wordToChange, index) => {
+                if (wordToChange === storedWordData) {
+                    wordContents[0][index] = editedWord;
+                    return true;
+                }
+                return false;
+            }); // console.log('wordContents[0]=>', wordContents[0]);
+        } else if (toString.call(wordContents)==="[object Object]"){
+            Object.keys(wordContents).some((wordToChange, index) => {
+                if (wordToChange === storedWordData) {
+                    wordContents[editedWord] = wordContents[wordToChange];
+                    delete wordContents[wordToChange];
+                    return true;
+                }
+                return false;
+            }); // console.log('wordContents[0]=>', wordContents[0]);
+        } else {
+            console.warn('wordContents is not an Object =>', toString.call(wordContents));
+        }
+    } else {
+        dictionary[editedWord] = Object.assign(dictionary[initialWord]);
+        delete dictionary[initialWord];
+    }
     //
     //dataStore.editor.remove(btnIndex);
     //console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
     storeDictionary(dictionary);
-    $wordSpan.text(editedWord);
+    $wordSpan.text(editedWord).removeData();
     // drop editable view
     $parent.find(`.${_btnCancelSelector}`).trigger('click');
     console.groupEnd();

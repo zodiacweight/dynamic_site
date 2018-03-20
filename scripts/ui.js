@@ -43,7 +43,7 @@ function setSentence(translatedWord, sentences, listHTML, sent) {
     listHTML += `
         <div class='${_wrapperClass}'>
             ${setButton("edit")}
-            <span class="translatedWord">${translatedWord}</span>
+            <span class="${_translatedWordClass}">${translatedWord}</span>
             ${setButton("remove")}
         </div>`;
     return [sentences, listHTML];
