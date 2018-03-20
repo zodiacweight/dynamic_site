@@ -37,7 +37,7 @@ function initData() {
         set(dict) {
             output('dataStore.set', arguments, 'goldenrod');
             dictionary = dict;
-        },
+        }/* ,
         editor: {
             get(index) {
                 return (index >= 0)
@@ -58,7 +58,7 @@ function initData() {
                     wordEdited = word;
                 }
             }
-        }
+        } */
     }
 }
 // attaches form if didn't do before
@@ -167,8 +167,8 @@ function handleTranslateWord(btn, add) {
         $wordToEditSpan.next(`.${_btnApplySelector}`).remove();
         if (Object.keys($wordToEditSpan.data()).length){
             $wordToEditSpan
-                .removeData()
-                .text($wordToEditSpan.data(_originWordStr));
+            .text($wordToEditSpan.data(_originWordStr))
+            .removeData();
         }
     }
     // span containig the native word
@@ -221,7 +221,7 @@ function makeWordsList(substring) {
     list ? insertWordsList(list, sentences) : clearList();
     // 
     if (wordsLen === 1) {
-        $view.find(`>.${_wordClass}`).trigger('mouseenter'); //console.log('mouseenter');
+        $view.find(`>.${_wordClass}`).trigger('mouseenter');
     }
     return words;
 }

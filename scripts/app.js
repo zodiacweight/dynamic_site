@@ -120,11 +120,9 @@ function editTranslatedWord(event) {
  */
 function editTranslatedWordCancel(event) {
     outputGroupped('editTranslatedWordCancel', arguments);
-    const btnCancel = event.target,
-        [$btnCancel, btnIndex, $parent] = indexEditorBtn(btnCancel)/* ,
-        storedValue = dataStore.editor.get(btnIndex) */;
+    const [,,$parent] = indexEditorBtn(event.target);
     //
-    handleTranslateWord(btnCancel)/* .text(storedValue) */;
+    handleTranslateWord(event.target)/* .text(storedValue) */;
     // dataStore.editor.remove(btnIndex);
     $parent.find(`.${_btnRemoveSelector}`).show();
     console.groupEnd();
