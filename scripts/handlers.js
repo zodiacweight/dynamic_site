@@ -34,11 +34,6 @@ $(function () {
     $chooseLanguageForm.on("click", `#${_addWordId}`, () => {
         $chooseLanguageForm.after(createForm());
     });
-    // changing select option
-    /* $chooseLanguageSelect.on('change', () => {
-        showInput();
-        storeLanguagesSet();
-    }); */
     // store the word
     $forms.on("click", `#${_btnSaveSelector}`, storeWord);
     // changing the language in the initial lists (native/foregn)

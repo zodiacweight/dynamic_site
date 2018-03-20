@@ -1,6 +1,5 @@
 /**
  * Set view -- Main or Settings
- * @param {Object | Boolean} dictionary 
  * @param {String} langs 
  */
 function setInitView(langs){

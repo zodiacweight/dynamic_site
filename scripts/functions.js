@@ -37,28 +37,7 @@ function initData() {
         set(dict) {
             output('dataStore.set', arguments, 'goldenrod');
             dictionary = dict;
-        }/* ,
-        editor: {
-            get(index) {
-                return (index >= 0)
-                    ? editor[index]
-                    : editor;
-            },
-            set(index, value) {
-                editor[index] = value;
-            },
-            remove(index) {
-                delete editor[index];
-            },
-            words: {
-                get() {
-                    return wordEdited;
-                },
-                set(word) {
-                    wordEdited = word;
-                }
-            }
-        } */
+        }
     }
 }
 // attaches form if didn't do before
@@ -93,6 +72,7 @@ function checkNewWordCoincidence($targetCell, targetCellVal) {
 }
 /**
  * @param {String} word
+ * @param {Number} min
  */
 function checkWordLengthTooShort(word, min=_minWordLength + 1){
     output('checkWordLengthTooShort', arguments);
@@ -139,7 +119,7 @@ function getLangWords() {
 }
 /**
  * 
- * @param {*} element 
+ * @param {HTMLElement} element 
  */
 function getNativeWord(element) {
     output('getNativeWord', arguments);

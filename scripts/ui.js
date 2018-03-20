@@ -60,7 +60,7 @@ function createNewWordList(words, substring) {
         wordsLen = 0;
     //
     Object.keys(words).sort().forEach(word => {
-        // console.log('check it=>', {word:word, wordData: words[word], words:words, substring:substring});
+        //
         if (word.indexOf(substring) !== -1) {
             listHTML += `
             <div class='word'>
@@ -90,8 +90,7 @@ function createNewWordList(words, substring) {
             sentences += `
                 </div>`;
         }
-    }
-    );
+    });
     return [listHTML, sentences, wordsLen];
 }
 /**
@@ -110,8 +109,7 @@ function makeLangSelectOptions() {
     var langList = '';
     Object.keys(_globals.languages).forEach(lang => {
         langList += `<option value="${lang}">${_globals.languages[lang]}</option>`;
-    }
-    );
+    });
     return langList;
 }
 /**
@@ -126,8 +124,7 @@ function createWordsList(targetWordValue) {
         if (word.indexOf(targetWordValue) !== -1) {
             list += `<div>${word}</div>`;
         }
-    }
-    ); // console.log('list=>', list);
+    });
     return list;
 }
 /**

@@ -25,7 +25,6 @@ function addNewWord() {
     }
     console.log('new word=>', word);
     const dictionary = dataStore.get();
-    // dictionary[word];
     console.groupEnd();
 }
 /**
@@ -81,13 +80,11 @@ function checkInputText(event) {
     // check if the input is not shorter than minimal length
     if (len === minLen) {
         // store minimal word in order to keep it in cell
-        /* dataStore.editor.words.set(targetHTML); */
         console.groupEnd();
         return 1;
     } else if (len < minLen) {
         alert('Too short: ' + len);
         // restore minimal word
-        /* targetHTML = dataStore.editor.words.get(); */
         console.groupEnd();
         return false;
     }
@@ -100,17 +97,10 @@ function checkInputText(event) {
  */
 function editTranslatedWord(event) {
     outputGroupped('editTranslatedWord', arguments, 'darkr');
-    // storeWordEdit.dispatch({ type: 'edit' }); // default
-    //const $btnEdit = $(btnEdit), btnIndex = $btnEdit.parent('.word').index();
-    const btnEdit = event.target,
-        [$btnEdit, btnIndex, $parent] = indexEditorBtn(btnEdit);
-    /*if ($btnEdit.parent(`.${_wrapperClass}`).length) {
-        console.log('Edit sentence');        
-    } else {
-        dataStore.editor.set(btnIndex, $btnEdit.next().text());
-    }*/
-    // console.log('get state=>', { $btnEdit: $btnEdit, btnIndex: btnIndex, editorStored: dataStore.editor.get() });
-    handleTranslateWord(btnEdit, true);
+    //
+    const [,,$parent] = indexEditorBtn(event.target);
+    //
+    handleTranslateWord(event.target, true);
     $parent.find(`.${_btnRemoveSelector}`).hide();
     console.groupEnd();
 }
@@ -122,8 +112,8 @@ function editTranslatedWordCancel(event) {
     outputGroupped('editTranslatedWordCancel', arguments);
     const [,,$parent] = indexEditorBtn(event.target);
     //
-    handleTranslateWord(event.target)/* .text(storedValue) */;
-    // dataStore.editor.remove(btnIndex);
+    handleTranslateWord(event.target);
+    //
     $parent.find(`.${_btnRemoveSelector}`).show();
     console.groupEnd();
 }
@@ -152,7 +142,7 @@ function keepNewWordInputSynchronized(event) {
     const wordValue = $(`#${_wordId}`).val(),
         $targetCell = $(event.target),
         targetCellVal = event.target.value;
-    // console.log(event.target, event.target.value, event.target.value.length);
+    //
     if (targetCellVal.length < wordValue.length) {
         $targetCell.val(wordValue);
         console.groupEnd();
@@ -173,7 +163,7 @@ function manageSentence(event) {
     // target or currentTarget matter on mouseleave
     const element = event.currentTarget,
         eventType = event.type;
-    //if (element.tagName.toLowerCase() == 'span') {
+    //
     if (element.className == _wrapperClass) {
         const indexWord = $(element).parents('.active').eq(0).index(),
             indexSentence = $(element).parent(`.${_wrapperClass}`).index(),
@@ -321,20 +311,18 @@ function storeWordEdited(event) {
     outputGroupped('storeWordEdited', arguments, 'darkred');
     const btn = event.target,
         $wordSpan = $(btn).prev(),
-        // wordEdited = $wordSpan.text(),
         dictionary = getDictionary(),
         [$btn, btnIndex, $parent] = indexEditorBtn(btn),
-        // initialWord = dataStore.editor.get(btnIndex),
         initialWord = $wordSpan.data(_originWordStr),
         editedWord = $wordSpan.text();
-    //console.log(initialWord+'=>'+editedWord,{dictionaryWord:dictionary[initialWord], dictionary:dictionary});
+    //
     if ($parent.hasClass(_wrapperClass)) {
         const $nativeWord = $parent.parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`),
             parentWord = $nativeWord.data(_originWordStr) || $nativeWord.text(),
             // fixme: unify type (array | object)
             wordContents = dictionary[parentWord],
             storedWordData = $wordSpan.data(_originWordStr);
-        console.log('words=>', {editedWord:editedWord, /*granite*/ parentWord:parentWord /*гранитский*/});
+        console.log('words=>', {editedWord:editedWord, parentWord:parentWord});
         //
         if (Array.isArray(wordContents)) {
             wordContents[0].some((wordToChange, index) => {
@@ -343,7 +331,7 @@ function storeWordEdited(event) {
                     return true;
                 }
                 return false;
-            }); // console.log('wordContents[0]=>', wordContents[0]);
+            });
         } else if (toString.call(wordContents)==="[object Object]"){
             Object.keys(wordContents).some((wordToChange, index) => {
                 if (wordToChange === storedWordData) {
@@ -352,7 +340,7 @@ function storeWordEdited(event) {
                     return true;
                 }
                 return false;
-            }); // console.log('wordContents[0]=>', wordContents[0]);
+            });
         } else {
             console.warn('wordContents is not an Object =>', toString.call(wordContents));
         }
@@ -360,9 +348,6 @@ function storeWordEdited(event) {
         dictionary[editedWord] = Object.assign(dictionary[initialWord]);
         delete dictionary[initialWord];
     }
-    //
-    //dataStore.editor.remove(btnIndex);
-    //console.log('%cSync with DB!', 'background: orange', {dictionary:dictionary, editor:dataStore.editor.get()});
     storeDictionary(dictionary);
     $wordSpan.text(editedWord).removeData();
     // drop editable view

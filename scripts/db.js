@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {*} lang 
+ * @param {*} callback 
+ */
 function loadDictionary(lang, callback) {
     output('loadDictionary', arguments, 'rgb(215, 215, 0)');
     // if not, get it from remote DB
@@ -12,7 +17,6 @@ function loadDictionary(lang, callback) {
 }
 /**
  * 
- * @param {String} lang 
  */
 function getDictionary() {
     output('getDictionary', arguments, 'rgb(235, 235, 0)');
