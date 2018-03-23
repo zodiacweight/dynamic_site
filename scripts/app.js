@@ -98,9 +98,14 @@ function checkInputText(event) {
 function editTranslatedSentence(event) {
     outputGroupped('editTranslatedSentence', arguments);
     $(btnEditTranslatedWord).data('sentence-editing', true);
-    var t2 = setTimeout(() => {    
-            $(btnEditTranslatedWord).removeData('sentence-editing');
-        }, 300);
+    $popUp.addClass(_visibleClass);
+    $sentenceTextArea.text((() => {
+        const index = $(event.target).parents(`.${_wordClass}`).eq(0).index();
+        return $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`).text()
+    })().trim());
+    setTimeout(() => {
+        $(btnEditTranslatedWord).removeData('sentence-editing');
+    }, 300);
     console.groupEnd();
 }
 var btnEditTranslatedWord;
@@ -118,7 +123,7 @@ function editTranslatedWord(event) {
             //
             handleTranslateWord(event.target, true);
             $parent.find(`.${_btnRemoveSelector}`).hide();
-        } 
+        }
         console.groupEnd();
     }, 200);
 }
@@ -187,7 +192,7 @@ function manageSentence(event) {
             indexSentence = $(element).parent(`.${_wrapperClass}`).index(),
             $sentenceTranslatedBlock = $sentencesTranslated(),
             $sentence = $sentenceTranslatedBlock
-                .find('.sentences')
+                .find(`.${_sentencesClass}`)
                 .eq(indexWord)
                 .find(`.${_wrapperClass}`).eq(indexSentence);
         if (eventType == 'mouseenter') {

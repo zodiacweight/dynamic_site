@@ -69,6 +69,27 @@ main > div {
     right: 3px;
 }
 
+#pop-up .content{
+    background-color: rgba(230, 245, 251, 0.65);
+    padding: 10px;
+    position:absolute;
+    top: 40px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+}
+
+#pop-up .content textarea{
+    display: block;
+    margin: 0;
+    max-width: calc(100% - 20px);
+    position: absolute;
+    left: 10px;
+    /* right: 30px; */
+    bottom: 68px;
+    top: 10px;
+}
+
 .word.active section > .wrapper:hover{
     background-color: #000;
 }

@@ -33,11 +33,13 @@ const _globals = {
     // end ids
     // classes
     _activeClass = 'active',
+    _contentClass = 'content',
     _editableClass = 'editable',
     _initialClass = 'initial',
     _inputAttachClass = 'input-attach',
     _nativeWordClass = 'nativeWord',
     _repeatedClass = 'repeated',
+    _sentencesClass = 'sentences',
     _translatedClass = 'translated',
     _translatedWordClass = 'translatedWord',
     _visibleClass = 'visible',
@@ -60,6 +62,7 @@ const _globals = {
     // section above view
     $mainSection = $('#main'),
     $popUp = $('#pop-up'),
+    $sentenceTextArea = $popUp.find(`.${_contentClass} textarea`),
     // get container for dynamic contente
     $view = $('#view'),
     // get container for translated content
