@@ -9,9 +9,21 @@
     box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
     color: blue;
     display: inline-block;
-    margin-left: -6px;
     padding: 2px 32px 3px 6px;
-    width: calc(100% - 32px);
+}
+
+.editable .nativeWord{
+    margin-left: -6px;
+    width: calc(100% - 32px);    
+}
+
+.editable .translatedWord{
+    margin-left: -4px;
+    width: calc(100% - 24px);
+}
+
+.initial .sentences{
+    display:none;
 }
 
 form label{
@@ -159,6 +171,7 @@ section > .wrapper.editable{
 }
 
 .wrapper > span{
+    cursor: pointer;
     display: inline-block;
     padding-right: 20px;
 }

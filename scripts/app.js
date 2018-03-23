@@ -92,17 +92,35 @@ function checkInputText(event) {
     return true;
 }
 /**
+ * Edit a sentence which is attached to the translated word
+ * @param {Object} event 
+ */
+function editTranslatedSentence(event) {
+    outputGroupped('editTranslatedSentence', arguments);
+    $(btnEditTranslatedWord).data('sentence-editing', true);
+    var t2 = setTimeout(() => {    
+            $(btnEditTranslatedWord).removeData('sentence-editing');
+        }, 300);
+    console.groupEnd();
+}
+var btnEditTranslatedWord;
+/**
  * Store edited word, transorm span to the editable area
  * @param {Object} event 
  */
 function editTranslatedWord(event) {
-    outputGroupped('editTranslatedWord', arguments, 'darkr');
-    //
-    const [,,$parent] = indexEditorBtn(event.target);
-    //
-    handleTranslateWord(event.target, true);
-    $parent.find(`.${_btnRemoveSelector}`).hide();
-    console.groupEnd();
+    btnEditTranslatedWord = event.target;
+    setTimeout(() => {
+        outputGroupped('editTranslatedWord', arguments, 'darkr');
+        if (!$(btnEditTranslatedWord).data('sentence-editing')) {
+            //
+            const [, , $parent] = indexEditorBtn(event.target);
+            //
+            handleTranslateWord(event.target, true);
+            $parent.find(`.${_btnRemoveSelector}`).hide();
+        } 
+        console.groupEnd();
+    }, 200);
 }
 /**
  * Get edited word back, transorm the editable area into span
@@ -110,7 +128,7 @@ function editTranslatedWord(event) {
  */
 function editTranslatedWordCancel(event) {
     outputGroupped('editTranslatedWordCancel', arguments);
-    const [,,$parent] = indexEditorBtn(event.target);
+    const [, , $parent] = indexEditorBtn(event.target);
     //
     handleTranslateWord(event.target);
     //
@@ -172,7 +190,7 @@ function manageSentence(event) {
                 .find('.sentences')
                 .eq(indexWord)
                 .find(`.${_wrapperClass}`).eq(indexSentence);
-        if (eventType == 'mouseenter'){
+        if (eventType == 'mouseenter') {
             $sentence.fadeIn(200);
             $sentenceTranslatedBlock.removeClass(_initialClass);
         } else {
@@ -322,7 +340,7 @@ function storeWordEdited(event) {
             // fixme: unify type (array | object)
             wordContents = dictionary[parentWord],
             storedWordData = $wordSpan.data(_originWordStr);
-        console.log('words=>', {editedWord:editedWord, parentWord:parentWord});
+        console.log('words=>', { editedWord: editedWord, parentWord: parentWord });
         //
         if (Array.isArray(wordContents)) {
             wordContents[0].some((wordToChange, index) => {
@@ -332,7 +350,7 @@ function storeWordEdited(event) {
                 }
                 return false;
             });
-        } else if (toString.call(wordContents)==="[object Object]"){
+        } else if (toString.call(wordContents) === "[object Object]") {
             Object.keys(wordContents).some((wordToChange, index) => {
                 if (wordToChange === storedWordData) {
                     wordContents[editedWord] = wordContents[wordToChange];
