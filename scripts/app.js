@@ -96,28 +96,34 @@ function checkInputText(event) {
  * @param {Object} event 
  */
 function editTranslatedSentence(event) {
-    outputGroupped('editTranslatedSentence', arguments);
-    $(btnEditTranslatedWord).data('sentence-editing', true);
+    _translation.editSentence = true;
+    const index = $(event.target).parents(`.${_wordClass}`).eq(0).index(),
+        [,targetIndex] = indexEditorBtn(event.target);
+    // store index of sentence
+    _translation.translatedWordSentenceIndex = targetIndex;
+    //        
+    $sentenceTextArea.text((() => $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`).text())().trim());
+    // show popUp
     $popUp.addClass(_visibleClass);
-    $sentenceTextArea.text((() => {
-        const index = $(event.target).parents(`.${_wordClass}`).eq(0).index();
-        return $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`).text()
-    })().trim());
+
     setTimeout(() => {
-        $(btnEditTranslatedWord).removeData('sentence-editing');
+        outputGroupped('editTranslatedSentence', arguments);
+        _translation.editSentence = false;
+        console.groupEnd();
     }, 300);
-    console.groupEnd();
 }
-var btnEditTranslatedWord;
 /**
  * Store edited word, transorm span to the editable area
  * @param {Object} event 
  */
 function editTranslatedWord(event) {
-    btnEditTranslatedWord = event.target;
+    const $container = $(event.target).parents(`.${_wordClass}`).eq(0);
+    _translation.nativeWord = $container.find(`.${_nativeWordClass}`);
+    _translation.translatedWords = $container.find(`.${_wrapperClass} .${_translatedWordClass}`);
+    //
     setTimeout(() => {
         outputGroupped('editTranslatedWord', arguments, 'darkr');
-        if (!$(btnEditTranslatedWord).data('sentence-editing')) {
+        if (!_translation.editSentence) {
             //
             const [, , $parent] = indexEditorBtn(event.target);
             //
@@ -287,6 +293,16 @@ function setLanguages() {
         // load it anyway, as we click the button explicitly
         loadDictionary(storeLanguagesSet(), setMainView);
     }
+    console.groupEnd();
+}
+/** 
+ * Store edited sentence
+*/
+function storeSentence(event) {
+    outputGroupped('storeSentence', arguments);
+    const dictionary = dataStore.get(),
+        text = $(event.target).parent(`.${_contentClass}`).find('textarea').val();
+    console.log(dictionary,text);
     console.groupEnd();
 }
 /**

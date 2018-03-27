@@ -6,6 +6,12 @@ const _globals = {
             russian: 'Русский'
         }
     },
+    _translation = {
+      nativeWord:false,
+      translatedWords:false,
+      translatedWordSentenceIndex:false,
+      editSentence:false
+    },
     _minWordLength = 1,
     // buttons (classes, ids)
     _btnAddTranslatedSelector = 'btn-add-translated',
@@ -22,6 +28,7 @@ const _globals = {
     // ids
     _addWordId = "addWord",
     _addWordFormId = "addWordForm",
+    _btnSaveSentenceId = 'btn-save-sentence',
     _cmdSettingsLangId = 'command-settings-langs',
     _inputAttachId = 'input-attach',
     _hdrLanguageId = 'header-language',

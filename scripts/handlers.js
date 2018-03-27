@@ -2,8 +2,10 @@
 $(function () {
     let wordStore;
     // show/hide words/sentences
-    $popUp.on('click', `.${_btnCancelSelector}`, hidePopUp);
-
+    $popUp
+        .on('click', `.${_btnCancelSelector}`, hidePopUp)
+        .on('click', // click on the button *save* sentence
+            `#${_btnSaveSentenceId}`, storeSentence);
     $view
         .on('mouseenter mouseleave', // 
             `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
