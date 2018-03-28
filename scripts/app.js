@@ -1,7 +1,7 @@
 /** */
 function addNewSentenceInput() {
     outputGroupped('addNewSentenceInput', arguments);
-    const $lastInput = () => $(_inputAttachTranslatedSelector).last();
+    const $lastInput = ()=>$(_inputAttachTranslatedSelector).last();
     $lastInput().after(setInput('translated'));
     if ($(_inputAttachTranslatedSelector).length === 2) {
         $lastInput().after(setButton('remove-translated'));
@@ -14,8 +14,8 @@ function addNewSentenceInput() {
  */
 function addNewWord() {
     outputGroupped('addNewWord', arguments);
-    const $inputAttach = $(`#${_inputAttachId}`),
-        word = $inputAttach.val();
+    const $inputAttach = $(`#${_inputAttachId}`)
+      , word = $inputAttach.val();
     let mess = checkWordLengthTooShort(word);
     if (mess) {
         console.warn(mess);
@@ -34,8 +34,8 @@ function addNewWordAndSentence() {
     outputGroupped('addNewWordAndSentence', arguments);
     if (!addNewWord()) {
         return false;
-    };
-    $popUp.addClass(_visibleClass);
+    }
+    ;$popUp.addClass(_visibleClass);
     console.groupEnd();
 }
 /**
@@ -44,16 +44,18 @@ function addNewWordAndSentence() {
 function checkInitLangs(event) {
     outputGroupped('checkInitLangs', arguments);
     // all selects
-    const currentSel = event.target,
-        $langSelects = $(_langSelectsSelector);
+    const currentSel = event.target
+      , $langSelects = $(_langSelectsSelector);
     let type, action;
     //
-    $langSelects.eq(0).val() == $langSelects.eq(1).val()
-        ? (type = 'cancel', action = 'add')
-        : (type = 'submit', action = 'remove');
+    $langSelects.eq(0).val() == $langSelects.eq(1).val() ? (type = 'cancel',
+    action = 'add') : (type = 'submit',
+    action = 'remove');
     //
     $langSelects[`${action}Class`]('border-red-outline');
-    storeSelects.dispatch({ type: type });
+    storeSelects.dispatch({
+        type: type
+    });
     console.groupEnd();
 }
 /**
@@ -62,12 +64,12 @@ function checkInitLangs(event) {
  */
 function checkInputText(event) {
     outputGroupped('checkInputText', arguments, 'violet');
-    const cellToEdit = event.target,
-        targetHTML = cellToEdit.innerText,
-        storedWordText = $(cellToEdit).data(_originWordStr),
-        len = cellToEdit.innerHTML.length,
-        minLen = _minWordLength + 1,
-        [$cellToEdit, cellIndex, $parent] = indexEditorBtn(cellToEdit);
+    const cellToEdit = event.target
+      , targetHTML = cellToEdit.innerText
+      , storedWordText = $(cellToEdit).data(_originWordStr)
+      , len = cellToEdit.innerHTML.length
+      , minLen = _minWordLength + 1
+      , [$cellToEdit,cellIndex,$parent] = indexEditorBtn(cellToEdit);
     // check if the dictionary contains that word already
     if (targetHTML === storedWordText) {
         $parent.removeClass(_repeatedClass).find(`.${_btnWarningSelector}`).remove();
@@ -97,20 +99,23 @@ function checkInputText(event) {
  */
 function editTranslatedSentence(event) {
     _translation.editSentence = true;
-    const index = $(event.target).parents(`.${_wordClass}`).eq(0).index(),
+    const index = $(event.target).parents(`.${_wordClass}`).eq(0).index(), 
         [,targetIndex] = indexEditorBtn(event.target);
     // store index of sentence
     _translation.translatedWordSentenceIndex = targetIndex;
+    _translation.$translatedWordSentenceContainer = $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`)
+                                                        .find(`.${_wrapperClass}`).eq(targetIndex);
     //        
-    $sentenceTextArea.text((() => $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`).text())().trim());
+    $sentenceTextArea.text((()=>_translation.$translatedWordSentenceContainer.text())().trim());
     // show popUp
     $popUp.addClass(_visibleClass);
 
-    setTimeout(() => {
+    setTimeout(()=>{
         outputGroupped('editTranslatedSentence', arguments);
         _translation.editSentence = false;
         console.groupEnd();
-    }, 300);
+    }
+    , 300);
 }
 /**
  * Store edited word, transorm span to the editable area
@@ -118,20 +123,20 @@ function editTranslatedSentence(event) {
  */
 function editTranslatedWord(event) {
     const $container = $(event.target).parents(`.${_wordClass}`).eq(0);
-    _translation.nativeWord = $container.find(`.${_nativeWordClass}`);
-    _translation.translatedWords = $container.find(`.${_wrapperClass} .${_translatedWordClass}`);
+    _translation.$nativeWord = $container.find(`.${_nativeWordClass}`);
     //
-    setTimeout(() => {
+    setTimeout(()=>{
         outputGroupped('editTranslatedWord', arguments, 'darkr');
         if (!_translation.editSentence) {
             //
-            const [, , $parent] = indexEditorBtn(event.target);
+            const [,,$parent] = indexEditorBtn(event.target);
             //
             handleTranslateWord(event.target, true);
             $parent.find(`.${_btnRemoveSelector}`).hide();
         }
         console.groupEnd();
-    }, 200);
+    }
+    , 200);
 }
 /**
  * Get edited word back, transorm the editable area into span
@@ -139,7 +144,7 @@ function editTranslatedWord(event) {
  */
 function editTranslatedWordCancel(event) {
     outputGroupped('editTranslatedWordCancel', arguments);
-    const [, , $parent] = indexEditorBtn(event.target);
+    const [,,$parent] = indexEditorBtn(event.target);
     //
     handleTranslateWord(event.target);
     //
@@ -151,11 +156,9 @@ function editTranslatedWordCancel(event) {
  * @param {Object} event 
  */
 function handleTranslatedWordInput(event) {
-    const $btn = $(event.target).next(`.${_btnAddTranslatedSelector}`),
-        attrDisabled = 'disabled';
-    checkWordLengthTooShort(event.target.value)
-        ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass)
-        : $btn.removeAttr(attrDisabled).addClass(_activeClass);
+    const $btn = $(event.target).next(`.${_btnAddTranslatedSelector}`)
+      , attrDisabled = 'disabled';
+    checkWordLengthTooShort(event.target.value) ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass) : $btn.removeAttr(attrDisabled).addClass(_activeClass);
 }
 /** */
 function hidePopUp() {
@@ -168,9 +171,9 @@ function hidePopUp() {
  */
 function keepNewWordInputSynchronized(event) {
     outputGroupped('keepNewWordInputSynchronized', arguments);
-    const wordValue = $(`#${_wordId}`).val(),
-        $targetCell = $(event.target),
-        targetCellVal = event.target.value;
+    const wordValue = $(`#${_wordId}`).val()
+      , $targetCell = $(event.target)
+      , targetCellVal = event.target.value;
     //
     if (targetCellVal.length < wordValue.length) {
         $targetCell.val(wordValue);
@@ -190,17 +193,14 @@ function keepNewWordInputSynchronized(event) {
 function manageSentence(event) {
     outputGroupped('manageSentence', arguments, 'blue');
     // target or currentTarget matter on mouseleave
-    const element = event.currentTarget,
-        eventType = event.type;
+    const element = event.currentTarget
+      , eventType = event.type;
     //
     if (element.className == _wrapperClass) {
-        const indexWord = $(element).parents('.active').eq(0).index(),
-            indexSentence = $(element).parent(`.${_wrapperClass}`).index(),
-            $sentenceTranslatedBlock = $sentencesTranslated(),
-            $sentence = $sentenceTranslatedBlock
-                .find(`.${_sentencesClass}`)
-                .eq(indexWord)
-                .find(`.${_wrapperClass}`).eq(indexSentence);
+        const indexWord = $(element).parents('.active').eq(0).index()
+          , indexSentence = $(element).parent(`.${_wrapperClass}`).index()
+          , $sentenceTranslatedBlock = $sentencesTranslated()
+          , $sentence = $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
         if (eventType == 'mouseenter') {
             $sentence.fadeIn(200);
             $sentenceTranslatedBlock.removeClass(_initialClass);
@@ -208,7 +208,8 @@ function manageSentence(event) {
             $sentence.hide();
             $sentenceTranslatedBlock.addClass(_initialClass);
         }
-    } else { // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
+    } else {
+        // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
         if (eventType == 'mouseenter') {
             if (!$(element).hasClass(_activeClass)) {
                 $(element).addClass(_activeClass);
@@ -227,8 +228,8 @@ function manageSentence(event) {
  */
 function manageWordsList(event) {
     outputGroupped('manageWordsList', arguments, 'orangered');
-    const $wordInput = $(event.target),
-        targetWordValue = $wordInput.val();
+    const $wordInput = $(event.target)
+      , targetWordValue = $wordInput.val();
     //
     if (targetWordValue.length > _minWordLength) {
         const list = createWordsList(targetWordValue);
@@ -256,7 +257,8 @@ function removeNewSentenceInput(event) {
     output('removeNewSentenceInput', arguments);
     const $btn = $(event.target);
     $btn.prev(_inputAttachTranslatedSelector).remove();
-    if ($(_inputAttachTranslatedSelector).length === 1) $btn.remove();
+    if ($(_inputAttachTranslatedSelector).length === 1)
+        $btn.remove();
 }
 /**
  * Remove the word from dictionary, call to store
@@ -268,9 +270,9 @@ function removeWord(event) {
         console.groupEnd();
         return;
     }
-    const btn = event.target,
-        [, , $parent] = indexEditorBtn(btn),
-        dict = dataStore.get();
+    const btn = event.target
+      , [,,$parent] = indexEditorBtn(btn)
+      , dict = dataStore.get();
     //
     delete dict[$parent.find(`.${_nativeWordClass}`).text()];
     console.log(dict);
@@ -306,19 +308,17 @@ function setEditedSentence(sentenceContents){
 */
 function storeSentence(event) {
     outputGroupped('storeSentence', arguments);
-    const dictionary = dataStore.get(),
-        text = $(event.target).parent(`.${_contentClass}`).find('textarea').val();
+    const dictionary = dataStore.get()
+      , text = $(event.target).parent(`.${_contentClass}`).find('textarea').val();
     // prefferable to be an Object, but may be presented as an Array (a remnant of the previous approach)
-    const nativeWord = $(_translation.nativeWord).text(),
-        wordData = dictionary[nativeWord],
-        tIndex = _translation.translatedWordSentenceIndex,
-        editedSentence = $sentenceTextArea.val();
-
-    Array.isArray(wordData) 
-        ? wordData[1][tIndex] = editedSentence
-        : wordData[Object.keys(wordData)[tIndex]][0] = editedSentence
-    
+    const nativeWord = $(_translation.$nativeWord).text()
+      , wordData = dictionary[nativeWord]
+      , tIndex = _translation.translatedWordSentenceIndex
+      , editedSentence = $sentenceTextArea.val();
+    // rewrite the sentence
+    Array.isArray(wordData) ? wordData[1][tIndex] = editedSentence : wordData[Object.keys(wordData)[tIndex]][0] = editedSentence
     storeDictionary(dictionary);
+    _translation.$translatedWordSentenceContainer.text(editedSentence);
     //
     hidePopUp();
     console.groupEnd();
@@ -329,10 +329,10 @@ function storeSentence(event) {
  */
 function storeWord() {
     outputGroupped('storeWord', arguments, 'darkred');
-    const nativeWord = $(`#${_wordId}`).val(),
-        translatedValue = $(`#${_newWordId}`).val(),
-        $textAreas = $(`#${_newWordSentencesId} textarea`),
-        dict = getLangWords();
+    const nativeWord = $(`#${_wordId}`).val()
+      , translatedValue = $(`#${_newWordId}`).val()
+      , $textAreas = $(`#${_newWordSentencesId} textarea`)
+      , dict = getLangWords();
 
     if (!translatedValue) {
         console.error('Have no any translated word...');
@@ -350,7 +350,7 @@ function storeWord() {
     // if there is more than one.
     if ($textAreas.length > 1) {
         sentences = [];
-        $textAreas.each(function () {
+        $textAreas.each(function() {
             sentences.push(this.value);
         });
     } else {
@@ -366,38 +366,43 @@ function storeWord() {
  */
 function storeWordEdited(event) {
     outputGroupped('storeWordEdited', arguments, 'darkred');
-    const btn = event.target,
-        $wordSpan = $(btn).prev(),
-        dictionary = getDictionary(),
-        [$btn, btnIndex, $parent] = indexEditorBtn(btn),
-        initialWord = $wordSpan.data(_originWordStr),
-        editedWord = $wordSpan.text();
+    const btn = event.target
+      , $wordSpan = $(btn).prev()
+      , dictionary = getDictionary()
+      , [$btn,btnIndex,$parent] = indexEditorBtn(btn)
+      , initialWord = $wordSpan.data(_originWordStr)
+      , editedWord = $wordSpan.text();
     //
     if ($parent.hasClass(_wrapperClass)) {
-        const $nativeWord = $parent.parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`),
-            parentWord = $nativeWord.data(_originWordStr) || $nativeWord.text(),
-            // fixme: unify type (array | object)
-            wordContents = dictionary[parentWord],
-            storedWordData = $wordSpan.data(_originWordStr);
-        console.log('words=>', { editedWord: editedWord, parentWord: parentWord });
+        const $nativeWord = $parent.parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`)
+          , parentWord = $nativeWord.data(_originWordStr) || $nativeWord.text()
+          , // fixme: unify type (array | object)
+        wordContents = dictionary[parentWord]
+          , storedWordData = $wordSpan.data(_originWordStr);
+        console.log('words=>', {
+            editedWord: editedWord,
+            parentWord: parentWord
+        });
         //
         if (Array.isArray(wordContents)) {
-            wordContents[0].some((wordToChange, index) => {
+            wordContents[0].some((wordToChange,index)=>{
                 if (wordToChange === storedWordData) {
                     wordContents[0][index] = editedWord;
                     return true;
                 }
                 return false;
-            });
+            }
+            );
         } else if (toString.call(wordContents) === "[object Object]") {
-            Object.keys(wordContents).some((wordToChange, index) => {
+            Object.keys(wordContents).some((wordToChange,index)=>{
                 if (wordToChange === storedWordData) {
                     wordContents[editedWord] = wordContents[wordToChange];
                     delete wordContents[wordToChange];
                     return true;
                 }
                 return false;
-            });
+            }
+            );
         } else {
             console.warn('wordContents is not an Object =>', toString.call(wordContents));
         }

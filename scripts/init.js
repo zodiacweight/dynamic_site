@@ -7,9 +7,9 @@ const _globals = {
         }
     },
     _translation = {
-      nativeWord:false,
-      translatedWords:false,
-      translatedWordSentenceIndex:false,
+      $nativeWord:false, // jQuery object
+      $translatedWordSentenceContainer:false, // jQuery object
+      translatedWordIndex:false, // number
       editSentence:false
     },
     _minWordLength = 1,
