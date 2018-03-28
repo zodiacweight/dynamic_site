@@ -3,30 +3,34 @@ $(function () {
     let wordStore;
     // show/hide words/sentences
     $popUp
-        .on('click', `.${_btnCancelSelector}`, hidePopUp)
-        .on('click', // click on the button *save* sentence
+        .on('click', // *close* icon
+            `.${_btnCancelSelector}`, hidePopUp)
+        .on('click', // *save* button
             `#${_btnSaveSentenceId}`, storeSentence);
-    $view
-        .on('mouseenter mouseleave', // 
-            `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
-        .on("click", // *pen* icon, to edit a translated word
-            `.${_btnEditSelector}`, editTranslatedWord)
-        .on("dblclick", // *pen* icon, to edit a translated sentence
-            `.${_btnEditSelector}`, editTranslatedSentence)
-        .on('click', // *cancel* icon which previous one is turned into
-            `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
-        .on('click',
-            `.${_btnRemoveSelector}`, removeWord)
+    $view // click event
         .on('click',
             `.${_btnAddTranslatedSelector}`, addNewSentenceInput)
-        .on('click',
-            `.${_btnRemoveTranslatedSelector}`, removeNewSentenceInput)
         .on('click', // *save* edited word icon
             `.${_btnApplySelector}`, storeWordEdited)
         .on('click',
             `.${_btnAttachSelector}`, addNewWord)
         .on('click',
             `.${_btnAttachSentenceSelector}`, addNewWordAndSentence)
+        .on("click", // *pen* icon, to edit a translated word
+            `.${_btnEditSelector}`, editTranslatedWord)
+        .on('click',
+            `.${_btnRemoveSelector}`, removeWord)
+        .on('click',
+            `.${_btnRemoveTranslatedSelector}`, removeNewSentenceInput)
+        .on('click', // *cancel* icon which previous one is turned into
+            `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
+        // dblclick event
+        .on("dblclick", // *pen* icon, to edit a translated sentence
+            `.${_btnEditSelector}`, editTranslatedSentence)
+        // other mouse events
+        .on('mouseenter mouseleave', // 
+            `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
+        // key events
         .on('keypress input blur',
             `#${_inputAttachId}`, keepNewWordInputSynchronized)
         .on('keypress input blur',

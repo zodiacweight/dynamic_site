@@ -93,7 +93,7 @@ function checkInputText(event) {
 }
 /**
  * Edit a sentence which is attached to the translated word
- * @param {Object} event 
+ * @param {Object} event dblClick
  */
 function editTranslatedSentence(event) {
     _translation.editSentence = true;
@@ -295,6 +295,12 @@ function setLanguages() {
     }
     console.groupEnd();
 }
+/*
+function setEditedSentence(sentenceContents){
+    outputGroupped('setEditedSentence', arguments);
+    sentenceContents = $sentenceTextArea.val();
+    console.groupEnd();
+}*/
 /** 
  * Store edited sentence
 */
@@ -302,7 +308,19 @@ function storeSentence(event) {
     outputGroupped('storeSentence', arguments);
     const dictionary = dataStore.get(),
         text = $(event.target).parent(`.${_contentClass}`).find('textarea').val();
-    console.log(dictionary,text);
+    // prefferable to be an Object, but may be presented as an Array (a remnant of the previous approach)
+    const nativeWord = $(_translation.nativeWord).text(),
+        wordData = dictionary[nativeWord],
+        tIndex = _translation.translatedWordSentenceIndex,
+        editedSentence = $sentenceTextArea.val();
+
+    Array.isArray(wordData) 
+        ? wordData[1][tIndex] = editedSentence
+        : wordData[Object.keys(wordData)[tIndex]][0] = editedSentence
+    
+    storeDictionary(dictionary);
+    //
+    hidePopUp();
     console.groupEnd();
 }
 /**
