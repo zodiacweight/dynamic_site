@@ -39,11 +39,9 @@ $(function () {
             `.${_editableClass} .${_nativeWordClass}`, checkInputText);
     // click on #addWord
     // note: not in use, but is going to be...
-    $chooseLanguageForm.on("click", `#${_addWordId}`, () => {
-        $chooseLanguageForm.after(createForm());
+    _$chooseLanguageForm().on("click", `#${_addWordId}`, () => {
+        _$chooseLanguageForm().after(createForm());
     });
-    // store the word
-    $forms.on("click", `#${_btnSaveSelector}`, storeWord);
     // changing the language in the initial lists (native/foregn)
     $mainSection
         .on('change',
@@ -52,6 +50,8 @@ $(function () {
             `#${_btnSaveSelector}`, setLanguages)
         .on('click',
             `#${_cmdSettingsLangId}`, setInitView) // in view
+        .on('click', `#forms #${_btnSaveSelector}`, // store the word
+            storeWord)
         // Creates words list and add / remove form
         .on('input keyup',
             `#${_wordId}`, manageWordsList); // input#word

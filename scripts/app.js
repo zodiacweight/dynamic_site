@@ -25,6 +25,7 @@ function addNewWord() {
     }
     console.log('new word=>', word);
     const dictionary = dataStore.get();
+    dictionary[word] = {};
     console.groupEnd();
 }
 /**
@@ -199,7 +200,7 @@ function manageSentence(event) {
     if (element.className == _wrapperClass) {
         const indexWord = $(element).parents('.active').eq(0).index()
           , indexSentence = $(element).parent(`.${_wrapperClass}`).index()
-          , $sentenceTranslatedBlock = $sentencesTranslated()
+          , $sentenceTranslatedBlock = _$sentencesTranslated()
           , $sentence = $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
         if (eventType == 'mouseenter') {
             $sentence.fadeIn(200);
@@ -272,11 +273,24 @@ function removeWord(event) {
     }
     const btn = event.target
       , [,,$parent] = indexEditorBtn(btn)
-      , dict = dataStore.get();
-    //
-    delete dict[$parent.find(`.${_nativeWordClass}`).text()];
-    console.log(dict);
-    storeDictionary(dict);
+      , dictionary = dataStore.get()
+      , nativeWord = $(btn).parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`).text()
+      , wordData = dictionary[nativeWord];
+    // remove word
+    if ($parent.hasClass(_wrapperClass)) {
+        const wordToDelete = $(btn).prev().text();
+        if (Array.isArray(wordData)) {
+            const wordsArray =  wordData[0];
+            delete wordsArray.splice[wordsArray.indexOf(wordToDelete), 1];
+        } else {
+            delete wordData[wordToDelete];
+        }
+    } else {
+        delete dictionary[nativeWord];
+    }
+    //    
+    console.log(dictionary);
+    storeDictionary(dictionary);
     // remove word container (hide in order not to touch editor object)
     $parent.hide();
     console.groupEnd();
@@ -297,12 +311,6 @@ function setLanguages() {
     }
     console.groupEnd();
 }
-/*
-function setEditedSentence(sentenceContents){
-    outputGroupped('setEditedSentence', arguments);
-    sentenceContents = $sentenceTextArea.val();
-    console.groupEnd();
-}*/
 /** 
  * Store edited sentence
 */
@@ -316,7 +324,9 @@ function storeSentence(event) {
       , tIndex = _translation.translatedWordSentenceIndex
       , editedSentence = $sentenceTextArea.val();
     // rewrite the sentence
-    Array.isArray(wordData) ? wordData[1][tIndex] = editedSentence : wordData[Object.keys(wordData)[tIndex]][0] = editedSentence
+    Array.isArray(wordData) 
+        ? wordData[1][tIndex] = editedSentence 
+        : wordData[Object.keys(wordData)[tIndex]][0] = editedSentence
     storeDictionary(dictionary);
     _translation.$translatedWordSentenceContainer.text(editedSentence);
     //
@@ -332,7 +342,7 @@ function storeWord() {
     const nativeWord = $(`#${_wordId}`).val()
       , translatedValue = $(`#${_newWordId}`).val()
       , $textAreas = $(`#${_newWordSentencesId} textarea`)
-      , dict = getLangWords();
+      , dictionary = getLangWords();
 
     if (!translatedValue) {
         console.error('Have no any translated word...');
@@ -341,8 +351,8 @@ function storeWord() {
     }
     // set array element, index 0
     // then we get thing like this:
-    dict[nativeWord] = [[translatedValue]];
-    dict[nativeWord].push([]);
+    dictionary[nativeWord] = [[translatedValue]];
+    dictionary[nativeWord].push([]);
     let sentences;
     // here we need to detect what to add into word array 
     // as translated sentence -- a string, if there
@@ -357,7 +367,7 @@ function storeWord() {
         sentences = $textAreas.eq(0).val();
     }
     // push the second element into array
-    dict[nativeWord][1].push(sentences);
+    dictionary[nativeWord][1].push(sentences);
     console.groupEnd();
 }
 /**
@@ -391,8 +401,7 @@ function storeWordEdited(event) {
                     return true;
                 }
                 return false;
-            }
-            );
+            });
         } else if (toString.call(wordContents) === "[object Object]") {
             Object.keys(wordContents).some((wordToChange,index)=>{
                 if (wordToChange === storedWordData) {
@@ -401,8 +410,7 @@ function storeWordEdited(event) {
                     return true;
                 }
                 return false;
-            }
-            );
+            });
         } else {
             console.warn('wordContents is not an Object =>', toString.call(wordContents));
         }

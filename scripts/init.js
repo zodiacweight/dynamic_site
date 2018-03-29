@@ -64,15 +64,14 @@ const _globals = {
     _wordIsTaken = 'The word is taken already',
     _wordIsTooShort = 'The word is too short',
     // end strings
-    // elements
-    $forms = $("#forms"),
-    // section above view
+    // static elements
     $mainSection = $('#main'),
     $popUp = $('#pop-up'),
     $sentenceTextArea = $popUp.find(`.${_contentClass} textarea`),
     // get container for dynamic contente
     $view = $('#view'),
-    // get container for translated content
-    $sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
+    // dynamic elements
+    //
+    _$sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
     // form
-    $chooseLanguageForm = $("#chooseLanguage");
+    _$chooseLanguageForm = () => $("#chooseLanguage");

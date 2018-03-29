@@ -46,7 +46,7 @@ function addForm() {
     //
     if ($(`#${_addWordFormId}`).length) return;
     //
-    $chooseLanguageForm.after(`<form id="${_addWordFormId}">
+    _$chooseLanguageForm().after(`<form id="${_addWordFormId}">
     ${createFields()}
         ${setButton('save')}
         ${setButton('save-xtra')}
@@ -82,7 +82,7 @@ function checkWordLengthTooShort(word, min=_minWordLength + 1){
 function clearList() {
     output('clearList', arguments, "darkkhaki");
     $view.html("");
-    $sentencesTranslated().html("");
+    _$sentencesTranslated().html("");
 }
 /**
  * Check entry in dictionary
@@ -179,7 +179,7 @@ function indexEditorBtn(targetElement) {
 function insertWordsList(list, sentences) {
     output('insertWordsList', arguments);
     $view.html(list);
-    $sentencesTranslated().html(sentences);
+    _$sentencesTranslated().html(sentences);
     $view.append(setAttachedWord());
 }
 /**
