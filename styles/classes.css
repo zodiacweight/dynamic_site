@@ -28,24 +28,20 @@
     z-index: 1;
 }
 .btn-remove-translated{
-    background: #555;
-    border: none;
+    background: rgb(250, 220, 225);
+    border: solid 2px #555;
     border-radius: 50%;
-    color: white;
+    color: #555;
     font-size: 30px;
-    line-height: 10px;
     float: left;
-    margin: 12px auto auto -32px;
+    margin: 12.5px auto auto -32px;
+    position: relative;
     transform: rotate(45deg);
-    height: 28px;
-    width: 28px;
+    height: 27px;
+    width: 27px;
 }
 .btn-remove-translated::before{
     content: "+";
-    font-size: 30px;
-    left: 50%;
-    line-height: 10px;
-    top: 50%;
     position:absolute;
     transform: translate(-50%,-50%);
 }

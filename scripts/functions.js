@@ -44,13 +44,8 @@ function initData() {
 function addForm() {
     output('addForm', arguments);
     //
-    if ($(`#${_addWordFormId}`).length) return;
-    //
-    _$chooseLanguageForm().after(`<form id="${_addWordFormId}">
-    ${createFields()}
-        ${setButton('save')}
-        ${setButton('save-xtra')}
-    </form>`);
+    if ($(`#${_inputAttachId}`).length) return;
+    $view.append(setAttachedWord());
 }
 /**
  * 
@@ -176,8 +171,8 @@ function indexEditorBtn(targetElement) {
  * Inserts list into #view
  * @param {String} list 
  */
-function insertWordsList(list, sentences) {
-    output('insertWordsList', arguments);
+function insertWordsListAndForm(list, sentences) {
+    output('insertWordsListAndForm', arguments);
     $view.html(list);
     _$sentencesTranslated().html(sentences);
     $view.append(setAttachedWord());
@@ -198,7 +193,7 @@ function makeWordsList(substring) {
     }
     const [list, sentences, wordsLen] = createNewWordList(words, substring);
     //
-    list ? insertWordsList(list, sentences) : clearList();
+    list ? insertWordsListAndForm(list, sentences) : clearList();
     // 
     if (wordsLen === 1) {
         $view.find(`>.${_wordClass}`).trigger('mouseenter');
