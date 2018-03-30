@@ -36,10 +36,19 @@ function addNewWord() {
  */
 function addNewWordAndSentence() {
     outputGroupped('addNewWordAndSentence', arguments);
-    if (!addNewWord()) {
+    if (!_$newWordInput().val()) {
         return false;
     }
-    ;$popUp.addClass(_visibleClass);
+    const $lastTranslatedInput = $(`.${_inputAttachClass}.${_translatedClass}`).last();
+    // if there is not value for a translated word, mark the input
+    if (!$lastTranslatedInput.val()){
+        $lastTranslatedInput.addClass(_wordRedClass);
+        setTimeout(() => {
+            $lastTranslatedInput.removeClass(_wordRedClass);
+        }, 3000);
+        return false;
+    }
+    $popUp.addClass(_visibleClass);
     console.groupEnd();
 }
 /**
