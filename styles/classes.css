@@ -37,8 +37,8 @@
     margin: 12.5px auto auto -32px;
     position: relative;
     transform: rotate(45deg);
-    height: 27px;
-    width: 27px;
+    height: 26px;
+    width: 26px;
 }
 .btn-remove-translated::before{
     content: "+";

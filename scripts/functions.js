@@ -41,11 +41,15 @@ function initData() {
     }
 }
 // attaches form if didn't do before
-function addForm() {
+function addForm(checkFormPresence) {
     output('addForm', arguments);
+    if (checkFormPresence) {
+        if ($(`#${_newWordBlockId}`).length) return false;
+    }
+    const $newWordInput = _$newWordInput();
     //
-    if ($(`#${_inputAttachId}`).length) return;
-    $view.append(setAttachedWord());
+    if ($newWordInput && $newWordInput.length) return false;
+    $view.append(getNewWordFormContents());
 }
 /**
  * 
@@ -120,6 +124,12 @@ function getNativeWord(element) {
     output('getNativeWord', arguments);
     return $(element).next();
 }
+/** 
+ * get value from the input for a new word
+*/
+function getNewWordValue() {
+    return $(`#${_wordId}`).val();
+}
 /**
  * 
  * @param {HTMLElement} btn 
@@ -175,7 +185,7 @@ function insertWordsListAndForm(list, sentences) {
     output('insertWordsListAndForm', arguments);
     $view.html(list);
     _$sentencesTranslated().html(sentences);
-    $view.append(setAttachedWord());
+    addForm();
 }
 /**
  * 
@@ -225,8 +235,7 @@ function notEvnt(ob) {
 // removing entire form contents
 function removeForm() {
     output('removeForm', arguments, "goldenrod");
-    const $form = $(`#${_addWordFormId}`);
-    if ($form.length) $form.remove();
+    $(`#${_newWordBlockId}`).remove();
 }
 /**
  * 

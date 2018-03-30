@@ -151,6 +151,12 @@ section > .wrapper.editable{
     padding: 6px;
     width: 100%;
 }
+#view #input-attach{
+    display: none;
+}
+#view .word +#new-word-block #input-attach{
+    display: block;
+}
 
 #view .input-attach +.input-attach{
     background-color: rgb(252, 248, 237);

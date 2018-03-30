@@ -14,7 +14,7 @@ function addNewSentenceInput() {
  */
 function addNewWord() {
     outputGroupped('addNewWord', arguments);
-    const $inputAttach = $(`#${_inputAttachId}`)
+    const $inputAttach = _$newWordInput()
       , word = $inputAttach.val();
     let mess = checkWordLengthTooShort(word);
     if (mess) {
@@ -26,6 +26,9 @@ function addNewWord() {
     console.log('new word=>', word);
     const dictionary = dataStore.get();
     dictionary[word] = {};
+    storeDictionary(dictionary);
+    makeWordsList(getNewWordValue());
+    _$newWordInput().val('');
     console.groupEnd();
 }
 /**
@@ -235,11 +238,11 @@ function manageWordsList(event) {
     if (targetWordValue.length > _minWordLength) {
         const list = createWordsList(targetWordValue);
         if (list) {
-            makeWordsList(targetWordValue);
             removeForm();
+            makeWordsList(targetWordValue);
         } else {
             clearList();
-            addForm();
+            addForm(true);
         }
         // remove or add form depending wheter does it added already or not
     } else {
@@ -339,7 +342,7 @@ function storeSentence(event) {
  */
 function storeWord() {
     outputGroupped('storeWord', arguments, 'darkred');
-    const nativeWord = $(`#${_wordId}`).val()
+    const nativeWord = getNewWordValue()
       , translatedValue = $(`#${_newWordId}`).val()
       , $textAreas = $(`#${_newWordSentencesId} textarea`)
       , dictionary = getLangWords();

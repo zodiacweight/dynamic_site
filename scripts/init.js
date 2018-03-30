@@ -30,6 +30,7 @@ const _globals = {
     _addWordFormId = "addWordForm",
     _btnSaveSentenceId = 'btn-save-sentence',
     _cmdSettingsLangId = 'command-settings-langs',
+    _newWordBlockId = 'new-word-block',
     _inputAttachId = 'input-attach',
     _hdrLanguageId = 'header-language',
     _wordId = 'word',
@@ -72,6 +73,7 @@ const _globals = {
     $view = $('#view'),
     // dynamic elements
     //
+    _$newWordInput = () => $(`#${_inputAttachId}`),
     _$sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
     // form
     _$chooseLanguageForm = () => $("#chooseLanguage");
