@@ -34,7 +34,7 @@ $(function () {
         .on('keypress input blur',
             `#${_inputAttachId}`, keepNewWordInputSynchronized)
         .on('keypress input blur',
-            `.${_inputAttachClass}.${_translatedClass}`, handleTranslatedWordInput)
+        _inputAttachTranslatedSelector, handleTranslatedWordInput)
         .on('keypress input',
             `.${_editableClass} .${_nativeWordClass}`, checkInputText);
     // click on #addWord

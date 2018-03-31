@@ -69,8 +69,9 @@
 }
 
 #btn-save-sentence{
-    position:absolute;
-    bottom: 10px;
+    max-width: 140px;
+    margin: auto;
+    width: 100%;
 }
 
 #chooseLanguage select{
@@ -168,7 +169,7 @@
 
 #pop-up{
     background-color: rgba(255,255,255,0.96);
-    box-shadow: 0 0 40px 6px rgba(0,0,0,0.5), 0 0 0 10px rgba(0,0,0,0.05);
+    box-shadow: 0 0 60px 0px rgba(0,0,0,0.5), 0 0 0 4px rgba(0,0,0,0.05);
     border-radius: 1px;
     opacity: 0;
     position: fixed;
@@ -223,6 +224,24 @@
     display: block;
     font-size: 20px;
     padding: 16px;
+}
+
+#translated-word-pop-up{
+    display: none;
+    font-weight: bold;
+    background: #d6edf5;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.new #translated-word-pop-up{
+    display: block;
+}
+
+#translated-word-pop-up::before{
+    content: 'Translated word: ';
+    color: blue;
+    font-weight: normal;
 }
 
 #view {

@@ -70,10 +70,10 @@ main > div {
 }
 
 #pop-up .content{
-    background-color: rgba(230, 245, 251, 0.65);
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
     position:absolute;
-    top: 40px;
+    top: 32px;
     right: 20px;
     bottom: 20px;
     left: 20px;
@@ -81,13 +81,14 @@ main > div {
 
 #pop-up .content textarea{
     display: block;
+    height: 100%;
     margin: 0;
-    max-width: calc(100% - 20px);
-    position: absolute;
-    left: 10px;
-    /* right: 30px; */
-    bottom: 68px;
-    top: 10px;
+    margin-bottom: 20px;
+    max-width: none;
+    /* position: absolute; */
+    left: 0px;
+    bottom: 72px;
+    top: 0;
 }
 
 .word.active section > .wrapper:hover{

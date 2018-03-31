@@ -1,16 +1,18 @@
 // 
 const _globals = {
-        languages: {
-            english: 'English',
-            portuguese: 'Portugues',
-            russian: 'Русский'
-        }
-    },
+    languages: {
+        english: 'English',
+        portuguese: 'Portugues',
+        russian: 'Русский'
+    }
+},
     _translation = {
-      $nativeWord:false, // jQuery object
-      $translatedWordSentenceContainer:false, // jQuery object
-      translatedWordIndex:false, // number
-      editSentence:false
+        $nativeWord: false, // jQuery object
+        $translatedWordSentenceContainer: false, // jQuery object
+        // translatedWord: false, // string, for new sentence case only
+        translatedWordSentenceIndex: false, // number
+        editSentence: false
+        // , cancel() see bellow, added through Object.defineProperty
     },
     _minWordLength = 1,
     // buttons (classes, ids)
@@ -38,6 +40,7 @@ const _globals = {
     _newWordSentencesId = 'new-word-sentences',
     _sectionChooseLangId = 'section-choose-language',
     _sectionTranslatedId = 'sentences-translated',
+    _translatedWordPopUp = 'translated-word-pop-up',
     // end ids
     // classes
     _activeClass = 'active',
@@ -46,6 +49,7 @@ const _globals = {
     _initialClass = 'initial',
     _inputAttachClass = 'input-attach',
     _nativeWordClass = 'nativeWord',
+    _newClass = 'new',
     _repeatedClass = 'repeated',
     _sentencesClass = 'sentences',
     _translatedClass = 'translated',
@@ -57,8 +61,8 @@ const _globals = {
     // end classes
     // selectors
     _langSelectsSelector = `#${_sectionChooseLangId} select`,
-    _inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,    
-    //    
+    _inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,
+    // 
     // end selectors
     // strings
     _originWordStr = 'original-word',
@@ -77,3 +81,12 @@ const _globals = {
     _$sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
     // form
     _$chooseLanguageForm = () => $("#chooseLanguage");
+
+// add method to clear values
+Object.defineProperty(_translation, 'cancel', {
+    value: () => {
+        Object.keys(_translation).forEach(prop => {
+            _translation[prop] = false;
+        })
+    }
+});

@@ -47,7 +47,7 @@ function storeLanguagesSet() {
     const lngsType = ['native', 'foreign'],
         langs = {};
     // go through all (2) selects
-    $(langSelects).each((index, select) => {
+    $(_langSelectsSelector).each((index, select) => {
         langs[lngsType[index]] = $(select).val();
     });
     console.log('set langs', langs);

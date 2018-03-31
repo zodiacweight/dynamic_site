@@ -73,7 +73,7 @@ function checkNewWordCoincidence($targetCell, targetCellVal) {
  * @param {String} word
  * @param {Number} min
  */
-function checkWordLengthTooShort(word, min=_minWordLength + 1){
+function checkWordLengthTooShort(word, min = _minWordLength + 1) {
     output('checkWordLengthTooShort', arguments);
     return min >= word.length ? 'Too short word' : false;
 }
@@ -150,10 +150,10 @@ function handleTranslateWord(btn, add) {
             .after(setButton('apply'));
     } else {
         $wordToEditSpan.next(`.${_btnApplySelector}`).remove();
-        if (Object.keys($wordToEditSpan.data()).length){
+        if (Object.keys($wordToEditSpan.data()).length) {
             $wordToEditSpan
-            .text($wordToEditSpan.data(_originWordStr))
-            .removeData();
+                .text($wordToEditSpan.data(_originWordStr))
+                .removeData();
         }
     }
     // span containig the native word
@@ -214,14 +214,14 @@ function makeWordsList(substring) {
  * mark input field as having too short length
  * @param {jQuery object} $inputAttach
  */
-function markInputTooShortLength($inputAttach){
-    $inputAttach.addClass(_wordRedClass).attr('title',_wordIsTooShort);
+function markInputTooShortLength($inputAttach) {
+    $inputAttach.addClass(_wordRedClass).attr('title', _wordIsTooShort);
 }
 /**
  * unmark input field as having too short length
  * @param {jQuery object} $inputAttach
  */
-function markInputTooShortLengthCancel($inputAttach){
+function markInputTooShortLengthCancel($inputAttach) {
     $inputAttach.removeClass(_wordRedClass).removeAttr('title');
 }
 /**
