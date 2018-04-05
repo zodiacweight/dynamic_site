@@ -382,6 +382,8 @@ function storeSentence(event) {
     storeSentences.dispatch({type:false});
     //
     hidePopUp();
+    makeWordsList(getNewWordValue(_inputAttachId));
+    $(`#${_wordId}`).trigger('input');
     console.groupEnd();
 }
 /**

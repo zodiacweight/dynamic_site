@@ -25,12 +25,12 @@ const _globals = {
     _btnRemoveSelector = 'btn-remove',
     _btnRemoveTranslatedSelector = 'btn-remove-translated',
     _btnSaveSelector = 'btn-save',
+    _btnSaveSentenceSelector = 'btn-save-sentence',
     _btnSaveXtraSelector = 'btn-save-xtra',
     _btnWarningSelector = 'btn-warning',
     // ids
     _addWordId = "addWord",
     _addWordFormId = "addWordForm",
-    _btnSaveSentenceId = 'btn-save-sentence',
     _cmdSettingsLangId = 'command-settings-langs',
     _newWordBlockId = 'new-word-block',
     _inputAttachId = 'input-attach',

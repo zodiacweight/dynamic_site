@@ -1,0 +1,5 @@
+added into storeSentence:
+    makeWordsList(getNewWordValue(_inputAttachId));
+    $(`#${_wordId}`).trigger('input');
+todo:
+Add the options for adding the translated word for a native word.

@@ -6,7 +6,7 @@ $(function () {
         .on('click', // *close* icon
             `.${_btnCancelSelector}`, hidePopUp)
         .on('click', // *save* button
-            `#${_btnSaveSentenceId}`, storeSentence);
+            `#${_btnSaveSentenceSelector}`, storeSentence);
     $view // click event
         .on('click',
             `.${_btnAddTranslatedSelector}`, addNewSentenceInput)

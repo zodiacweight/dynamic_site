@@ -127,8 +127,8 @@ function getNativeWord(element) {
 /** 
  * get value from the input for a new word
 */
-function getNewWordValue() {
-    return $(`#${_wordId}`).val();
+function getNewWordValue(fieldId=_wordId) {
+    return $(`#${fieldId}`).val();
 }
 /**
  * 
