@@ -111,6 +111,20 @@
     display: inline-block;
     margin: -4px 4px auto -4px;
 }
+
+.btn-add-translated.active::before{
+    content:"+";
+    color:  darkgreen;
+    font-size: 30px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 27px;
+}
+
+.btn-add-translated.active{
+    background: rgb(250, 255, 189) !important;
+}
+
 .input-attach.translated{
     width: calc(100% - 42px) !important;
 }

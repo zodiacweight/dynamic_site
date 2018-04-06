@@ -153,16 +153,16 @@ function setButton(btn_type) {
     output('setButton', arguments, 'green');
     switch (btn_type) {
         case 'add':
-            return `<input class="${_btnAdd}" type="button">`;
+            return `<input type="button" class="${_btnAdd}">`;
             break;
         case 'add-translated':
-            return `<button class="${_btnAddTranslatedSelector}" disabled="disabled" type="button"></button>`;
+            return `<button type="button" class="${_btnAddTranslatedSelector}" disabled="disabled"></button>`;
             break;
         case 'apply':
-            return `<button class='${_btnApplySelector}' type="button">✔</button>`;
+            return `<button type="button" class="${_btnApplySelector}">✔</button>`;
             break;
         case 'edit':
-            return `<button class='${_btnEditSelector}' type="button">&nbsp;</button>`;
+            return `<button type="button" class="${_btnEditSelector}">&nbsp;</button>`;
             break;
         case 'save':
             return `<input type="button" value="Save" id="${_btnSaveSelector}">`;
@@ -171,19 +171,19 @@ function setButton(btn_type) {
             return `<input type="button" value="Save & Add" id="${_btnSaveXtraSelector}">`;
             break;
         case 'attach':
-            return `<button id="${_btnAttachSelector}" class="${_btnAttachSelector}" type="button">Add</button>`;
+            return `<button type="button" id="${_btnAttachSelector}" class="${_btnAttachSelector}">Add</button>`;
             break;
         case 'sentence':
-            return `<button id="${_btnAttachSentenceSelector}" class="${_btnAttachSentenceSelector}" type="button">Add sentence</button>`;
+            return `<button type="button" id="${_btnAttachSentenceSelector}" class="${_btnAttachSentenceSelector}">Add sentence</button>`;
             break;
         case 'remove':
-            return `<button class='${_btnRemoveSelector}' type="button">&nbsp;</button>`;
+            return `<button type="button" class="${_btnRemoveSelector}">&nbsp;</button>`;
             break;
         case 'remove-translated':
-            return `<button class="btn-remove-translated" type="button"></button>`;
+            return `<button type="button" class="btn-remove-translated"></button>`;
             break;
         case 'warning':
-            return `<button class='${_btnWarningSelector}' type="button" title="${_wordIsTaken}">&nbsp;</button>`;
+            return `<button type="button" class="${_btnWarningSelector}" title="${_wordIsTaken}">&nbsp;</button>`;
             break;
     }
 }

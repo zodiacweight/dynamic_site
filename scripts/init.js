@@ -42,6 +42,7 @@ const _globals = {
     _sectionChooseLangId = 'section-choose-language',
     _sectionTranslatedId = 'sentences-translated',
     _translatedWordPopUp = 'translated-word-pop-up',
+    _translatedWordNewPopUp = 'translated-word-new-pop-up',
     // end ids
     // classes
     _activeClass = 'active',

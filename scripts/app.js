@@ -57,9 +57,11 @@ function addNewWordAndSentence(event) {
     editTranslatedSentence(event);
     console.groupEnd();
 }
+/** */
 function addNewWordTranslated(){
     outputGroupped('addNewWordTranslated', arguments);
-    console.log('event=>',event);
+    //console.log('event=>',event);
+    showPopUp(true);
     console.groupEnd();
 }
 /**
@@ -123,27 +125,32 @@ function checkInputText(event) {
  */
 function editTranslatedSentence(event) {
     _translation.editSentence = true;
-    const state = storeSentences.getState();
+    // 
+    const state = storeSentences.getState(),
+        $nativeWordPopUpContainer = $(`#${_translatedWordPopUp}`);
+    let nClass;
+    // state 'edit' is set in editTranslatedWord
     if (state == 'edit') {
-        const index = $(event.target).parents(`.${_wordClass}`).eq(0).index(), 
+        const $parentNativeWordContainer = $(event.target).parents(`.${_wordClass}`).eq(0),
+            index = $parentNativeWordContainer.index(), 
             [,targetIndex] = indexEditorBtn(event.target);
         // store index of sentence
         _translation.translatedWordSentenceIndex = targetIndex;
         _translation.$translatedWordSentenceContainer = $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`)
                                                             .find(`.${_wrapperClass}`).eq(targetIndex);
+         $nativeWordPopUpContainer.text($parentNativeWordContainer.find(`.${_nativeWordClass}`).text());
         //
         $sentenceTextArea.text((()=>_translation.$translatedWordSentenceContainer.text())().trim());        
     } else if (state == 'add'){
         _translation.$nativeWord = $(`#${_inputAttachId}`);
         _translation.$translatedWordSentenceContainer = $(`#${_newWordBlockId}`).find(_inputAttachTranslatedSelector);
-        $(`#${_translatedWordPopUp}`).text($(_inputAttachTranslatedSelector).last().val());
-        $popUp.addClass(_newClass);
+         $nativeWordPopUpContainer.text($(_inputAttachTranslatedSelector).last().val());
+        nClass = true;
     } else {
         console.warn('Unknown state for the translated sentence...');
     }
-    // show popUp
-    $popUp.addClass(_visibleClass);
-
+    
+    showPopUp(nClass);
     setTimeout(()=>{
         outputGroupped('editTranslatedSentence', arguments);
         _translation.editSentence = false;

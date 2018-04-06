@@ -2,6 +2,13 @@
     color: red;
 }
 
+#addWordForm textarea{
+    color: rebeccapurple;
+    display: block;
+    min-height: 80px;
+    padding-right: 42px;
+}
+
 .block-add-word-translated .btn-add{
     background-color: #d1fdf6;
     border: solid 1px #000;
@@ -10,6 +17,25 @@
     padding: 0;
     width: calc(100% - 2px);
 }
+
+#pop-up .btn-cancel:before{
+    right: 0;
+}
+
+#chooseLanguage > h4{
+    margin: 0 auto 0 6px;
+}
+
+#chooseLanguage select{
+    background: #eee;
+    box-shadow: 0 -8px 28px rgba(200,200,200,1) inset;
+    border-radius: 4px;
+    color: brown;
+    padding: 8px 8px 8px 4px;
+    border: 0;
+    font-weight: 700;
+}
+
 .editable .nativeWord,
 .editable .translatedWord{
     background: white;
@@ -34,6 +60,11 @@
     display:none;
 }
 
+.input-attach ~[class|="btn-attach"]{
+    float: left;
+    margin-right: 8px;
+}
+
 form label{
     display: inline-block;
     margin: 12px auto;
@@ -41,6 +72,33 @@ form label{
 
 main > div {
     padding: 20px;
+}
+
+.new #sentence-header-new-pop-up{
+    color: blue;
+    display: block;
+    padding:10px 0;
+}
+
+.new #translated-word-pop-up{
+    background-color: transparent;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.new #translated-word-new-pop-up{
+    display: block;
+}
+
+#new-word-sentences .add-textarea{
+ bottom: 40px;
+ border: none;
+ font-size: 20px;
+ font-weight: bold;
+ height: 32px;
+ position:absolute;
+ right: 8px;
+ width: 32px;
 }
 
 #page > h2{
@@ -115,6 +173,22 @@ section > .wrapper{
 section > .wrapper.editable{
     padding-bottom: 9px;
     padding-top: 8px;
+}
+
+#section-choose-language select{
+    background: linear-gradient(to bottom, #fff, #eee);
+    margin-left: 4px;
+    padding: 4px;
+}
+
+#section-choose-language h4:nth-child(1),
+[data-lang="native"]{
+    color: #40c5ff;
+}
+
+#section-choose-language h4:nth-child(2),
+[data-lang="foreign"]{
+    color: #f7941d;
 }
 
 #sentences-translated .wrapper{

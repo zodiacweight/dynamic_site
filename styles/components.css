@@ -6,13 +6,6 @@
     transform: translateY(-2px);
 }
 
-#addWordForm textarea{
-    color: rebeccapurple;
-    display: block;
-    min-height: 80px;
-    padding-right: 42px;
-}
-
 #input-attach.repeated{
     background-color:#fff !important;
     color:red;
@@ -28,17 +21,7 @@
     max-width: 400px;
     position:relative;
 }
-
-#new-word-sentences .add-textarea{
- bottom: 40px;
- border: none;
- font-size: 20px;
- font-weight: bold;
- height: 32px;
- position:absolute;
- right: 8px;
- width: 32px;
-}
+/* fixme */
 .add-textarea,
 #btn-save,
 #btn-save-xtra,
@@ -46,12 +29,15 @@
 .btn-attach{
     background-color: rgb(190, 215, 61);
 }
+
 .btn-attach-sentence{
     background-color: rgb(61, 215, 190);
 }
+
 #btn-attach{
     clear:left;
 }
+
 #btn-save,
 #btn-save-xtra,
 #btn-save-sentence,
@@ -63,29 +49,16 @@
     padding: 12px 20px;
 }
 
-#chooseLanguage > h4{
-    /* transform: translateY(-6px); */
-    margin: 0 auto 0 6px;
-}
-
 #btn-save-sentence{
     max-width: 140px;
     margin: auto;
     width: 100%;
 }
 
-#chooseLanguage select{
-    background: #eee;
-    box-shadow: 0 -8px 28px rgba(200,200,200,1) inset;
-    border-radius: 4px;
-    color: brown;
-    padding: 8px 8px 8px 4px;
-    border: 0;
-    font-weight: 700;
-}
 #forms{
     margin-top: 120px;
 }
+
 @media screen and (min-width: 338px){
     #forms{
         margin-top: 92px;
@@ -96,11 +69,6 @@
     #forms{
         margin-top: 74px;
     }
-}
-
-.input-attach ~[class|="btn-attach"]{
-    float: left;
-    margin-right: 8px;
 }
 
 .btn-add-translated{
@@ -115,19 +83,6 @@
     margin: 8px auto auto 6px;
     height: 36px;
     width: 36px;
-}
-
-.btn-add-translated.active{
-    background: rgb(250, 255, 189) !important;
-}
-
-.btn-add-translated.active::before{
-    content:"+";
-    color:  darkgreen;
-    font-size: 30px;
-    font-weight: bold;
-    height: 28px;
-    line-height: 27px;
 }
 
 #loader{
@@ -152,6 +107,7 @@
 #page{
     position: relative;
 }
+
 #page{
     animation-name: compact;
     animation-delay: 1s;
@@ -181,29 +137,14 @@
     transition: all 0.4s ease;
     z-index: -1;
 }
+
 #pop-up.visible{
     opacity: 1;
     z-index: 2;
 }
 
-
-#pop-up .btn-cancel:before{
-    right: 0;
-}
-
-#section-choose-language select{
-    background: linear-gradient(to bottom, #fff, #eee);
-    margin-left: 4px;
-    padding: 4px;
-}
-
-#section-choose-language h4:nth-child(1),
-[data-lang="native"]{
-    color: #40c5ff;
-}
-#section-choose-language h4:nth-child(2),
-[data-lang="foreign"]{
-    color: #f7941d;
+#sentence-header-new-pop-up{
+    display: none;
 }
 
 #sentences-translated{
@@ -226,16 +167,18 @@
     padding: 16px;
 }
 
+#translated-word-new-pop-up{
+    display:none;
+    max-width: none;
+    width: 100%;
+}
+
 #translated-word-pop-up{
-    display: none;
+    /* display: none; */
     font-weight: bold;
     background: #d6edf5;
     margin-bottom: 10px;
     padding: 10px;
-}
-
-.new #translated-word-pop-up{
-    display: block;
 }
 
 #translated-word-pop-up::before{

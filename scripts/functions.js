@@ -275,3 +275,8 @@ function setLangInit() {
     });
     $sectLang.append(setButton('save'));
 }
+/** show popUp */
+function showPopUp(nClass) {
+    $popUp.addClass(_visibleClass);
+    if (nClass) $popUp.addClass(_newClass)
+}
