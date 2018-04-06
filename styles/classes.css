@@ -8,11 +8,16 @@
 [class|="btn"]:disabled{
     opacity:0.75;
 }
+.block-add-word-translated{
+    background-color: #000;
+    position: relative;
+    text-align: right;
+    z-index:2;
+}
 .btn-apply{
     border: solid 1px darkgreen;
     font-weight: bold;
     cursor: default;
-    
     line-height: 23px;
     font-family: Arial;
     background-color: #96b300;

@@ -2,6 +2,14 @@
     color: red;
 }
 
+.block-add-word-translated .btn-add{
+    background-color: #d1fdf6;
+    border: solid 1px #000;
+    font-size: 15px;
+    margin: 1px;
+    padding: 0;
+    width: calc(100% - 2px);
+}
 .editable .nativeWord,
 .editable .translatedWord{
     background: white;

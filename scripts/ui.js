@@ -84,6 +84,10 @@ function createNewWordList(words, substring) {
             } else {
                 console.warn('words[word] is not either Array nor Object...');
             }
+            listHTML +=`
+                    <div class="block-add-word-translated">
+                        <button class="btn-add">Add word</button>
+                    </div>`;
             listHTML += `
                 </section>
             </div>`;
@@ -170,7 +174,7 @@ function setButton(btn_type) {
             return `<button id="${_btnAttachSelector}" class="${_btnAttachSelector}" type="button">Add</button>`;
             break;
         case 'sentence':
-            return `<button id="${_btnAttachSentenceSelector}" class="${_btnAttachSentenceSelector}" type="button">Add + sentence</button>`;
+            return `<button id="${_btnAttachSentenceSelector}" class="${_btnAttachSentenceSelector}" type="button">Add sentence</button>`;
             break;
         case 'remove':
             return `<button class='${_btnRemoveSelector}' type="button">&nbsp;</button>`;
