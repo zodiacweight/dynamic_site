@@ -85,8 +85,8 @@ function createNewWordList(words, substring) {
                 console.warn('words[word] is not either Array nor Object...');
             }
             listHTML +=`
-                    <div class="block-add-word-translated">
-                        <button class="btn-add">Add word</button>
+                    <div class="${_blockAddWordTranslatedClass}">
+                        <button class="${_btnAdd}">Add word</button>
                     </div>`;
             listHTML += `
                 </section>
@@ -153,7 +153,7 @@ function setButton(btn_type) {
     output('setButton', arguments, 'green');
     switch (btn_type) {
         case 'add':
-            return `<input class="btn-add" type="button">`;
+            return `<input class="${_btnAdd}" type="button">`;
             break;
         case 'add-translated':
             return `<button class="${_btnAddTranslatedSelector}" disabled="disabled" type="button"></button>`;

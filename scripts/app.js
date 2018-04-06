@@ -57,6 +57,11 @@ function addNewWordAndSentence(event) {
     editTranslatedSentence(event);
     console.groupEnd();
 }
+function addNewWordTranslated(){
+    outputGroupped('addNewWordTranslated', arguments);
+    console.log('event=>',event);
+    console.groupEnd();
+}
 /**
  * Make initial languages choice
  */
@@ -119,7 +124,7 @@ function checkInputText(event) {
 function editTranslatedSentence(event) {
     _translation.editSentence = true;
     const state = storeSentences.getState();
-    if (state === 'edit') {
+    if (state == 'edit') {
         const index = $(event.target).parents(`.${_wordClass}`).eq(0).index(), 
             [,targetIndex] = indexEditorBtn(event.target);
         // store index of sentence
@@ -352,11 +357,11 @@ function storeSentence(event) {
     const dictionary = dataStore.get(),
         state = storeSentences.getState();
     if (state == 'edit') {
-        const text = $(target).parent(`.${_contentClass}`).find('textarea').val()
+        const text = $(event.target).parent(`.${_contentClass}`).find('textarea').val()
         // prefferable to be an Object, but may be presented as an Array (a remnant of the previous approach)
             , nativeWord = $(_translation.$nativeWord).text()
             , wordData = dictionary[nativeWord]
-            , tIndex = _translation.translatedWordSentenceIndex
+            , tIndex = _translation.translatedWordSentenceIndex || 0
             , editedSentence = $sentenceTextArea.val();
         // rewrite the sentence
         Array.isArray(wordData)

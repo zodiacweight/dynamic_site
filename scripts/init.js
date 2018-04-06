@@ -16,6 +16,7 @@ const _globals = {
     },
     _minWordLength = 1,
     // buttons (classes, ids)
+    _btnAdd = 'btn-add',
     _btnAddTranslatedSelector = 'btn-add-translated',
     _btnApplySelector = 'btn-apply',
     _btnAttachSelector = 'btn-attach',
@@ -44,6 +45,7 @@ const _globals = {
     // end ids
     // classes
     _activeClass = 'active',
+    _blockAddWordTranslatedClass = 'block-add-word-translated',
     _contentClass = 'content',
     _editableClass = 'editable',
     _initialClass = 'initial',

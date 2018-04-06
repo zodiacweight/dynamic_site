@@ -10,6 +10,8 @@ $(function () {
     $view // click event
         .on('click',
             `.${_btnAddTranslatedSelector}`, addNewSentenceInput)
+        .on('click',
+            `.${_blockAddWordTranslatedClass} .${_btnAdd}`, addNewWordTranslated)
         .on('click', // *save* edited word icon
             `.${_btnApplySelector}`, storeWordEdited)
         .on('click',
