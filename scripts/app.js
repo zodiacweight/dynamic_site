@@ -239,12 +239,12 @@ function keepNewWordInputSynchronized(event) {
 function manageSentence(event) {
     outputGroupped('manageSentence', arguments, 'blue');
     // target or currentTarget matter on mouseleave
-    const element = event.currentTarget
+    const $element = $(event.currentTarget)
       , eventType = event.type;
-    //
-    if (element.className == _wrapperClass) {
-        const indexWord = $(element).parents('.active').eq(0).index()
-          , indexSentence = $(element).parent(`.${_wrapperClass}`).index()
+    // if container with translated word
+    if ($element.hasClass(_wrapperClass)) {
+        const indexWord = $element.parents('.active').eq(0).index()
+          , indexSentence = $element.parent(`.${_wrapperClass}`).index()
           , $sentenceTranslatedBlock = _$sentencesTranslated()
           , $sentence = $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
         if (eventType == 'mouseenter') {
@@ -254,11 +254,15 @@ function manageSentence(event) {
             $sentence.hide();
             $sentenceTranslatedBlock.addClass(_initialClass);
         }
-    } else {
+    } else { // if container with native word
         // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
         if (eventType == 'mouseenter') {
-            if (!$(element).hasClass(_activeClass)) {
-                $(element).addClass(_activeClass);
+            if (!$element.hasClass(_activeClass)) {
+                $element.addClass(_activeClass);
+                const $wrappers = $element.find(`section > .${_wrapperClass}`);
+                if ($wrappers.length === 1){
+                    $wrappers.trigger('mouseenter');
+                }                
             }
         } else {
             if ($view.find(`.${_wordClass}`).length > 1) {
@@ -355,6 +359,14 @@ function setLanguages() {
         loadDictionary(storeLanguagesSet(), setMainView);
     }
     console.groupEnd();
+}
+/**
+ * 
+ * @param {Object} event 
+ */
+function showBtnSentenceAction(event) {
+    const btnClassName = '';
+    $(event.target).after(setButton(`${true ? 'add' : 'edit'}-sentence`));
 }
 /** 
  * Store edited sentence

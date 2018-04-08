@@ -18,6 +18,8 @@ const _globals = {
     // buttons (classes, ids)
     _btnAdd = 'btn-add',
     _btnAddTranslatedSelector = 'btn-add-translated',
+    _btnAddSentenceSelector = 'btn-add-sentence',
+    _btnEditSentenceSelector = 'btn-edit-sentence',
     _btnApplySelector = 'btn-apply',
     _btnAttachSelector = 'btn-attach',
     _btnAttachSentenceSelector = 'btn-attach-sentence',
