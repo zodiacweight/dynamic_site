@@ -240,34 +240,45 @@ function manageSentence(event) {
     outputGroupped('manageSentence', arguments, 'blue');
     // target or currentTarget matter on mouseleave
     const $element = $(event.currentTarget)
-      , eventType = event.type;
+      , eventType = event.type
+      , $sentenceTranslatedBlock = _$sentencesTranslated()
+      , $getSentence = (indexWord, indexSentence) => $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
     // if container with translated word
     if ($element.hasClass(_wrapperClass)) {
-        const indexWord = $element.parents('.active').eq(0).index()
+        const indexWord = $element.parents(`.${_activeClass}`).eq(0).index()
           , indexSentence = $element.parent(`.${_wrapperClass}`).index()
-          , $sentenceTranslatedBlock = _$sentencesTranslated()
-          , $sentence = $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
+          , $sentence = $getSentence(indexWord, indexSentence);
+          // $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
         if (eventType == 'mouseenter') {
             $sentence.fadeIn(200);
             $sentenceTranslatedBlock.removeClass(_initialClass);
         } else {
+            if ($element.parents(`.${_activeClass}`).eq(0).length) return;
             $sentence.hide();
             $sentenceTranslatedBlock.addClass(_initialClass);
         }
     } else { // if container with native word
         // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
+        const $wrappers = $element.find(`section > .${_wrapperClass}`)
+            , $singleSentence = $wrappers.length === 1 
+                ? $getSentence($element.index(), $wrappers.index())
+                : false;
         if (eventType == 'mouseenter') {
             if (!$element.hasClass(_activeClass)) {
-                $element.addClass(_activeClass);
-                const $wrappers = $element.find(`section > .${_wrapperClass}`);
-                if ($wrappers.length === 1){
-                    $wrappers.trigger('mouseenter');
-                }                
+                $element.addClass(_activeClass);           
             }
+            if ($singleSentence){
+                $singleSentence.fadeIn(200);
+                $sentenceTranslatedBlock.removeClass(_initialClass);
+            }                 
         } else {
             if ($view.find(`.${_wordClass}`).length > 1) {
-                $(element).removeClass(_activeClass);
+                $element.removeClass(_activeClass);
             }
+            if ($singleSentence){
+                $singleSentence.hide();
+                $sentenceTranslatedBlock.addClass(_initialClass);                    
+            }            
         }
     }
     console.groupEnd();
