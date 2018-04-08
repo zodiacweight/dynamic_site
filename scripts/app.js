@@ -378,7 +378,7 @@ function setLanguages() {
  * @param {Object} event 
  */
 function showBtnSentenceAction(event) {
-    const dictionary = storeDictionary.get()
+    const dictionary = dataStore.get()
         , [$target, targetIndex, $parent] = indexEditorBtn(event.target)
         , btnClassNameAction = '';
     $(event.target).after(setButton(`${btnClassNameAction ? 'add' : 'edit'}-sentence`));
