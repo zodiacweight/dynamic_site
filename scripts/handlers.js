@@ -33,8 +33,7 @@ $(function () {
         .on('mouseenter mouseleave', // 
             `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
         .on("mouseenter", // *edit translated word* icon, to add / edit a sentence
-            `.${_wrapperClass} .${_btnAddSentenceSelector}, 
-             .${_wrapperClass} .${_btnEditSentenceSelector}`, showBtnSentenceAction)
+            `.${_wrapperClass} .${_btnEditSelector}`, showBtnSentenceAction)
         // key events
         .on('keypress input blur',
             `#${_inputAttachId}`, keepNewWordInputSynchronized)

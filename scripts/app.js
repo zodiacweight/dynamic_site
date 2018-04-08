@@ -131,9 +131,9 @@ function editTranslatedSentence(event) {
     let nClass;
     // state 'edit' is set in editTranslatedWord
     if (state == 'edit') {
-        const $parentNativeWordContainer = $(event.target).parents(`.${_wordClass}`).eq(0),
-            index = $parentNativeWordContainer.index(), 
-            [,targetIndex] = indexEditorBtn(event.target);
+        const $parentNativeWordContainer = getParentActive(event.target)
+            , index = $parentNativeWordContainer.index()
+            , [,targetIndex] = indexEditorBtn(event.target);
         // store index of sentence
         _translation.translatedWordSentenceIndex = targetIndex;
         _translation.$translatedWordSentenceContainer = $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`)
@@ -163,7 +163,7 @@ function editTranslatedSentence(event) {
  * @param {Object} event 
  */
 function editTranslatedWord(event) {
-    const $container = $(event.target).parents(`.${_wordClass}`).eq(0);
+    const $container = getParentActive(event.target);
     _translation.$nativeWord = $container.find(`.${_nativeWordClass}`);
     storeSentences.dispatch({
         type: 'edit'
@@ -202,7 +202,9 @@ function editTranslatedWordCancel(event) {
 function handleTranslatedWordInput(event) {
     const $btn = $(event.target).next(`.${_btnAddTranslatedSelector}`)
       , attrDisabled = 'disabled';
-    checkWordLengthTooShort(event.target.value) ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass) : $btn.removeAttr(attrDisabled).addClass(_activeClass);
+    checkWordLengthTooShort(event.target.value) 
+        ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass) 
+        : $btn.removeAttr(attrDisabled).addClass(_activeClass);
 }
 /** */
 function hidePopUp() {
@@ -245,7 +247,7 @@ function manageSentence(event) {
       , $getSentence = (indexWord, indexSentence) => $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
     // if container with translated word
     if ($element.hasClass(_wrapperClass)) {
-        const indexWord = $element.parents(`.${_activeClass}`).eq(0).index()
+        const indexWord = getParentActive($element, _activeClass).index()
           , indexSentence = $element.parent(`.${_wrapperClass}`).index()
           , $sentence = $getSentence(indexWord, indexSentence);
           // $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
@@ -253,7 +255,7 @@ function manageSentence(event) {
             $sentence.fadeIn(200);
             $sentenceTranslatedBlock.removeClass(_initialClass);
         } else {
-            if ($element.parents(`.${_activeClass}`).eq(0).length) return;
+            if (getParentActive($element, _activeClass).length) return;
             $sentence.hide();
             $sentenceTranslatedBlock.addClass(_initialClass);
         }
@@ -265,7 +267,7 @@ function manageSentence(event) {
                 : false;
         if (eventType == 'mouseenter') {
             if (!$element.hasClass(_activeClass)) {
-                $element.addClass(_activeClass);           
+                $element.addClass(_activeClass);
             }
             if ($singleSentence){
                 $singleSentence.fadeIn(200);
@@ -334,7 +336,7 @@ function removeWord(event) {
     const btn = event.target
       , [,,$parent] = indexEditorBtn(btn)
       , dictionary = dataStore.get()
-      , nativeWord = $(btn).parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`).text()
+      , nativeWord = getParentActive(btn).find(`.${_nativeWordClass}`).text()
       , wordData = dictionary[nativeWord];
     // remove word
     if ($parent.hasClass(_wrapperClass)) {
@@ -376,8 +378,10 @@ function setLanguages() {
  * @param {Object} event 
  */
 function showBtnSentenceAction(event) {
-    const btnClassName = '';
-    $(event.target).after(setButton(`${true ? 'add' : 'edit'}-sentence`));
+    const dictionary = storeDictionary.get()
+        , [$target, targetIndex, $parent] = indexEditorBtn(event.target)
+        , btnClassNameAction = '';
+    $(event.target).after(setButton(`${btnClassNameAction ? 'add' : 'edit'}-sentence`));
 }
 /** 
  * Store edited sentence
@@ -472,7 +476,7 @@ function storeWordEdited(event) {
       , editedWord = $wordSpan.text();
     //
     if ($parent.hasClass(_wrapperClass)) {
-        const $nativeWord = $parent.parents(`.${_wordClass}`).eq(0).find(`.${_nativeWordClass}`)
+        const $nativeWord = getParentActive(btn).find(`.${_nativeWordClass}`)
           , parentWord = $nativeWord.data(_originWordStr) || $nativeWord.text()
           , // fixme: unify type (array | object)
         wordContents = dictionary[parentWord]
