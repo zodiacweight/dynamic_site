@@ -1,5 +1,9 @@
-added into storeSentence:
-    makeWordsList(getNewWordValue(_inputAttachId));
-    $(`#${_wordId}`).trigger('input');
+done:
+Buttons to add/edit sentence - refactoring
+
+--------------------------------
 todo:
-Add the options for adding the translated word for a native word.
+Refactor function in order to make it working properly
+fix this:
+make target for the first mouseenter not an edit translated word icon, but the word itself
+----- in showBtnSentenceAction

@@ -174,17 +174,8 @@ function indexEditorBtn(targetElement) {
     output('indexEditorBtn', arguments);
     const $target = $(targetElement),
         $parent = $target.parent(),
-        targetIndex = $parent.index();
-    return [$target, targetIndex, $parent];
-}
-/**
- * 
- * @param {Object} HTMLElement or jQUery object
- */
-function getParentActive($element, className = _wordClass) {
-    // check if it is jQuery object or not
-    if ($element.length === undefined) $element = $($element);
-    return $element.parents(`.${className}`).eq(0);
+        parentIndex = $parent.index();
+    return [$target, parentIndex, $parent];
 }
 /**
  * Inserts list into #view
@@ -195,6 +186,15 @@ function insertWordsListAndForm(list, sentences) {
     $view.html(list);
     _$sentencesTranslated().html(sentences);
     addForm();
+}
+/**
+ * 
+ * @param {Object} HTMLElement or jQUery object
+ */
+function getParentActive($element, className = _wordClass) {
+    // check if it is jQuery object or not
+    if ($element.length === undefined) $element = $($element);
+    return $element.parents(`.${className}`).eq(0);
 }
 /**
  * 

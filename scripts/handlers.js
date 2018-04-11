@@ -33,7 +33,9 @@ $(function () {
         .on('mouseenter mouseleave', // 
             `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
         .on("mouseenter", // *edit translated word* icon, to add / edit a sentence
-            `.${_wrapperClass} .${_btnEditSelector}`, showBtnSentenceAction)
+            `.${_wrapperClass} .${_btnEditSelector}, .${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, showBtnSentenceAction)
+        .on("mouseleave", // *edit translated word* icon, to add / edit a sentence
+            `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, hideBtnSentenceAction)
         // key events
         .on('keypress input blur',
             `#${_inputAttachId}`, keepNewWordInputSynchronized)
