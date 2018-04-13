@@ -9,6 +9,8 @@ $(function () {
             `#${_btnSaveSentenceSelector}`, storeSentence);
     $view // click event
         .on('click',
+            `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, editTranslatedSentence)
+        .on('click',
             `.${_btnAddTranslatedSelector}`, addNewSentenceInput)
         .on('click',
             `.${_blockAddWordTranslatedClass} .${_btnAdd}`, addNewWordTranslated)
@@ -26,9 +28,6 @@ $(function () {
             `.${_btnRemoveTranslatedSelector}`, removeNewSentenceInput)
         .on('click', // *cancel* icon which previous one is turned into
             `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
-        // dblclick event
-        .on("dblclick", // *pen* icon, to edit a translated sentence
-            `.${_btnEditSelector}`, editTranslatedSentence)
         // other mouse events
         .on('mouseenter mouseleave', // 
             `> .${_wordClass}, .${_wrapperClass}`, manageSentence)

@@ -53,6 +53,15 @@ function addForm(checkFormPresence) {
 }
 /**
  * 
+ * @param {HTMLObject || jQueryObject}  
+ */
+function getJQueryObject($element) {
+    return ($element.length === undefined) 
+        ? $($element) 
+        : $element;
+}
+/**
+ * 
  * @param {jQuery Object}  $targetCell -- input field
  * @param {String} targetCellVal -- input field text
  */
@@ -184,9 +193,9 @@ function handleTranslateWord(btn, add) {
  */
 function indexEditorBtn(targetElement) {
     output('indexEditorBtn', arguments);
-    const $target = $(targetElement),
-        $parent = $target.parent(),
-        parentIndex = $parent.index();
+    const $target = getJQueryObject(targetElement)
+        , $parent = $target.parent()
+        , parentIndex = $parent.index();
     return [$target, parentIndex, $parent];
 }
 /**
@@ -205,8 +214,7 @@ function insertWordsListAndForm(list, sentences) {
  */
 function getParentActive($element, className = _wordClass) {
     // check if it is jQuery object or not
-    if ($element.length === undefined) $element = $($element);
-    return $element.parents(`.${className}`).eq(0);
+    return getJQueryObject($element).parents(`.${className}`).eq(0);
 }
 /**
  * 

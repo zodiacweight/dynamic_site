@@ -127,15 +127,30 @@ function checkInputText(event) {
  */
 function editTranslatedSentence(event) {
     _translation.editSentence = true;
+    const $element = $(event.target),
+        event_type = (() => {
+            if ($element.hasClass(_btnAddSentenceSelector)) {
+                return 'add';
+            } else if($element.hasClass(_btnEditSentenceSelector)) {
+                return 'edit';
+            } else {
+                console.warn('The proper class was not detected');
+                return;
+            }
+        })();
+    //
+    storeSentences.dispatch({
+        type: event_type
+    });
     // 
     const state = storeSentences.getState()
       , $nativeWordPopUpContainer = $(`#${_translatedWordPopUp}`);
     let nClass;
     // state 'edit' is set in editTranslatedWord
     if (state == 'edit') {
-        const $parentNativeWordContainer = getParentActive(event.target)
+        const $parentNativeWordContainer = getParentActive($element)
           , index = $parentNativeWordContainer.index()
-          , [,btnParentIndex] = indexEditorBtn(event.target);
+          , [,btnParentIndex] = indexEditorBtn($element);
         // store index of sentence
         _translation.translatedWordSentenceIndex = btnParentIndex;
         _translation.$translatedWordSentenceContainer = getSentence(index, btnParentIndex);
