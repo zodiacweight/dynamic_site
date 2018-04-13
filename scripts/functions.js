@@ -132,6 +132,18 @@ function getNewWordValue(fieldId=_wordId) {
 }
 /**
  * 
+ * @param {Number} indexWord 
+ * @param {Number} indexSentence 
+ * @param {jQuery Object | undefined} $sentenceTranslatedBlock
+ */
+function getSentence (indexWord, indexSentence, $sentenceTranslatedBlock = _$sentencesTranslated()) {
+	return $sentenceTranslatedBlock.find(`.${_sentencesClass}`)
+		.eq(indexWord)
+		.find(`.${_wrapperClass}`)
+		.eq(indexSentence);
+}
+/**
+ * 
  * @param {HTMLElement} btn 
  * @param {*} add 
  */

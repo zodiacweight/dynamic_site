@@ -138,9 +138,8 @@ function editTranslatedSentence(event) {
           , [,btnParentIndex] = indexEditorBtn(event.target);
         // store index of sentence
         _translation.translatedWordSentenceIndex = btnParentIndex;
-        _translation.$translatedWordSentenceContainer = $(`#${_sectionTranslatedId} .${_sentencesClass}:eq(${index})`).find(`.${_wrapperClass}`).eq(btnParentIndex);
+        _translation.$translatedWordSentenceContainer = getSentence(index, btnParentIndex);
         $nativeWordPopUpContainer.text($parentNativeWordContainer.find(`.${_nativeWordClass}`).text());
-        //
         $sentenceTextArea.text((()=>_translation.$translatedWordSentenceContainer.text())().trim());
     } else if (state == 'add') {
         _translation.$nativeWord = $(`#${_inputAttachId}`);
@@ -252,28 +251,35 @@ function manageSentence(event) {
     // target or currentTarget matter on mouseleave
     const $element = $(event.currentTarget)
       , eventType = event.type
-      , $sentenceTranslatedBlock = _$sentencesTranslated()
-      , $getSentence = (indexWord,indexSentence)=>$sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
+      , $sentenceTranslatedBlock = _$sentencesTranslated();
     // if container with translated word
     if ($element.hasClass(_wrapperClass)) {
         const indexWord = getParentActive($element, _activeClass).index()
-          , indexSentence = $element.parent(`.${_wrapperClass}`).index()
-          , $sentence = $getSentence(indexWord, indexSentence);
-        // $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).find(`.${_wrapperClass}`).eq(indexSentence);
+          , indexSentence = $element.index()
+          , $sentence = getSentence(indexWord, indexSentence, $sentenceTranslatedBlock);
+        //
         if (eventType == 'mouseenter') {
+            $sentenceTranslatedBlock
+                .removeClass(_initialClass)
+                .find(`.${_sentencesClass}`)
+                .hide();
+            $sentenceTranslatedBlock.find(`.${_sentencesClass}`).eq(indexWord).show();
             $sentence.fadeIn(200);
-            $sentenceTranslatedBlock.removeClass(_initialClass);
         } else {
-            if (getParentActive($element, _activeClass).length)
-                return;
             $sentence.hide();
             $sentenceTranslatedBlock.addClass(_initialClass);
+            if (getParentActive($element, _activeClass).length) {
+                console.groupEnd();
+                return;
+            }
         }
     } else {
         // if container with native word
         // eventTarget: div.wrapper, eventCurrentTarget: div.word.active
         const $wrappers = $element.find(`section > .${_wrapperClass}`)
-          , $singleSentence = $wrappers.length === 1 ? $getSentence($element.index(), $wrappers.index()) : false;
+          , $singleSentence = $wrappers.length === 1 
+                ? getSentence($element.index(), $wrappers.index(), $sentenceTranslatedBlock)
+                : false;
         if (eventType == 'mouseenter') {
             if (!$element.hasClass(_activeClass)) {
                 $element.addClass(_activeClass);
@@ -398,13 +404,10 @@ function showBtnSentenceAction(event) {
         const dictionary = dataStore.get()
           , word = getParentActive($target).find(`.${_nativeWordClass}`).text()
           , btnClassNameAction = (()=>{
-            const wordContent = dictionary[word]
-              , index = parentIndex;
-            if (Array.isArray(wordContent)) {
-                sentence = wordContent[1][index];
-            } else {
-                sentence = wordContent[Object.keys(wordContent)[index]].length;
-            }
+            const wordContent = dictionary[word];
+              sentence = Array.isArray(wordContent)
+                ? wordContent[1][parentIndex]
+                : wordContent[Object.keys(wordContent)[parentIndex]].length;
             return sentence ? 'edit' : 'add';
         }
         )();
