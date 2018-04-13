@@ -389,8 +389,8 @@ function setLanguages() {
  */
 function showBtnSentenceAction(event) {
     output('showBtnSentenceAction', arguments);
-    const [$target,,$parent] = indexEditorBtn(event.target);
-    if ($target.hasClass(_btnEditSelector)) {
+    const [$target,parentIndex,$parent] = indexEditorBtn(event.target);
+    if ($target.hasClass(_translatedWordClass)) {
         if ($parent.find(`.${_btnAddSentenceSelector}`).length || $parent.find(`.${_btnEditSentenceSelector}`).length) {
             return;
         }
@@ -399,7 +399,7 @@ function showBtnSentenceAction(event) {
           , word = getParentActive($target).find(`.${_nativeWordClass}`).text()
           , btnClassNameAction = (()=>{
             const wordContent = dictionary[word]
-              , index = $target.index();
+              , index = parentIndex;
             if (Array.isArray(wordContent)) {
                 sentence = wordContent[1][index];
             } else {
@@ -409,9 +409,8 @@ function showBtnSentenceAction(event) {
         }
         )();
         const btn = setButton(`${btnClassNameAction}-sentence`)
-            $btn = $(btn);
+            , $btn = $(btn);
         $target.after($btn);
-        // $btn.addClass('visible');
     } else {
         $target.addClass('visible');
     }

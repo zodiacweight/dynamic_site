@@ -51,6 +51,10 @@
     width: calc(100% - 32px);    
 }
 
+.editable .btn-edit-sentence{
+    display: none;
+}
+
 .editable .translatedWord{
     margin-left: -4px;
     width: calc(100% - 24px);
@@ -190,51 +194,18 @@ section > .wrapper.editable{
     padding: 10px;
 }
 
-.word > section{
+#view #input-attach{
     display: none;
-    right: 0;
-    padding-left: 10px;
-    position: absolute;
-    top: 0;
 }
 
-.word > section{
-    white-space: nowrap;
-}
-
-.word.active:not(.editable) > section {
+#view .word +#new-word-block #input-attach{
     display: block;
 }
 
-.word.active section > .wrapper:hover{
-    background-color: #000;
-}
-.wrapper .btn-add-sentence,
-.wrapper .btn-edit-sentence{
-    border: none;
-    bottom: -2px;
-    /* display: none; */
-    font-size: 15px;
-    height: 27px;
-    left: 42px;
-    opacity: 0;
-    position: absolute;
-    right: -30px;
-    z-index: 1;
-}
-
-.wrapper .btn-add-sentence.visible,
-.wrapper .btn-edit-sentence.visible{
-    /* display: block; */
-    opacity: 1;
-}
-
-.wrapper .btn-add-sentence{
-    background: yellow;
-}
-.wrapper .btn-edit-sentence{
-    background: #bed73d;
-    /* color: white; */
+#view .input-attach +.input-attach{
+    background-color: rgb(252, 248, 237);
+    border-color: #c093b0;
+    padding-right: 34px;
 }
 
 #view > .word{
@@ -258,17 +229,56 @@ section > .wrapper.editable{
     padding: 6px;
     width: 100%;
 }
-#view #input-attach{
+
+.word > section{
     display: none;
+    right: 0;
+    padding-left: 10px;
+    position: absolute;
+    top: 0;
 }
-#view .word +#new-word-block #input-attach{
+
+.word > section{
+    white-space: nowrap;
+}
+
+.word.active:not(.editable) > section {
     display: block;
 }
 
-#view .input-attach +.input-attach{
-    background-color: rgb(252, 248, 237);
-    border-color: #c093b0;
-    padding-right: 34px;
+.word.active section > .wrapper:hover{
+    background-color: #000;
+}
+
+.wrapper .btn-add-sentence,
+.wrapper .btn-edit-sentence{
+    border: none;
+    font-size: 0;
+    height: 27px;
+    position: absolute;
+    right: 0px;
+    width: 27px;
+    z-index: 1;
+}
+
+.wrapper .btn-add-sentence.visible,
+.wrapper .btn-edit-sentence.visible{
+    opacity: 1;
+}
+
+.wrapper .btn-add-sentence.visible{
+    background: yellow;
+}
+
+.wrapper .btn-add-sentence{
+    background: orange;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.wrapper .btn-edit-sentence{
+    background: #bed73d;
+    opacity: 0.6;
 }
 
 .word > .btn-remove{
@@ -290,22 +300,20 @@ section > .wrapper.editable{
 .wrapper .btn-remove{
     background-color: white;
     border: none;
-    height: 24px;
+    height: 26px;
+    left: -25px;
     position: absolute;
-    top: 10px;
-    right: 4px;
-    width: 24px;
+    top: 8px;
+    width: 26px;
 }
 
 .wrapper .btn-remove::before{
-    font-size: 24px;
+    font-size: 26px;
     line-height: 25px;
-    opacity: 0.5;
     color: red;
 }
 
 .wrapper > span{
-    /* cursor: pointer; */
     display: inline-block;
     padding-right: 20px;
 }
