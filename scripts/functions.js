@@ -306,6 +306,6 @@ function setLangInit() {
 }
 /** show popUp */
 function showPopUp(nClass) {
-    $popUp.addClass(_visibleClass);
-    if (nClass) $popUp.addClass(_newClass)
+    _popUp.$el.addClass(_visibleClass);
+    if (nClass) _popUp.$el.addClass(_newClass)
 }

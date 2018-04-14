@@ -173,18 +173,34 @@
     width: 100%;
 }
 
+#native-word-pop-up,
 #translated-word-pop-up{
-    /* display: none; */
     font-weight: bold;
-    background: #d6edf5;
     margin-bottom: 10px;
     padding: 10px;
 }
+#native-word-pop-up{
+    background: rgb(214, 245, 180);
+}
+#translated-word-pop-up{
+    background: #d6edf5;
+}
 
+#native-word-pop-up::before,
+#translated-word-pop-up::before{
+    color: blue;
+    display: inline-block;
+    font-weight: normal;
+    max-width: 150px;
+    min-width: 124px;
+    width: 48%;
+}
+
+#native-word-pop-up::before{
+    content: 'Native word: ';   
+}
 #translated-word-pop-up::before{
     content: 'Translated word: ';
-    color: blue;
-    font-weight: normal;
 }
 
 #view {

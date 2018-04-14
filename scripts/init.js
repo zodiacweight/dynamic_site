@@ -7,7 +7,7 @@ const _globals = {
     }
 },
     _translation = {
-        $nativeWord: false, // jQuery object
+        $nativeWord: false, // string
         $translatedWordSentenceContainer: false, // jQuery object
         // translatedWord: false, // string, for new sentence case only
         translatedWordSentenceIndex: false, // number
@@ -39,6 +39,7 @@ const _globals = {
     _inputAttachId = 'input-attach',
     _hdrLanguageId = 'header-language',
     _wordId = 'word',
+    _nativeWordPopUp = 'native-word-pop-up',
     _newWordId = 'new-word',
     _newWordSentencesId = 'new-word-sentences',
     _sectionChooseLangId = 'section-choose-language',
@@ -76,14 +77,14 @@ const _globals = {
     // end strings
     // static elements
     $mainSection = $('#main'),
-    $popUp = $('#pop-up'),
-    $sentenceTextArea = $popUp.find(`.${_contentClass} textarea`),
+    _popUp = {},
     // get container for dynamic contente
     $view = $('#view'),
     // dynamic elements
     //
     _$newWordInput = () => $(`#${_inputAttachId}`),
     _$sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
+
     // form
     _$chooseLanguageForm = () => $("#chooseLanguage");
 
@@ -93,5 +94,39 @@ Object.defineProperty(_translation, 'cancel', {
         Object.keys(_translation).forEach(prop => {
             _translation[prop] = false;
         })
+    }
+});
+// add popUp elements
+Object.defineProperties( _popUp, {
+    '$el': {
+        value: $('#pop-up')
+    }
+});
+// set popUp blocks
+Object.defineProperties(_popUp, {
+    '$textarea': {
+        value: _popUp.$el.find(`.${_contentClass} textarea`),
+        enumerable: true
+    },
+    '$nativeWord': {
+        value: _popUp.$el.find(`#${_nativeWordPopUp}`),
+        enumerable: true
+    },
+    '$translatedWord': {
+        value: _popUp.$el.find(`#${_translatedWordPopUp}`),
+        enumerable: true
+    },
+    '$translatedWordNew': {
+        value: _popUp.$el.find(`#${_translatedWordNewPopUp}`),
+        enumerable: true
+    }
+});
+// clear popUp fields
+Object.defineProperty(_popUp, 'clear', {
+    value: () => {
+        _popUp.$nativeWord.text('');
+        _popUp.$translatedWord.text('');
+        _popUp.$textarea.val();
+        _popUp.$el.removeClass(`${_visibleClass} ${_newClass}`);
     }
 });

@@ -2,7 +2,7 @@
 $(function () {
     let wordStore;
     // show/hide words/sentences
-    $popUp
+    _popUp.$el
         .on('click', // *close* icon
             `.${_btnCancelSelector}`, hidePopUp)
         .on('click', // *save* button
