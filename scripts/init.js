@@ -7,7 +7,7 @@ const _globals = {
     }
 },
     _translation = {
-        $nativeWord: false, // string
+        //$nativeWord: false, // string
         $translatedWordSentenceContainer: false, // jQuery object
         // translatedWord: false, // string, for new sentence case only
         translatedWordSentenceIndex: false, // number
@@ -126,7 +126,7 @@ Object.defineProperty(_popUp, 'clear', {
     value: () => {
         _popUp.$nativeWord.text('');
         _popUp.$translatedWord.text('');
-        _popUp.$textarea.val();
+        _popUp.$textarea.val('');
         _popUp.$el.removeClass(`${_visibleClass} ${_newClass}`);
     }
 });

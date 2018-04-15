@@ -28,6 +28,7 @@
 #btn-save-sentence,
 .btn-attach{
     background-color: rgb(190, 215, 61);
+    min-height:48px;
 }
 
 .btn-attach-sentence{

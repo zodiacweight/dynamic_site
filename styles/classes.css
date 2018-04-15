@@ -126,7 +126,8 @@
 }
 
 .input-attach.translated{
-    width: calc(100% - 42px) !important;
+    /* we don't need the button until the handler for few sentences be set */
+    /* width: calc(100% - 42px) !important; */
 }
 .repeated{
     background: rgb(255, 180, 180) !important;
