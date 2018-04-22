@@ -14,9 +14,13 @@ const { createStore } = Redux,
     }, storeSelects = createStore(reducerSelectsValues),
     // handle sentence stats
     reducerHandleSentences = (state = {}, action) => {
+        const edit = 'edit'
+            , addWord = 'add-word'
+            , addSentence = 'add-sentence';
         switch (action.type) {
-            case 'edit': state = 'edit'; return [state]; break;
-            case 'add': state = 'add'; return [state]; break;
+            case edit: state = edit; return [state]; break;
+            case addWord: state = addWord; return [state]; break;
+            case addSentence: state = addSentence; return [state]; break;
             default: return state;
         }
     }, storeSentences = createStore(reducerHandleSentences);

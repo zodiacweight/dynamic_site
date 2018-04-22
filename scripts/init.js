@@ -130,5 +130,6 @@ Object.defineProperty(_popUp, 'clear', {
         _popUp.$textarea.val('');
         _popUp.$translatedWordNew.val('');
         _popUp.$el.removeClass(`${_visibleClass} ${_newClass}`);
+        storeSentences.dispatch({type:false});
     }
 });
