@@ -7,7 +7,6 @@ const _globals = {
     }
 },
     _translation = {
-        //$nativeWord: false, // string
         $translatedWordSentenceContainer: false, // jQuery object
         // translatedWord: false, // string, for new sentence case only
         translatedWordSentenceIndex: false, // number
@@ -91,6 +90,7 @@ const _globals = {
 // add method to clear values
 Object.defineProperty(_translation, 'cancel', {
     value: () => {
+        output('_popUp.cancel');
         Object.keys(_translation).forEach(prop => {
             _translation[prop] = false;
         })
@@ -124,9 +124,11 @@ Object.defineProperties(_popUp, {
 // clear popUp fields
 Object.defineProperty(_popUp, 'clear', {
     value: () => {
+        output('_popUp.clear');
         _popUp.$nativeWord.text('');
         _popUp.$translatedWord.text('');
         _popUp.$textarea.val('');
+        _popUp.$translatedWordNew.val('');
         _popUp.$el.removeClass(`${_visibleClass} ${_newClass}`);
     }
 });

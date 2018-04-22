@@ -56,6 +56,7 @@ function addForm(checkFormPresence) {
  * @param {HTMLObject || jQueryObject}  
  */
 function getJQueryObject($element) {
+    output('getJQueryObject', arguments);
     return ($element.length === undefined) 
         ? $($element) 
         : $element;
@@ -96,10 +97,12 @@ function clearList() {
  * Check entry in dictionary
  * @param {String} entry
  */
-function findInDictionary(entry) {
+function findInDictionary(entry, key) {
     outputGroupped('findInDictionary', arguments);
+    const data = key ? dataStore.get()[key] : dataStore.get();
     console.groupEnd();
-    return Object.keys(dataStore.get()).some(word => word === entry);
+    // var dts = dataStore.get(), keys = Object.keys(dts);
+    return Object.keys(data).some(word => word === entry);
 }
 /**
  * 
@@ -137,6 +140,7 @@ function getNativeWord(element) {
  * get value from the input for a new word
 */
 function getNewWordValue(fieldId=_wordId) {
+    output('getNewWordValue', arguments);
     return $(`#${fieldId}`).val();
 }
 /**
@@ -146,6 +150,7 @@ function getNewWordValue(fieldId=_wordId) {
  * @param {jQuery Object | undefined} $sentenceTranslatedBlock
  */
 function getSentence (indexWord, indexSentence, $sentenceTranslatedBlock = _$sentencesTranslated()) {
+    output('getSentence', arguments);
 	return $sentenceTranslatedBlock.find(`.${_sentencesClass}`)
 		.eq(indexWord)
 		.find(`.${_wrapperClass}`)
@@ -213,6 +218,7 @@ function insertWordsListAndForm(list, sentences) {
  * @param {Object} HTMLElement or jQUery object
  */
 function getParentActive($element, className = _wordClass) {
+    output('getParentActive', arguments);
     // check if it is jQuery object or not
     return getJQueryObject($element).parents(`.${className}`).eq(0);
 }
@@ -244,6 +250,7 @@ function makeWordsList(substring) {
  * @param {jQuery object} $inputAttach
  */
 function markInputTooShortLength($inputAttach) {
+    output('markInputTooShortLength', arguments);
     $inputAttach.addClass(_wordRedClass).attr('title', _wordIsTooShort);
 }
 /**
@@ -251,6 +258,7 @@ function markInputTooShortLength($inputAttach) {
  * @param {jQuery object} $inputAttach
  */
 function markInputTooShortLengthCancel($inputAttach) {
+    output('markInputTooShortLengthCancel', arguments);
     $inputAttach.removeClass(_wordRedClass).removeAttr('title');
 }
 /**
@@ -260,6 +268,15 @@ function markInputTooShortLengthCancel($inputAttach) {
 function notEvnt(ob) {
     output('notEvnt', arguments, "goldenrod");
     return !(ob.originalEvent && ob.originalEvent instanceof Event);
+}
+/**
+ * 
+ * @param {Object} eventObj 
+ * @param {jQuery object}
+ */
+function putNativeWordIntoPopUp($element, $parentNativeWordContainer = getParentActive($element)) {
+    output('putNativeWordIntoPopUp', arguments);
+    _popUp.$nativeWord.text($parentNativeWordContainer.find(`.${_nativeWordClass}`).text());
 }
 // removing entire form contents
 function removeForm() {
@@ -306,6 +323,7 @@ function setLangInit() {
 }
 /** show popUp */
 function showPopUp(nClass) {
+    output('showPopUp', arguments);
     _popUp.$el.addClass(_visibleClass);
     if (nClass) _popUp.$el.addClass(_newClass)
 }

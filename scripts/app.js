@@ -59,9 +59,13 @@ function addNewWordAndSentence(event) {
     editTranslatedSentence(event);
     console.groupEnd();
 }
-/** */
-function addNewWordTranslated() {
+/**
+ * 
+ * @param {Object} event 
+ */
+function addNewWordTranslated(event) {
     outputGroupped('addNewWordTranslated', arguments);
+    putNativeWordIntoPopUp(event.target);
     //console.log('event=>',event);
     showPopUp(true);
     console.groupEnd();
@@ -122,6 +126,26 @@ function checkInputText(event) {
     return true;
 }
 /**
+ * Check if the word presents in dictionary already
+ * @param {Object} event 
+ */
+function checkNewTranslatedWordCoincidence(event) {
+    outputGroupped('checkNewTranslatedWordCoincidence', arguments);
+    let $targetCell = $(event.target)
+        , takenWord = findInDictionary($targetCell.val(), _popUp.$nativeWord.text())
+        , $btnSaveSentence = $(`#${_btnSaveSentenceSelector}`)
+        , dsbl = 'disabled'
+        , ttl = 'title';
+    if (takenWord) {
+        $targetCell.addClass(_repeatedClass).attr(ttl, _wordIsTaken);
+        $btnSaveSentence.attr(dsbl, dsbl);
+    } else {
+        $targetCell.removeClass(_repeatedClass).removeAttr(ttl);
+        $btnSaveSentence.removeAttr(dsbl);
+    }
+    console.groupEnd();
+}
+/**
  * Edit a sentence which is attached to the translated word
  * @param {Object} event dblClick
  */
@@ -145,11 +169,11 @@ function editTranslatedSentence(event) {
         // store index of sentence
         _translation.translatedWordSentenceIndex = btnParentIndex;
         _translation.$translatedWordSentenceContainer = getSentence(index, btnParentIndex);
-        _popUp.$nativeWord.text($parentNativeWordContainer.find(`.${_nativeWordClass}`).text());
+        putNativeWordIntoPopUp($element, $parentNativeWordContainer);
+        //_popUp.$nativeWord.text($parentNativeWordContainer.find(`.${_nativeWordClass}`).text());
         _popUp.$translatedWord.text($element.prev(`.${_translatedWordClass}`).text());
         _popUp.$textarea.val((()=>_translation.$translatedWordSentenceContainer.text())().trim());
     } else if (state == 'add') {
-        //_translation.$nativeWord = $(`#${_inputAttachId}`).val();
         _translation.$translatedWordSentenceContainer = $(`#${_newWordBlockId}`).find(_inputAttachTranslatedSelector);
         _popUp.$nativeWord.text($(`#${_inputAttachId}`).val());
         _popUp.$translatedWordNew.val($(_inputAttachTranslatedSelector).last().val());
@@ -159,11 +183,7 @@ function editTranslatedSentence(event) {
     }
     //
     showPopUp(nClass);
-    // fixme: do we really need this?
-    //setTimeout(()=>{
-        
     _translation.editSentence = false;
-    //}, 300);
     console.groupEnd();
 }
 /**
@@ -171,6 +191,7 @@ function editTranslatedSentence(event) {
  * @param {Object} event 
  */
 function editTranslatedWord(event) {
+    outputGroupped('editTranslatedWord', arguments, 'darkr');
     const $container = getParentActive(event.target);
     //_translation.$nativeWord = $container.find(`.${_nativeWordClass}`).text();
     _popUp.$nativeWord.text($container.find(`.${_nativeWordClass}`).text());
@@ -178,8 +199,7 @@ function editTranslatedWord(event) {
         type: 'edit'
     });
     // fixme: get rid of this! Remove setTimeout
-    setTimeout(()=>{
-        outputGroupped('editTranslatedWord', arguments, 'darkr');
+    //setTimeout(()=>{ outputGroupped('editTranslatedWord', arguments, 'darkr');
         if (!_translation.editSentence) {
             //
             const [,,$parent] = indexEditorBtn(event.target);
@@ -188,8 +208,7 @@ function editTranslatedWord(event) {
             $parent.find(`.${_btnRemoveSelector}`).hide();
         }
         console.groupEnd();
-    }
-    , 200);
+    //} , 200);
 }
 /**
  * Get edited word back, transorm the editable area into span
@@ -209,12 +228,16 @@ function editTranslatedWordCancel(event) {
  * @param {Object} event 
  */
 function handleTranslatedWordInput(event) {
-    const $btn = $(event.target).next(`.${_btnAddTranslatedSelector}`)
-      , attrDisabled = 'disabled';
-    checkWordLengthTooShort(event.target.value) ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass) : $btn.removeAttr(attrDisabled).addClass(_activeClass);
+    outputGroupped('handleTranslatedWordInput', arguments);
+    const attrDisabled = 'disabled';
+    checkWordLengthTooShort(event.target.value) 
+        ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass) 
+        : $btn.removeAttr(attrDisabled).addClass(_activeClass);
+    console.groupEnd();
 }
 /** */
 function hidePopUp() {
+    output('hidePopUp', arguments);
     _translation.cancel();
     storeSentences.dispatch({
         type: false

@@ -6,7 +6,8 @@
     transform: translateY(-2px);
 }
 
-#input-attach.repeated{
+#input-attach.repeated,
+#translated-word-new-pop-up.repeated{
     background-color:#fff !important;
     color:red;
 }

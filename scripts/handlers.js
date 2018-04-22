@@ -7,6 +7,9 @@ $(function () {
             `.${_btnCancelSelector}`, hidePopUp)
         .on('click', // *save* button
             `#${_btnSaveSentenceSelector}`, storeSentence);
+    // 
+    _popUp.$translatedWordNew.on('keyup', 
+        checkNewTranslatedWordCoincidence);
     $view // click event
         .on('click',
             `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, editTranslatedSentence)
