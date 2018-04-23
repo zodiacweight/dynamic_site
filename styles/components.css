@@ -59,17 +59,20 @@
 
 #forms{
     margin-top: 120px;
+    min-width: 300px;
+    order: 1;
 }
 
-@media screen and (min-width: 338px){
+@media screen and (max-width: 767px){
     #forms{
         margin-top: 92px;
     }
 }
 
-@media screen and (min-width: 580px){
+@media screen and (min-width: 768px){
     #forms{
-        margin-top: 74px;
+        display: inline-block;
+        margin-top: auto;
     }
 }
 
@@ -153,12 +156,23 @@
     background-color: white;
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
     outline: solid 2px #ddd;
+    order: 2;
     overflow: auto;
     min-height: 60px;
-    margin-bottom: 10px;
-    position: absolute;
-    width: calc(100% - 40px);
     z-index: 2;
+}
+@media screen and (max-width: 767px){
+    #sentences-translated{
+        margin-bottom: 10px;        
+        position: absolute;
+        width: calc(100% - 40px);
+    }
+}
+
+@media screen and (min-width: 768px){
+    #sentences-translated{    
+        margin-left: 20px;
+    }
 }
 
 #sentences-translated.initial::before{
@@ -209,9 +223,10 @@
     clear: both;
     float: left;
     font-size: 1.1em;
-    max-width: 340px;
+    /* max-width: 340px; */
+    min-width: 300px;
     padding: 4px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 #word {

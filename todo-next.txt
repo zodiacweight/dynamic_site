@@ -1,9 +1,7 @@
 done:
-Buttons to add/edit sentence - refactoring
+Adding a new translated word
 
 --------------------------------
 todo:
-Refactor function in order to make it working properly
-fix this:
-make target for the first mouseenter not an edit translated word icon, but the word itself
------ in showBtnSentenceAction
+Add the procedure for arrays, not only for objects
+----storeSentence, :486
