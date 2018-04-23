@@ -83,7 +83,6 @@ http.createServer((request, response) => {
             if (completed) {
                 if (completed == 'json') {
                     stuff = rsp;
-                    stuff = JSON.stringify(stuff);
                 } else {
                     stuff = JSON.stringify(rsp);
                 }
