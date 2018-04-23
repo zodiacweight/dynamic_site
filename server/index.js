@@ -12,7 +12,9 @@ http.createServer((request, response) => {
     let rsp = {
             "method": request.method.toLowerCase(), "url": request.url
         },
-        completed = false;
+        completed = false,
+        cnt = 0, 
+        stuff = '';
 
     switch (request.method.toLowerCase()) {
         case 'get':
@@ -42,9 +44,11 @@ http.createServer((request, response) => {
                 completed = true;
             });
             break;
-        default: break;
+        default: 
+            stuff = 'Unknown query type...';
+            break;
     }
-    let cnt = 0, stuff = '';
+    //
     const intv = setInterval(() => {
         if (completed || cnt > 50) {
             clearInterval(intv);

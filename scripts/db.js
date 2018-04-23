@@ -6,14 +6,14 @@
 function loadDictionary(lang, callback) {
     output('loadDictionary', arguments, 'rgb(215, 215, 0)');
     // if not, get it from remote DB
-    $.get(`db/${lang.native}/${lang.foreign}.json`).done(dictionary => {
+    $.get(`../server/db/${lang.native}/${lang.foreign}.json`).done(dictionary => {
         console.log('got dictionary=>', dictionary);
         dataStore.set(storeDictionary(dictionary));
         if (callback) {
             callback();
         }
     })
-        .fail(() => console.warn(`Cannot get file from db/${lang.native}/${lang.foreign}.json`));
+        .fail(() => console.warn(`Cannot get file from /server/db/${lang.native}/${lang.foreign}.json`));
 }
 /**
  * 
