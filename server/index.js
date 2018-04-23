@@ -4,22 +4,42 @@ const http = require('http'),
     fs = require('fs'),
     port = 8888;
 
+const StringDecoder = require('string_decoder').StringDecoder,
+    decoder = new StringDecoder('utf8');
+
+
 http.createServer((request, response) => {
     response.writeHead(200, {
         'Content-Type': "application/json"
     });
 
     let rsp = {
-            "method": request.method.toLowerCase(), "url": request.url
-        },
-        completed = false,
-        cnt = 0, 
+        "method": request.method.toLowerCase(), "url": request.url
+    },
+        //completed = false,
+        completed = 'json',
+        cnt = 0,
         stuff = '';
 
     switch (request.method.toLowerCase()) {
         case 'get':
-            rsp.query = request.url.split('?').pop();
-            completed = true;
+            const path = __dirname+request.url;
+            if (path.indexOf('.json')) {
+                completed = 'json';
+                if (!fs.existsSync(path)){
+                    rsp = {"No file" : path};
+                } else {
+                    fs.readFile(path, (err, contents) => {
+                        if (err) {
+                            throw err;
+                        }
+                        rsp = decoder.write(Buffer.from(contents));
+                    });
+                }
+            } else {
+                rsp.query = path.split('?').pop();
+                completed = true;
+            }
             break;
         case 'post':
             let body = [], action;
@@ -31,11 +51,11 @@ http.createServer((request, response) => {
             }).on('data', chunk => {
                 const actStr = '%26action%3D',
                     chunkStr = String(chunk);
-                if (chunkStr.indexOf(actStr)!==-1){
+                if (chunkStr.indexOf(actStr) !== -1) {
                     action = chunkStr.split(actStr).pop();
                 }
                 body.push(chunk);
-                
+
             }).on('end', () => {
                 // at this point, `body` has the entire request body stored in it as a string
                 body = Buffer.concat(body).toString('utf8');
@@ -44,16 +64,29 @@ http.createServer((request, response) => {
                 completed = true;
             });
             break;
-        default: 
+        default:
             stuff = 'Unknown query type...';
             break;
     }
+
+    if (completed == 'json') {
+        console.log('Test');
+        //response.write('Hello');
+        //response.end();
+        //return;
+    }
+
     //
     const intv = setInterval(() => {
         if (completed || cnt > 50) {
             clearInterval(intv);
             if (completed) {
-                stuff = JSON.stringify(rsp);
+                if (completed == 'json') {
+                    stuff = rsp;
+                    stuff = JSON.stringify(stuff);
+                } else {
+                    stuff = JSON.stringify(rsp);
+                }
             }
             if (cnt > 50) {
                 stuff = 'Cannot finish';

@@ -4,7 +4,8 @@ const _globals = {
         english: 'English',
         portuguese: 'Portugues',
         russian: 'Русский'
-    }
+    },
+    serverAddress: 'http://localhost:8888/'
 },
     _translation = {
         $translatedWordSentenceContainer: false, // jQuery object

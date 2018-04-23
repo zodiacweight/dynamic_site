@@ -5,15 +5,16 @@
  */
 function loadDictionary(lang, callback) {
     output('loadDictionary', arguments, 'rgb(215, 215, 0)');
+    const url = `${_globals.serverAddress}db/${lang.native}/${lang.foreign}.json`;
     // if not, get it from remote DB
-    $.get(`../server/db/${lang.native}/${lang.foreign}.json`).done(dictionary => {
+    $.get(url).done(dictionary => {
         console.log('got dictionary=>', dictionary);
         dataStore.set(storeDictionary(dictionary));
         if (callback) {
             callback();
         }
     })
-        .fail(() => console.warn(`Cannot get file from /server/db/${lang.native}/${lang.foreign}.json`));
+        .fail((xhr, textStatus) => console.warn(`Cannot get ${url}`, {xhr:xhr, textStatus:textStatus}));
 }
 /**
  * 
