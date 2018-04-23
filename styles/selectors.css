@@ -1,11 +1,108 @@
+.active .btn-cancel{
+    color: red;
+}
+
+#addWordForm textarea{
+    color: rebeccapurple;
+    display: block;
+    min-height: 80px;
+    padding-right: 42px;
+}
+
+.block-add-word-translated .btn-add{
+    background-color: #e5f5fb;
+    border: solid 1px #000;
+    font-size: 15px;
+    margin: 1px;
+    padding: 0;
+    width: calc(100% - 2px);
+}
+
+#pop-up .btn-cancel:before{
+    right: 0;
+}
+
+#chooseLanguage > h4{
+    margin: 0 auto 0 6px;
+}
+
+#chooseLanguage select{
+    background: #eee;
+    box-shadow: 0 -8px 28px rgba(200,200,200,1) inset;
+    border-radius: 4px;
+    color: brown;
+    padding: 8px 8px 8px 4px;
+    border: 0;
+    font-weight: 700;
+}
+
+.editable .nativeWord,
+.editable .translatedWord{
+    background: white;
+    outline: solid 1px #aaa;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.15) inset;
+    color: blue;
+    display: inline-block;
+    padding: 2px 32px 3px 6px;
+}
+
+.editable .nativeWord{
+    margin-left: -6px;
+    width: calc(100% - 32px);    
+}
+
+.editable .btn-edit-sentence{
+    display: none;
+}
+
+.editable .translatedWord{
+    margin-left: -4px;
+    width: calc(100% - 24px);
+}
+
+.initial .sentences{
+    display:none;
+}
+
+.input-attach ~[class|="btn-attach"]{
+    float: left;
+    margin-right: 8px;
+}
+
 form label{
     display: inline-block;
-    margin-bottom: 14px;
-    margin-right: 20px;
+    margin: 12px auto;
 }
 
 main > div {
     padding: 20px;
+}
+
+.new #sentence-header-new-pop-up{
+    color: blue;
+    display: block;
+    padding:10px 0;
+}
+
+.new #translated-word-pop-up{
+    background-color: transparent;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.new #translated-word-new-pop-up{
+    display: block;
+}
+
+#new-word-sentences .add-textarea{
+ bottom: 40px;
+ border: none;
+ font-size: 20px;
+ font-weight: bold;
+ height: 32px;
+ position:absolute;
+ right: 8px;
+ width: 32px;
 }
 
 #page > h2{
@@ -34,24 +131,108 @@ main > div {
     color: rebeccapurple;
     margin-bottom:auto;
     margin-top:auto;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+#pop-up aside{
+    position: absolute;
+    right: 3px;
+}
+
+#pop-up .content{
+    display: flex;
+    flex-direction: column;
+    position:absolute;
+    top: 32px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+}
+
+#pop-up .content textarea{
+    display: block;
+    height: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+    max-width: none;
+    left: 0px;
+    bottom: 72px;
+    top: 0;
 }
 
 section > .wrapper{
-    background: rgb(93, 103, 124);
+    background: rgb(130,140,140);
     color: white;
-    margin-bottom: 1px;
-    margin-left: 10px;
-    padding: 10px;
+    padding: 9px 14px 10px 10px;
+    position: relative;
+    z-index: 3;
+}
+
+section > .wrapper.editable{
+    padding-bottom: 9px;
+    padding-top: 8px;
+}
+
+#section-choose-language select{
+    background: linear-gradient(to bottom, #fff, #eee);
+    margin-left: 4px;
+    padding: 4px;
+}
+
+#section-choose-language h4:nth-child(1),
+[data-lang="native"]{
+    color: #40c5ff;
+}
+
+#section-choose-language h4:nth-child(2),
+[data-lang="foreign"]{
+    color: #f7941d;
 }
 
 #sentences-translated .wrapper{
     display: none;
     padding: 10px;
 }
+
+#view #input-attach{
+    display: none;
+}
+
+#view .word +#new-word-block #input-attach{
+    display: block;
+}
+
+#view .input-attach +.input-attach{
+    background-color: rgb(252, 248, 237);
+    border-color: #c093b0;
+    padding-right: 34px;
+}
+
+#view > .word{
+    background-color: #dad8d8;
+    display: block;
+    padding: 8px 4px 9px;
+    position: relative;
+    width: calc(100% - 31px);
+}
+
+#view .input-attach{
+    border-color: rgba(100,100,100,0.8);
+    border-width: 2px;
+    display: block;
+    clear: both;
+    float: left;
+    font-size: 18px;
+    margin: 8px auto 0 0;
+    min-height: auto;
+    min-width: auto;
+    padding: 6px;
+    width: 100%;
+}
+
 .word > section{
     display: none;
-    left: calc(100% - 10px);
+    right: 0;
     padding-left: 10px;
     position: absolute;
     top: 0;
@@ -61,15 +242,78 @@ section > .wrapper{
     white-space: nowrap;
 }
 
-.word.active > section {
+.word.active:not(.editable) > section {
     display: block;
 }
 
-#view > .word{
-    padding: 4px;
+.word.active section > .wrapper:hover{
+    background-color: #000;
+}
+
+.wrapper .btn-add-sentence,
+.wrapper .btn-edit-sentence{
+    border: none;
+    font-size: 0;
+    height: 27px;
+    position: absolute;
+    right: 0px;
+    width: 27px;
+    z-index: 1;
+}
+
+.wrapper .btn-add-sentence.visible,
+.wrapper .btn-edit-sentence.visible{
+    opacity: 1;
+}
+
+.wrapper .btn-add-sentence.visible{
+    background: yellow;
+}
+
+.wrapper .btn-add-sentence{
+    background: orange;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.wrapper .btn-edit-sentence{
+    background: #bed73d;
+    opacity: 0.6;
+}
+
+.word > .btn-remove{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    right: -28px;
+    top: 5px;
+    position: absolute !important;
+}
+
+.wrapper .btn-edit{
+    background: transparent;
+    border-color: rgb(128, 163, 255);
+    color: rgb(192, 209, 253);
+    margin: -2px 4px 0 -4px;
+}
+
+.wrapper .btn-remove{
+    background-color: white;
+    border: none;
+    height: 26px;
+    left: -25px;
+    position: absolute;
+    top: 8px;
+    width: 26px;
+}
+
+.wrapper .btn-remove::before{
+    font-size: 26px;
+    line-height: 25px;
+    color: red;
 }
 
 .wrapper > span{
-    display: block;
+    display: inline-block;
+    padding-right: 20px;
 }
-

@@ -1,0 +1,7 @@
+done:
+Adding a new translated word
+
+--------------------------------
+todo:
+Add the procedure for arrays, not only for objects
+----storeSentence, :486

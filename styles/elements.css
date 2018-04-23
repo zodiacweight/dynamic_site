@@ -29,11 +29,16 @@ h1, h2, h3, h4, h5{
     font-family: Roboto, Arial, Helvetica, Tahoma, sans-serif;
 }
 
-input[type="text"] {
+input[type="button"] {
+    min-height: 28px;
+}
+input[type="text"], textarea {
     border: solid 4px #aaa;
+    font-family: Arial, serif;
     font-size: 20px;
     min-height:  44px;
-    max-width: 400px;
+    margin-top: 10px;
+    max-width: 340px;
     padding: 10px 10px;
     width: 100%;
 }

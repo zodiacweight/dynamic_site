@@ -1,87 +1,66 @@
 // git -c http.sslVerify=false push origin master
-$(function(){
-    const addWordStr = "addWord",
-        addWordId = `#${addWordStr}`,
-        addWordFormStr = "addWordForm",
-        $chooseLanguage = $("#chooseLanguage"),
-        activeClass = 'active';
-    /** 
-     * Проверяет символы в текстовом поле и, когда нужно, вызывает функцию createList
-    */
-    let removeButtonAndForm;
-    $("#word").on('input keyup', e => { // calling on jQuery object
-        //
-        if (!removeButtonAndForm) {
-            removeButtonAndForm = () => {
-                // console.log('Remove button');
-                $(addWordId).remove();
-                $(`#${addWordFormStr}`).remove();
-            }
-        }
-        //console.log("input: ", e.target.value);
-        if (e.target.value.length > 2) {
-            const words = createList(e.target.value); // console.log('words=>', words);
-            // if the button doesn't exist, add id
-            // console.log("$(addWordId): ", $(addWordId));
-            if(!$(addWordId).length){ // без lenght - объект, с length - 0.
-                if (!$view.html()){
-                    //
-                    $chooseLanguage.append(`<input type='button' id='${addWordStr}' value='добавить слово'>`);
-                }
-            } else {
-                // check if we have the words which the substring conforms of
-                Object.keys(words).forEach((word) => {
-                    if (word.indexOf(e.target.value)!==-1){
-                        // if we have a word with such a substring then remove the button
-                        removeButtonAndForm();
-                    }
-                });
-            }
-        } else {
-            if($(addWordId)){
-                removeButtonAndForm();
-            }   //console.log("else");
-            clearList(); 
-        }
-    });
+$(function () {
+    let wordStore;
     // show/hide words/sentences
-    $view.on('mouseenter mouseleave', '> .word, .wrapper >span', function(event) {
-        if (this.tagName.toLowerCase() == 'span'){
-            const indexWord = $(this).parents('.active').eq(0).index(),
-                indexSentence = $(this).parent('.wrapper').index(),
-                $sentence = $sentencesTranslated
-                    .find('.sentences')
-                    .eq(indexWord)
-                    .find('.wrapper').eq(indexSentence);
-            event.type == 'mouseenter' ? 
-                $sentence.fadeIn(200)
-                : $sentence.hide();
-            // manage pseudoelement :before
-            $sentencesTranslated.toggleClass('initial');
-        } else {
-            $(this).toggleClass(activeClass);
-        }
+    _popUp.$el
+        .on('click', // *close* icon
+            `.${_btnCancelSelector}`, hidePopUp)
+        .on('click', // *save* button
+            `#${_btnSaveSentenceSelector}`, storeSentence);
+    // 
+    _popUp.$translatedWordNew.on('keyup', 
+        checkNewTranslatedWordCoincidence);
+    $view // click event
+        .on('click',
+            `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, editTranslatedSentence)
+        .on('click',
+            `.${_btnAddTranslatedSelector}`, addNewSentenceInput)
+        .on('click',
+            `.${_blockAddWordTranslatedClass} .${_btnAdd}`, addNewWordTranslated)
+        .on('click', // *save* edited word icon
+            `.${_btnApplySelector}`, storeWordEdited)
+        .on('click',
+            `.${_btnAttachSelector}`, addNewWord)
+        .on('click',
+            `.${_btnAttachSentenceSelector}`, addNewWordAndSentence)
+        .on("click", // *pen* icon, to edit a translated word
+            `.${_btnEditSelector}`, editTranslatedWord)
+        .on('click',
+            `.${_btnRemoveSelector}`, removeWord)
+        .on('click',
+            `.${_btnRemoveTranslatedSelector}`, removeNewSentenceInput)
+        .on('click', // *cancel* icon which previous one is turned into
+            `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
+        // other mouse events
+        .on('mouseenter mouseleave', // 
+            `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
+        .on("mouseenter", // *edit translated word* icon, to add / edit a sentence
+            `.${_translatedWordClass}, .${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, showBtnSentenceAction)
+        .on("mouseleave", // *edit translated word* icon, to add / edit a sentence
+            `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, hideBtnSentenceAction)
+        // key events
+        .on('keypress input blur',
+            `#${_inputAttachId}`, keepNewWordInputSynchronized)
+        .on('keypress input blur',
+        _inputAttachTranslatedSelector, handleTranslatedWordInput)
+        .on('keypress input',
+            `.${_editableClass} .${_nativeWordClass}`, checkInputText);
+    // click on #addWord
+    // note: not in use, but is going to be...
+    _$chooseLanguageForm().on("click", `#${_addWordId}`, () => {
+        _$chooseLanguageForm().after(createForm());
     });
-    //
-    $chooseLanguage.on("click", addWordId, () => {
-        console.log("click");
-        $chooseLanguage.after(`<form id='${addWordFormStr}'>
-        ${addFields()}
-            <input type="button" value="добавить ячейку" id="${addWordStr}">
-            <input type='button' value='сохранить' id='save'>
-        </form>`);
-    });
-    
-    $("#save").on("click", (e) => {
-        $(`#${addWordFormStr} div`).each(function(){
-            var word = $(this).find("input"),
-            sentence = $(this).find("textarea");
-            word=word[0].value;
-            sentence = sentence[0].value;
-            //console.log('word: ', word, "sentence: ", sentence);
-            var checkedLanguage = getTargetLanguage();
-            // console.log(checkedLanguage);
-            // localStorage.setItem(word, sentence);
-        });
-    });
+    // changing the language in the initial lists (native/foregn)
+    $mainSection
+        .on('change',
+            _langSelectsSelector, checkInitLangs)  // store languages in localStorage
+        .on('click',
+            `#${_btnSaveSelector}`, setLanguages)
+        .on('click',
+            `#${_cmdSettingsLangId}`, setInitView) // in view
+        .on('click', `#forms #${_btnSaveSelector}`, // store the word
+            storeWord)
+        // Creates words list and add / remove form
+        .on('input keyup',
+            `#${_wordId}`, manageWordsList); // input#word
 });
