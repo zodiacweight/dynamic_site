@@ -1,0 +1,569 @@
+{
+    "бабочка": [
+        [
+            "borboleta f",
+            "mariposa f"
+        ],
+        [
+            "A barboleta (mariposa) é branca. - Бабочка белого цвета.",
+            "Eu vou a pegar barboletas (mariposas). - Я иду ловить бабочек."
+        ]
+    ],
+    "барсетка": [
+        [
+            "barsetta",
+            "caseino"
+        ],
+        [
+            "Barsetta comes here!",
+            "Ya, crevedco, ja caseino"
+        ]
+    ],
+    "барсук": [
+        [
+            "texugo m"
+        ],
+        [
+            "Os <b>texugos</b> vivem nas bosques. - Барсуки живут в лесах.",
+            "Um <b>texugo</b> é mio animal favorito."
+        ]
+    ],
+    "барсик": [
+        [
+            "barsic"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "белка": [
+        [
+            "esquilo m"
+        ],
+        [
+            "Os esquilos vivem nas madeiras. - Белки живут на деревьях.",
+            "Um esquilo é um de as personagem de este conto. - Белка - один из персонажей этой сказки."
+        ]
+    ],
+    "блузка": [
+        [
+            "blusa f",
+            "blusinha f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "варежка": [
+        [
+            "mitene f"
+        ],
+        [
+            "Eu tenho as mitenes cordiales. - У меня есть теплые варежки.",
+            "Gostam-me mias mitenes novas. - Мне нравятся мои новые варежки."
+        ]
+    ],
+    "ветер": [
+        [
+            "vento m"
+        ],
+        [
+            "No me gosta quando o <b>vento</b> seja poderoso. - Не люблю, когда ветер сильный.",
+            "Casa de areia era destruída pelo <b>vento</b>. - Песочный домик был разрушен ветром."
+        ]
+    ],
+    "ветерок": [
+        [
+            "brisa f",
+            "aragem f"
+        ],
+        [
+            "Débil <b>brisa (aragem)</b> no nos atrapalha em contraste com vento forte. - Легкий ветерок нам не мешает в отличие от сильного ветра.",
+            "Às vezes débil brisa (aragem) pode ser útil quando é quente."
+        ]
+    ],
+    "вода": [
+        [
+            "água f"
+        ],
+        [
+            "O <b>água</b> era gelada no lago. - Вода в озере была холодная.",
+            "O jovem tem que beber <b>água</b> antes de treinar. - Юноше нужно выпить воды перед тренировкой."
+        ]
+    ],
+    "волк": [
+        [
+            "lobo m"
+        ],
+        [
+            "Um <b>lobo</b> é um caractere negativo de este conto. - Волк - отрицательный персонаж этой сказки.",
+            "Os lobos são animales florestales e ferozes. - Волки лесные и хищные звери."
+        ]
+    ],
+    "еж": [
+        [
+            "ouriço m",
+            "ouriço-cacheiro m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "жилет": [
+        [
+            "colete m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "заяц": [
+        [
+            "lebre f"
+        ],
+        [
+            "O conto é sobre um <b>lebre</b> cobarde. - Сказка об одном трусливом зайце.",
+            "Mio irmão mais gostan os contos infantil sobre <b>lebres</b>. - Моему младшему брату нравятся детские сказки о зайцах."
+        ]
+    ],
+    "змея": [
+        [
+            "víbora f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "камбинезон": [
+        [
+            "macacão m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "камень": [
+        [
+            "pedra f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "кепка": [
+        [
+            "boné m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "колготки": [
+        [
+            "meia-calça f bras"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "кот": [
+        [
+            "gato m",
+            "bichano m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "кофта": [
+        [
+            "blusa f",
+            "casaquinho m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "кошка": [
+        [
+            "fateixa f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "кролик": [
+        [
+            "coelho m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "кузнечик": [
+        [
+            "grilo m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "купальник": [
+        [
+            "traje de banho"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "куртка": [
+        [
+            "japona f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "лев": [
+        [
+            "leão m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "лиса": [
+        [
+            "raposa f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "майка": [
+        [
+            "camiseta f bras"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "мамонт": [
+        [
+            "mamute m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "медведь": [
+        [
+            "urso m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "море": [
+        [
+            "mar m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "муравей": [
+        [
+            "formiga f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "муха": [
+        [
+            "mosca f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "обезьяна": [
+        [
+            " mono m",
+            "símio m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "облако": [
+        [
+            "nuvem f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "оса": [
+        [
+            "vespa f",
+            "maribondo m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "пар": [
+        [
+            "vapor m",
+            "pousio m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "паук": [
+        [
+            "aranha f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "перчатки": [
+        [
+            "luva f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "песок": [
+        [
+            "areia f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "пиджак": [
+        [
+            "casaco m",
+            "paletó m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "платье": [
+        [
+            "roupa f",
+            "vestimenta f",
+            "indumentária f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "погода": [
+        [
+            "tempo m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "пчела": [
+        [
+            "abelha f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "растение": [
+        [
+            "planta f",
+            "vegetal m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "ремень": [
+        [
+            "correia f",
+            "cinturão m",
+            "cinto m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "саранча": [
+        [
+            "gafanhoto m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "слон": [
+        [
+            "elefante m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "собака": [
+        [
+            "cão m",
+            "cachorro m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "суслик": [
+        [
+            "espermófilo m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "тигр": [
+        [
+            "tigre m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "трава": [
+        [
+            "erva f",
+            "relva f",
+            "capim m"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "туман": [
+        [
+            "neblina f",
+            "névoa f",
+            "nevoeiro m (на море)",
+            "bruma f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "туфли": [
+        [
+            "sapato m",
+            "chinelo m",
+            "chinela f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "шапка": [
+        [
+            "cabeçalho m",
+            "manchete f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "шарф": [
+        [
+            "cachecol m",
+            "cachené m",
+            "echarpe f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "шорты": [
+        [
+            "shorts mpl, calções mpl"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "штаны": [
+        [
+            "calça f"
+        ],
+        [
+            "",
+            ""
+        ]
+    ],
+    "юбка": [
+        [
+            "saia f; saia de baixo"
+        ],
+        [
+            "",
+            ""
+        ]
+    ]
+}

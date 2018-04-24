@@ -1,80 +1,66 @@
 // git -c http.sslVerify=false push origin master
 $(function () {
-    /** 
-     * Creates words list and add / remove form
-    */
-    $(`#${wordId}`).on('input keyup', e => { // calling on jQuery object
-        //console.log("input: ", e.target.value);
-        var content, targetWordValue = e.target.value;
-        if (targetWordValue.length > 2) {
-
-            const list = createWordsList(targetWordValue);
-            // console.log('list=>',{list:list, length:targetWordValue.length, targetWordValue:targetWordValue});
-            /* if(list!==""){
-                content='<div class="word active">'+
-                            '<input class="btn-edit" type="button">'+    
-                            '<span>🖉</span><span id="nativeWord">облако</span>'+
-                            '<section>'+
-                                '<div class="wrapper">'+
-                                    '<div id="translatedWord">'+
-                                        list+
-                                    '</div>'+
-                                '</div>'+
-                            '</section>'+
-                        '</div>';
-            } */
-            // if the word is new and there are 3 letters in the field
-
-            // remove or add form depending wheter does it added already or not
-            window[list ? 'removeForm' : 'addForm']();
-
-            // if the button doesn't exist, add id
-            // createList(targetWordValue)
-            /* if(!$(addWordId).length){ // без lenght - объект, с length - 0.
-                if (!$view.html()){
-                    if($("#deleteWord").length){
-                        $("#deleteWord").remove();
-                    }
-
-                }
-
-                //if(!($("#deleteWord")).length){
-                    //$chooseLanguage.append('<input type="button" id="deleteWord" value="удалить слово">');
-                //}
-                //console.log("in this place");
-            } */ /* else {
-                // check if we have the words which the substring conforms of
-                Object.keys(words).forEach((word) => {
-                    if (word.indexOf(targetWordValue)!==-1){
-                        // if we have a word with such a substring then remove the button
-                        removeForm();
-                    }
-                });
-            } */
-        } else {
-            // it checks inside if the button exitss
-            removeForm();
-            // 
-            clearList();
-        }
-    });
+    let wordStore;
     // show/hide words/sentences
-    $view.on('mouseenter mouseleave', '> .word, .wrapper >span', function (event) {
-        manageSentence(this, event.type);
-    }) // click on the button to edit translated word
-        .on("click", `.${btnEditSelector}`, function () {
-            editTranslatedWord(this);
-        })
-        .on('click', `.${btnCancelSelector}`, function () {
-            editTranslatedWordCancel(this);
-        }) 
-        .on('keypress input blur', `#${inputAttachSelector}`, keepNewWordInputSynchronized);
+    _popUp.$el
+        .on('click', // *close* icon
+            `.${_btnCancelSelector}`, hidePopUp)
+        .on('click', // *save* button
+            `#${_btnSaveSentenceSelector}`, storeSentence);
+    // 
+    _popUp.$translatedWordNew.on('keyup', 
+        checkNewTranslatedWordCoincidence);
+    $view // click event
+        .on('click',
+            `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, editTranslatedSentence)
+        .on('click',
+            `.${_btnAddTranslatedSelector}`, addNewSentenceInput)
+        .on('click',
+            `.${_blockAddWordTranslatedClass} .${_btnAdd}`, addNewWordTranslated)
+        .on('click', // *save* edited word icon
+            `.${_btnApplySelector}`, storeWordEdited)
+        .on('click',
+            `.${_btnAttachSelector}`, addNewWord)
+        .on('click',
+            `.${_btnAttachSentenceSelector}`, addNewWordAndSentence)
+        .on("click", // *pen* icon, to edit a translated word
+            `.${_btnEditSelector}`, editTranslatedWord)
+        .on('click',
+            `.${_btnRemoveSelector}`, removeWord)
+        .on('click',
+            `.${_btnRemoveTranslatedSelector}`, removeNewSentenceInput)
+        .on('click', // *cancel* icon which previous one is turned into
+            `.${_wordClass} .${_btnCancelSelector}`, editTranslatedWordCancel)
+        // other mouse events
+        .on('mouseenter mouseleave', // 
+            `> .${_wordClass}, .${_wrapperClass}`, manageSentence)
+        .on("mouseenter", // *edit translated word* icon, to add / edit a sentence
+            `.${_translatedWordClass}, .${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, showBtnSentenceAction)
+        .on("mouseleave", // *edit translated word* icon, to add / edit a sentence
+            `.${_btnAddSentenceSelector}, .${_btnEditSentenceSelector}`, hideBtnSentenceAction)
+        // key events
+        .on('keypress input blur',
+            `#${_inputAttachId}`, keepNewWordInputSynchronized)
+        .on('keypress input blur',
+        _inputAttachTranslatedSelector, handleTranslatedWordInput)
+        .on('keypress input',
+            `.${_editableClass} .${_nativeWordClass}`, checkInputText);
     // click on #addWord
-    $chooseLanguage.on("click", `#${addWordStr}`, () => {
-        $chooseLanguage.after(createForm());
+    // note: not in use, but is going to be...
+    _$chooseLanguageForm().on("click", `#${_addWordId}`, () => {
+        _$chooseLanguageForm().after(createForm());
     });
-    // store the word
-    $forms.on("click", `#${btnSaveSelector}`, function () {
-        storeWord(this)
-    });
+    // changing the language in the initial lists (native/foregn)
+    $mainSection
+        .on('change',
+            _langSelectsSelector, checkInitLangs)  // store languages in localStorage
+        .on('click',
+            `#${_btnSaveSelector}`, setLanguages)
+        .on('click',
+            `#${_cmdSettingsLangId}`, setInitView) // in view
+        .on('click', `#forms #${_btnSaveSelector}`, // store the word
+            storeWord)
+        // Creates words list and add / remove form
+        .on('input keyup',
+            `#${_wordId}`, manageWordsList); // input#word
 });

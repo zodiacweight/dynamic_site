@@ -2,39 +2,50 @@
 <html lang=en>
 <head>
     <meta charset=UTF-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <script src="scripts/libs/jquery.min.js"></script>
     <link href="styles/elements.css" rel="stylesheet"/>
     <link href="styles/classes.css" rel="stylesheet"/>
     <link href="styles/components.css" rel="stylesheet"/>
     <link href="styles/selectors.css" rel="stylesheet"/>
+    <link href="styles/animations.css" rel="stylesheet"/>
+    <script src="scripts/libs/jquery.min.js"></script>
 </head>
 <body>
+    <aside id="loader"></aside>
+    <section id="pop-up">
+        <!-- <div id="pop-up-contents"></div> -->
+        <aside class="btn-cancel"></aside>
+        <div class="content">
+            <div class="static-words" id="native-word-pop-up"></div>
+            <div class="static-words" id="translated-word-pop-up"></div>
+            <input type="text" id="translated-word-new-pop-up">
+            <div id="sentence-header-new-pop-up">Sentence:</div>
+            <textarea></textarea>
+            <button id="btn-save-sentence">Save</button>
+        </div>
+    </section>
     <main>
         <div id="page">
             <h2>
                 <span>Advanced Language Helper</span>
             </h2>
-            <section id="sentences-translated" class="initial"></section>
-            <div id = "forms">
-                <form id="chooseLanguage">
-                    <label>
-                        <input type="radio" name="radio" value="английский">English
-                    </label>
-                    <label>
-                        <input type="radio" name="radio" value="португальский" checked>Portugues
-                    </label>
-                    <input type="text" id="word">
-                </form>
+            <div id="main">
+                <h1>... loading ...</h1>
             </div> 
             <div id="view"></div>
         </div>
     </main>
-    <script src="scripts/init.js"></script>
+    <script src="scripts/libs/redux.min.js"></script>
     <script src="scripts/functions.js"></script>
+    <script src="scripts/init.js"></script>
+    <script src="scripts/ui.js"></script>
     <script src="scripts/handlers.js"></script>
+    <script src="scripts/views.js"></script>
+    <script src="scripts/db.js"></script>
     <script src="scripts/app.js"></script>
-    <script></script>
+    <script src="scripts/states.js"></script>
 </body>
 
 </html>

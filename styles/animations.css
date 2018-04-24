@@ -1,0 +1,30 @@
+@keyframes loading {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes compact{
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-72px);
+    }    
+}
+/*
+@keyframes popupOut{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        display: block;
+        opacity: 0;
+    }    
+}*/
