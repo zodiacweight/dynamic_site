@@ -70,6 +70,10 @@
     margin-right: 8px;
 }
 
+.border-red.input-attach.translated{
+    border-color: red !important;
+}
+
 form label{
     display: inline-block;
     margin: 12px auto;

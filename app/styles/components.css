@@ -19,6 +19,10 @@
     width: 100%;
 }
 
+#new-word-block{
+    /* overflow: hidden; */
+}
+
 #new-word-sentences {
     max-width: 400px;
     position:relative;

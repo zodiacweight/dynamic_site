@@ -23,7 +23,13 @@ function addNewWord() {
         console.groupEnd();
         return false;
     }
-    console.log('new word=>', word);
+    const formState = storeForm.getState();
+    console.log('formState=>', formState);
+    if (formState.haveList === false){
+        $(`.${_inputAttachClass}.${_translatedClass}`).addClass('border-red');
+        return false;
+    }
+    //console.log('new word=>', word);
     const dictionary = dataStore.get();
     dictionary[word] = {};
     $(_inputAttachTranslatedSelector).each((index, element) => {
@@ -227,16 +233,23 @@ function editTranslatedWordCancel(event) {
     console.groupEnd();
 }
 /**
- * 
+ * Handle the input for a translated word above buttons Add, Add sentence
  * @param {Object} event 
  */
 function handleTranslatedWordInput(event) {
     outputGroupped('handleTranslatedWordInput', arguments);
-    const $btn = $(event.target).next(`.${_btnAddTranslatedSelector}`)
+    const $input = $(event.target) 
+        , $btn = $input.next(`.${_btnAddTranslatedSelector}`)
       , attrDisabled = 'disabled';
-    checkWordLengthTooShort(event.target.value)
+    checkWordLengthTooShort($input.val())
         ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass)
         : $btn.removeAttr(attrDisabled).addClass(_activeClass);
+    if ($input.val().length > _minWordLength + 1) {
+        $input.removeClass('border-red');
+        storeForm.dispatch({
+            type: 'cancel'
+        })
+    }
     console.groupEnd();
 }
 /** */
@@ -347,7 +360,7 @@ function manageWordsList(event) {
             makeWordsList(targetWordValue);
         } else {
             clearList();
-            addForm(true);
+            addForm(true);        
         }
         // remove or add form depending wheter does it added already or not
     } else {

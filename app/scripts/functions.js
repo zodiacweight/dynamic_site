@@ -44,12 +44,20 @@ function initData() {
 function addForm(checkFormPresence) {
     output('addForm', arguments);
     if (checkFormPresence) {
-        if ($(`#${_newWordBlockId}`).length) return false;
+        // if we have the block with the input for a translated word
+        // and two buttons
+        if ($(`#${_newWordBlockId}`).length) {
+            return false;
+        }
     }
     const $newWordInput = _$newWordInput();
-    //
+    // have the input for a native word above the input for a translated word
     if ($newWordInput && $newWordInput.length) return false;
     $view.append(getNewWordFormContents());
+    // save state which show us that we have the form
+    storeForm.dispatch({
+        type: 'haveNewWordBlock'
+    });
 }
 /**
  * 
@@ -87,11 +95,15 @@ function checkWordLengthTooShort(word, min = _minWordLength + 1) {
     output('checkWordLengthTooShort', arguments);
     return min >= word.length ? 'Too short word' : false;
 }
-// 
+// get rid of the list
 function clearList() {
     output('clearList', arguments, "darkkhaki");
     $view.html("");
     _$sentencesTranslated().html("");
+    // state: no List
+    storeForm.dispatch({ 
+        type: 'haveNoList' 
+    });
 }
 /**
  * Check entry in dictionary
@@ -212,6 +224,10 @@ function insertWordsListAndForm(list, sentences) {
     $view.html(list);
     _$sentencesTranslated().html(sentences);
     addForm();
+    // we have list, such a pleasure!
+    storeForm.dispatch({
+        type: 'haveList'
+    })
 }
 /**
  * 
