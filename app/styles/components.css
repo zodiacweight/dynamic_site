@@ -11,14 +11,9 @@
     background-color:#fff !important;
     color:red;
 }
-
 #main{
-    clear: both;
-    display: flex;
     float: left;
-    width: 100%;
 }
-
 #new-word-block{
     /* overflow: hidden; */
 }

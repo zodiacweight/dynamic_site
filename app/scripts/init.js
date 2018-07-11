@@ -61,6 +61,10 @@ const _globals = {
     _translatedClass = 'translated',
     _translatedWordClass = 'translatedWord',
     _visibleClass = 'visible',
+    _views = {
+        settings:'app-settings',
+        app:'app-main',
+    },
     _wordClass = 'word',
     _wordRedClass = 'word-red',
     _wrapperClass = 'wrapper',
@@ -78,6 +82,7 @@ const _globals = {
     // static elements
     $mainSection = $('#main'),
     _popUp = {},
+    $body = $('body'),
     // get container for dynamic contente
     $view = $('#view'),
     // dynamic elements

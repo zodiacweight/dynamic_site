@@ -9,6 +9,16 @@
     padding-right: 42px;
 }
 
+#app-main #main{
+    clear: both;
+    display: flex;
+    width: 100%;
+}
+
+#app-settings #main{
+    display: block;
+}
+
 .block-add-word-translated .btn-add{
     background-color: #e5f5fb;
     border: solid 1px #000;

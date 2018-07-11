@@ -12,15 +12,26 @@ function setInitView(langs){
     // get template
     $.get(`tmpl/${tmpl}.html`).done(contents => {
         $mainSection.html(contents);
+        
         if (langs && notEvent) {
-            // create lang list
+            switchVies();
+            //
             setLangsInfo(langs);
-        } else {
+        } else { // if go to the languages settings
             $view.html('');
+            switchVies('settings');
             setLangInit();
         }
     })
         .fail(() => console.warn(`Cannot get ${tmpl}.html file`));
+}
+/**
+ * 
+ * @param {String} view 
+ */
+function switchVies(view='app'){
+    output('switchVies', arguments);
+    $body[0].id=_views[view];
 }
 /**
  * 

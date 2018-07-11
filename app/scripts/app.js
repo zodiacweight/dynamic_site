@@ -429,7 +429,7 @@ function setLanguages() {
         return false;
     } else {
         // load it anyway, as we click the button explicitly
-        loadDictionary(storeLanguagesSet(), setMainView);
+        loadDictionary(storeLanguagesSet(), [setMainView, switchVies]);
     }
     console.groupEnd();
 }
