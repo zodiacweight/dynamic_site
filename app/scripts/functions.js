@@ -134,6 +134,21 @@ function getLang(toArray) {
     }
 }
 /**
+ * 
+ * @param {string} language 
+ */
+function getDictPath(language) {
+    output('getDictPath', arguments);
+    let path;
+    Object.entries(_globals.languages).some(ln => {
+        if (ln[1] === language) {
+            path = ln[0]; 
+            return true; 
+        }
+    });
+    return path;
+}
+/**
  * Get the part of dictionary containing words of selected language
  */
 function getLangWords() {

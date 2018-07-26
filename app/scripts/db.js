@@ -5,7 +5,8 @@
  */
 function loadDictionary(lang, callbacks) {
     output('loadDictionary', arguments, 'rgb(215, 215, 0)');
-    const url = `${_globals.serverAddress}db/${lang.native}/${lang.foreign}.json`;
+    const path = getDictPath(lang.native),
+        url = `${_globals.serverAddress}db/${path}/${lang.foreign}.json`;
     // if not, get it from remote DB
     $.get(url).done(dictionary => {
         console.log('got dictionary=>', dictionary);

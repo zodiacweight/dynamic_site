@@ -1,0 +1,1 @@
+cd server && http-server -p 8888
