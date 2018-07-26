@@ -28,6 +28,11 @@
     width: calc(100% - 2px);
 }
 
+#debug > div span:first-child{
+    display: inline-block;
+    width: 200px;
+}
+
 #pop-up .btn-cancel:before{
     right: 0;
 }
@@ -211,6 +216,7 @@ section > .wrapper.editable{
 
 #view #input-attach{
     display: none;
+    opacity: 0;
 }
 
 #view .word +#new-word-block #input-attach{

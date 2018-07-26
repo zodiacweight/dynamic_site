@@ -7,6 +7,7 @@ const { createStore } = Redux,
     //
     reducerSelectsValues = (state = {}, action) => {
         // console.log('reducerSelectsValues reducer =>', { state: state, action: action });
+        onSelectValues(action.type);
         switch (action.type) {
             case 'cancel': state = 'canceled'; return [state]; break;
             case 'submit': state = 'submited'; return [state]; break;
@@ -17,6 +18,7 @@ const { createStore } = Redux,
     reducerForm = (state = {}, action) => {
         const haveList = 'haveList'
             , haveNewWordBlock = 'haveNewWordBlock';
+        onForm(action.type);
         switch (action.type) {
             case haveNewWordBlock: state[haveNewWordBlock] = true; return state; break;
             case 'haveNoNewWordBlock': state[haveNewWordBlock] = false; return state; break;
@@ -34,6 +36,7 @@ const { createStore } = Redux,
         const edit = 'edit'
             , addWord = 'add-word'
             , addSentence = 'add-sentence';
+        onHandleSentences(action.type);
         switch (action.type) {
             case edit: state = edit; return [state]; break;
             case addWord: state = addWord; return [state]; break;
