@@ -1,7 +1,8 @@
-done:
-Adding a new translated word
-
+done: handler for #new-word-block show / hide on state change
 --------------------------------
 todo:
+
 Add the procedure for arrays, not only for objects
 ----storeSentence, :486
+
+Make clear situation with #input-attach -- do we need it at all? If not, remove all regarding code. Update test cases.
