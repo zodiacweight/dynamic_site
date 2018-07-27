@@ -26,7 +26,7 @@ function addNewWord() {
     const formState = storeForm.getState();
     console.log('formState=>', formState);
     if (formState.haveList === false) {
-        // $(`.${_inputAttachClass}.${_translatedClass}`).addClass('border-red');
+        $(`.${_inputAttachClass}.${_translatedClass}`).addClass('border-red');
         return false;
     }
     //console.log('new word=>', word);
@@ -185,6 +185,7 @@ function editTranslatedSentence(event) {
     } else if (state == 'add-sentence') {
         _translation.$translatedWordSentenceContainer = $(`#${_newWordBlockId}`).find(_inputAttachTranslatedSelector);
         //_popUp.$nativeWord.text($(`#${_inputAttachId}`).val());
+        _popUp.$nativeWord.text($(`#${_wordId}`).val());
         _popUp.$translatedWordNew.val($(_inputAttachTranslatedSelector).last().val());
         nClass = true;
     } else {

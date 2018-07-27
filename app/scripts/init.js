@@ -53,7 +53,7 @@ const _globals = {
     _contentClass = 'content',
     _editableClass = 'editable',
     _initialClass = 'initial',
-    //_inputAttachClass = 'input-attach',
+    _inputAttachClass = 'input-attach',
     _nativeWordClass = 'nativeWord',
     _newClass = 'new',
     _repeatedClass = 'repeated',
@@ -71,7 +71,7 @@ const _globals = {
     // end classes
     // selectors
     _langSelectsSelector = `#${_sectionChooseLangId} select`,
-    //_inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,
+    _inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,
     // 
     // end selectors
     // strings

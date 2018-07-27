@@ -50,10 +50,11 @@ function addForm(checkFormPresence) {
             return false;
         }
     }
-    const $newWordInput = _$newWordInput();
+    //const $newWordInput = _$newWordInput();
+    $view.append(getNewWordFormContents());
+    const $newWordInput = $(`#${_wordId}`);
     // have the input for a native word above the input for a translated word
     if ($newWordInput && $newWordInput.length) return false;
-    $view.append(getNewWordFormContents());
     // save state which show us that we have the form
     storeForm.dispatch({
         type: 'haveNewWordBlock'
