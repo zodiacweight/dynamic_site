@@ -16,11 +16,6 @@
     right: 20px;
 }
 
-#input-attach.repeated,
-#translated-word-new-pop-up.repeated{
-    background-color:#fff !important;
-    color:red;
-}
 #main{
     float: left;
 }
@@ -256,6 +251,9 @@
 
 #word {
     display: block;
-    color: blue;
     font-weight: bold;
+}
+
+#word:not(.repeated){
+    color: blue;    
 }

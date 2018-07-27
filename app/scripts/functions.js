@@ -108,6 +108,7 @@ function clearList() {
 /**
  * Check entry in dictionary
  * @param {String} entry
+ * @param {String} key
  */
 function findInDictionary(entry, key) {
     outputGroupped('findInDictionary', arguments);
@@ -288,10 +289,10 @@ function markInputTooShortLength($inputAttach) {
  * unmark input field as having too short length
  * @param {jQuery object} $inputAttach
  */
-function markInputTooShortLengthCancel($inputAttach) {
+/* function markInputTooShortLengthCancel($inputAttach) {
     output('markInputTooShortLengthCancel', arguments);
     $inputAttach.removeClass(_wordRedClass).removeAttr('title');
-}
+} */
 /**
  * 
  * @param {Object} ob 

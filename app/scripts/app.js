@@ -25,8 +25,8 @@ function addNewWord() {
     }
     const formState = storeForm.getState();
     console.log('formState=>', formState);
-    if (formState.haveList === false){
-        $(`.${_inputAttachClass}.${_translatedClass}`).addClass('border-red');
+    if (formState.haveList === false) {
+        // $(`.${_inputAttachClass}.${_translatedClass}`).addClass('border-red');
         return false;
     }
     //console.log('new word=>', word);
@@ -184,7 +184,7 @@ function editTranslatedSentence(event) {
         _popUp.$textarea.val((() => _translation.$translatedWordSentenceContainer.text())().trim());
     } else if (state == 'add-sentence') {
         _translation.$translatedWordSentenceContainer = $(`#${_newWordBlockId}`).find(_inputAttachTranslatedSelector);
-        _popUp.$nativeWord.text($(`#${_inputAttachId}`).val());
+        //_popUp.$nativeWord.text($(`#${_inputAttachId}`).val());
         _popUp.$translatedWordNew.val($(_inputAttachTranslatedSelector).last().val());
         nClass = true;
     } else {
@@ -238,9 +238,9 @@ function editTranslatedWordCancel(event) {
  */
 function handleTranslatedWordInput(event) {
     outputGroupped('handleTranslatedWordInput', arguments);
-    const $input = $(event.target) 
+    const $input = $(event.target)
         , $btn = $input.next(`.${_btnAddTranslatedSelector}`)
-      , attrDisabled = 'disabled';
+        , attrDisabled = 'disabled';
     checkWordLengthTooShort($input.val())
         ? $btn.attr(attrDisabled, attrDisabled).removeClass(_activeClass)
         : $btn.removeAttr(attrDisabled).addClass(_activeClass);
@@ -274,7 +274,7 @@ function hideBtnSentenceAction(event) {
  * word in the search string
  * @param {Object} event 
  */
-function keepNewWordInputSynchronized(event) {
+/* function keepNewWordInputSynchronized(event) {
     outputGroupped('keepNewWordInputSynchronized', arguments);
     const wordValue = $(`#${_wordId}`).val()
         , $targetCell = $(event.target)
@@ -291,7 +291,7 @@ function keepNewWordInputSynchronized(event) {
         checkNewWordCoincidence($targetCell, targetCellVal);
     }
     console.groupEnd();
-}
+} */
 /**
  * @param {Object} event .word || .wrapper >span'
  */
@@ -360,7 +360,15 @@ function manageWordsList(event) {
             makeWordsList(targetWordValue);
         } else {
             clearList();
-            addForm(true);        
+            addForm(true);
+        }
+        $newWordBlock = $(`#${_newWordBlockId}`);
+        if (findInDictionary(targetWordValue)){
+            $wordInput.addClass(_repeatedClass);
+            $newWordBlock.hide();
+        } else {
+            $wordInput.removeClass(_repeatedClass);
+            $newWordBlock.show();
         }
         // remove or add form depending wheter does it added already or not
     } else {
@@ -469,9 +477,9 @@ function storeSentence(event) {
         , state = storeSentences.getState()[0]
         , addWordStr = 'add-word'
         , addSentenceStr = 'add-sentence';
-    
-    let newValue = getNewWordValue(_inputAttachId);
-    
+
+    let newValue = getNewWordValue(_wordId);
+
     switch (state) {
         case 'edit':
             const text = $(event.target).parent(`.${_contentClass}`).find('textarea').val()// prefferable to be an Object, but may be presented as an Array (a remnant of the previous approach)

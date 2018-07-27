@@ -35,7 +35,7 @@ const _globals = {
     _addWordFormId = "addWordForm",
     _addWordId = "addWord",
     _cmdSettingsLangId = 'command-settings-langs',
-    _inputAttachId = 'input-attach',
+    /* _inputAttachId = 'input-attach', */
     _nativeWordPopUp = 'native-word-pop-up',
     _newWordBlockId = 'new-word-block',
     _newWordId = 'new-word',
@@ -53,7 +53,7 @@ const _globals = {
     _contentClass = 'content',
     _editableClass = 'editable',
     _initialClass = 'initial',
-    _inputAttachClass = 'input-attach',
+    //_inputAttachClass = 'input-attach',
     _nativeWordClass = 'nativeWord',
     _newClass = 'new',
     _repeatedClass = 'repeated',
@@ -71,7 +71,7 @@ const _globals = {
     // end classes
     // selectors
     _langSelectsSelector = `#${_sectionChooseLangId} select`,
-    _inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,
+    //_inputAttachTranslatedSelector = `.${_inputAttachClass}.${_translatedClass}`,
     // 
     // end selectors
     // strings
@@ -87,7 +87,7 @@ const _globals = {
     $view = $('#view'),
     // dynamic elements
     //
-    _$newWordInput = () => $(`#${_inputAttachId}`),
+    //_$newWordInput = () => $(`#${_inputAttachId}`),
     _$sentencesTranslated = () => $(`#${_sectionTranslatedId}`),
 
     // form

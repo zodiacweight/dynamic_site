@@ -125,10 +125,11 @@
     background: rgb(250, 255, 189) !important;
 }
 
-.input-attach.translated{
-    /* we don't need the button until the handler for few sentences be set */
-    /* width: calc(100% - 42px) !important; */
+input.repeated{
+    background-color:#fff !important;
+    color:red;
 }
+
 .repeated{
     background: rgb(255, 180, 180) !important;
 }
