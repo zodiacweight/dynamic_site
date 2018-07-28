@@ -14,7 +14,7 @@ function addNewSentenceInput() {
  */
 function addNewWord() {
     outputGroupped('addNewWord', arguments);
-    const $inputAttach = _$newWordInput()
+    const $inputAttach = $(`#${_wordId}`)
         , word = $inputAttach.val();
     let mess = checkWordLengthTooShort(word);
     if (mess) {
@@ -38,6 +38,10 @@ function addNewWord() {
     );
     storeDictionary(dictionary);
     makeWordsList(getNewWordValue());
+    blockAddingWord();
+    const $sentenceTranslatedBlock = _$sentencesTranslated();
+    $sentenceTranslatedBlock.addClass(_initialClass);
+    $sentenceTranslatedBlock.find(`.${_wrapperClass}`).remove();
     console.groupEnd();
 }
 /**
@@ -46,7 +50,7 @@ function addNewWord() {
  */
 function addNewWordAndSentence(event) {
     outputGroupped('addNewWordAndSentence', arguments);
-    if (!_$newWordInput().val()) {
+    if (!$(`#${_wordId}`).val()) {
         return false;
     }
     const $lastTranslatedInput = $(_inputAttachTranslatedSelector).last();
@@ -363,14 +367,7 @@ function manageWordsList(event) {
             clearList();
             addForm(true);
         }
-        $newWordBlock = $(`#${_newWordBlockId}`);
-        if (findInDictionary(targetWordValue)){
-            $wordInput.addClass(_repeatedClass);
-            $newWordBlock.hide();
-        } else {
-            $wordInput.removeClass(_repeatedClass);
-            $newWordBlock.show();
-        }
+        blockAddingWord($(`#${_newWordBlockId}`), $wordInput, targetWordValue);
         // remove or add form depending wheter does it added already or not
     } else {
         // it checks inside if the button exitss

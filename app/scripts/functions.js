@@ -61,6 +61,29 @@ function addForm(checkFormPresence) {
     });
 }
 /**
+ * Block adding new word if it is shouldn't
+ */
+function blockAddingWord($newWordBlock, $wordInput, targetWordValue){
+    output('blockAddingWord', arguments);
+    if (!$newWordBlock){
+        $newWordBlock = $(`#${_newWordBlockId}`);
+    }
+    if (!$wordInput) {
+        $wordInput = $(`#${_wordId}`);
+    }
+    if (!targetWordValue) {
+        targetWordValue = $wordInput.val();
+    }
+    const found = findInDictionary(targetWordValue);
+    if (found){
+        $wordInput.addClass(_repeatedClass);
+        $newWordBlock.hide();
+    } else {
+        $wordInput.removeClass(_repeatedClass);
+      $newWordBlock.show();
+    }
+}
+/**
  * 
  * @param {HTMLObject || jQueryObject}  
  */

@@ -188,12 +188,7 @@
     display: block;
     font-size: 20px;
     padding: 16px;
-    background-color: white; */
-    /* box-shadow: 0 0 24px rgba(0,0,0,0.5); */
-    box-shadow: 0 0 24px rgba(0,0,0,0.5); */
-    box-shadow: 0 0 24px rgba(0,0,0,0.5); */
-    box-shadow: 0 0 24px rgba(0,0,0,0.5); */
-    box-shadow:;
+    background-color: white;
     box-shadow: 0 0 24px rgba(0,0,0,0.5);
 }
 
@@ -245,7 +240,7 @@
 
 @media screen and (max-width: 767px){
     #view {
-        margin-top: 100px;
+        margin-top: 10px;
     }
 }
 
